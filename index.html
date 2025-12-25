@@ -14,28 +14,19 @@
         tailwind.config = {
             theme: {
                 extend: {
-                    fontFamily: {
-                        sans: ['Outfit', 'sans-serif'],
-                        display: ['Outfit', 'sans-serif'],
-                    },
+                    fontFamily: { sans: ['Outfit', 'sans-serif'] },
                     colors: {
                         'tosbik-gold': '#b98b36',
                         'tosbik-yellow': '#f3cc2b',
-                        'tosbik-dark': '#0f0f0f',
+                        'tosbik-dark': '#0a0a0a',
                     },
                     animation: {
                         'float': 'float 6s ease-in-out infinite',
-                        'marquee': 'marquee 35s linear infinite',
+                        'marquee': 'marquee 40s linear infinite',
                     },
                     keyframes: {
-                        float: {
-                            '0%, 100%': { transform: 'translateY(0)' },
-                            '50%': { transform: 'translateY(-20px)' },
-                        },
-                        marquee: {
-                            '0%': { transform: 'translateX(0%)' },
-                            '100%': { transform: 'translateX(-100%)' },
-                        }
+                        float: { '0%, 100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-20px)' } },
+                        marquee: { '0%': { transform: 'translateX(0%)' }, '100%': { transform: 'translateX(-100%)' } }
                     }
                 }
             }
@@ -48,29 +39,29 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 
     <style>
-        body { background-color: #0f0f0f; color: #ffffff; font-family: 'Outfit', sans-serif; }
+        body { background-color: #0a0a0a; color: #ffffff; font-family: 'Outfit', sans-serif; overflow-x: hidden; }
         .gold-gradient {
             background: linear-gradient(135deg, #f3cc2b 0%, #b98b36 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
         .hero-overlay {
-            background: radial-gradient(circle, rgba(15,15,15,0.1) 0%, rgba(15,15,15,0.8) 70%, rgba(15,15,15,1) 100%);
+            background: radial-gradient(circle at center, rgba(15,15,15,0) 0%, rgba(10,10,10,0.9) 80%, rgba(10,10,10,1) 100%);
         }
         .menu-card {
-            background: linear-gradient(180deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0) 100%);
-            border: 1px solid rgba(185, 139, 54, 0.15);
-            transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(185, 139, 54, 0.1);
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
         }
         .menu-card:hover {
             border-color: #f3cc2b;
-            transform: translateY(-10px);
+            transform: scale(1.03);
             background: rgba(185, 139, 54, 0.05);
         }
         .glass-modal {
-            background: rgba(15, 15, 15, 0.98);
-            backdrop-filter: blur(25px);
-            border: 1px solid rgba(185, 139, 54, 0.2);
+            background: rgba(10, 10, 10, 0.98);
+            backdrop-filter: blur(30px);
+            border: 1px solid rgba(185, 139, 54, 0.3);
         }
     </style>
 </head>
@@ -90,22 +81,18 @@
             }, []);
 
             return (
-                <nav className={`fixed top-0 w-full z-50 transition-all duration-700 px-6 py-4 ${scrolled ? 'bg-tosbik-dark/95 backdrop-blur-xl py-3 border-b border-white/5' : 'bg-transparent'}`}>
-                    <div className="max-w-7xl mx-auto flex justify-between items-center">
-                        <div className="flex items-center gap-10">
-                            <a href="#about" className="hidden md:block text-[10px] font-black uppercase tracking-[0.3em] hover:text-tosbik-yellow transition-colors">Story</a>
-                            <a href="#menu" className="hidden md:block text-[10px] font-black uppercase tracking-[0.3em] hover:text-tosbik-yellow transition-colors">Menu</a>
+                <nav className={`fixed top-0 w-full z-50 transition-all duration-700 ${scrolled ? 'bg-tosbik-dark/90 backdrop-blur-2xl py-3 border-b border-white/5' : 'bg-transparent py-6'}`}>
+                    <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
+                        <div className="flex gap-8 text-[10px] font-black uppercase tracking-[0.3em]">
+                            <a href="#story" className="hover:text-tosbik-yellow transition-colors">Story</a>
+                            <a href="#menu" className="hover:text-tosbik-yellow transition-colors">Menu</a>
                         </div>
-                        
-                        <div className={`transition-all duration-500 ${scrolled ? 'opacity-100 scale-90' : 'opacity-0 scale-75'}`}>
+                        <div className={`transition-all duration-500 ${scrolled ? 'opacity-100 scale-90' : 'opacity-0 scale-50 pointer-events-none'}`}>
                             <img src="TOSBIKS_MAIN-LOGO_4c-1.png" alt="Logo" className="h-10 w-auto" />
                         </div>
-
-                        <div className="flex items-center gap-6">
-                            <a href="#location" className="hidden md:block text-[10px] font-black uppercase tracking-[0.3em] hover:text-tosbik-yellow transition-colors">Rheine</a>
-                            <button className="bg-tosbik-gold hover:bg-tosbik-yellow text-black px-8 py-2.5 rounded-full font-black text-[10px] uppercase tracking-widest transition-all hover:scale-105 active:scale-95">
-                                Order
-                            </button>
+                        <div className="flex gap-8 items-center">
+                            <a href="#contact" className="hidden md:block text-[10px] font-black uppercase tracking-[0.3em] hover:text-tosbik-yellow transition-colors">Kontakt</a>
+                            <button className="bg-tosbik-gold hover:bg-tosbik-yellow text-black px-6 py-2 rounded-full font-black text-[10px] uppercase tracking-widest transition-transform hover:scale-105">Order</button>
                         </div>
                     </div>
                 </nav>
@@ -113,77 +100,66 @@
         };
 
         const Hero = () => (
-            <section className="relative h-screen w-full flex flex-col items-center justify-center overflow-hidden">
-                <div className="absolute inset-0 z-0 flex items-center justify-center p-4">
+            <section className="relative h-[110vh] w-full flex flex-col items-center justify-center overflow-hidden">
+                <div className="absolute inset-0 z-0 flex items-center justify-center">
                     <img 
                         src="TOSBIKS_MAIN-LOGO_4c-1.png" 
-                        className="w-full max-w-[650px] h-auto object-contain animate-float drop-shadow-[0_0_80px_rgba(185,139,54,0.2)]" 
-                        alt="Tosbik's Kitchen Main Logo" 
+                        className="w-[85%] md:w-[60%] lg:w-[45%] h-auto object-contain animate-float drop-shadow-[0_0_100px_rgba(185,139,54,0.15)]" 
+                        alt="Tosbik's Kitchen Logo" 
                     />
                     <div className="absolute inset-0 hero-overlay"></div>
                 </div>
-
                 <div className="relative z-10 text-center px-4 mt-80">
-                    <span className="text-tosbik-yellow text-[10px] font-black uppercase tracking-[0.6em] mb-4 block">Handcrafted Premium Burger</span>
-                    <h1 className="text-5xl md:text-8xl font-black mb-8 tracking-tighter leading-none uppercase italic">
-                        The <span className="gold-gradient">Smash</span> Art.
+                    <h1 className="text-5xl md:text-8xl font-black mb-6 tracking-tighter leading-none uppercase italic">
+                        Taste the <span className="gold-gradient">Smash.</span>
                     </h1>
-                    <div className="flex flex-col md:flex-row gap-6 justify-center items-center">
-                        <a href="#menu" className="bg-white text-black px-14 py-4 rounded-full font-black uppercase text-[11px] tracking-[0.2em] hover:bg-tosbik-yellow transition-all">
-                            Speisekarte
-                        </a>
-                        <div className="flex items-center gap-3">
-                            <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                            <span className="text-[10px] font-bold uppercase tracking-widest text-gray-400">Open in Rheine</span>
-                        </div>
+                    <p className="max-w-2xl mx-auto text-gray-400 text-xs md:text-sm font-light tracking-[0.4em] mb-12 uppercase">Rheine's Finest Halal Burger Experience </p>
+                    <div className="flex flex-col md:flex-row gap-4 justify-center">
+                        <a href="#menu" className="bg-white text-black px-12 py-4 rounded-full font-black uppercase text-[10px] tracking-widest hover:bg-tosbik-yellow transition-all">Speisekarte</a>
+                        <a href="#story" className="border border-white/20 text-white px-12 py-4 rounded-full font-black uppercase text-[10px] tracking-widest hover:bg-white hover:text-black transition-all">Unsere Story</a>
                     </div>
                 </div>
             </section>
         );
 
-        const About = () => (
-            <section id="about" className="py-32 bg-tosbik-dark px-6 border-t border-white/5">
+        const Story = () => (
+            <section id="story" className="py-40 bg-tosbik-dark px-6">
                 <div className="max-w-4xl mx-auto text-center">
-                    <h2 className="text-tosbik-gold font-black text-[11px] uppercase tracking-[0.5em] mb-10 italic">Unsere Philosophie</h2>
-                    <p className="text-2xl md:text-4xl font-light leading-snug tracking-tight mb-12">
-                        Wir nehmen das Wort <span className="font-black italic">"Smash"</span> wörtlich. 100% Halal Rinderhack, auf glühendem Stahl gepresst für die perfekte <span className="text-tosbik-yellow font-bold text-white">Kruste</span> und maximalen Geschmack.
-                    </p>
-                    <div className="w-20 h-[1px] bg-tosbik-gold mx-auto"></div>
+                    <span className="text-tosbik-gold font-black text-[10px] uppercase tracking-[0.8em] mb-8 block">Die Philosophie</span>
+                    <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tighter mb-12 italic">Mehr als nur ein Burger.</h2>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-12 text-left">
+                        <p className="text-gray-400 font-light leading-relaxed text-lg">
+                            Bei <strong>Tosbik's Kitchen</strong>  geht es nicht um Fast Food. Es geht um das Handwerk. Wir verwenden ausschließlich 100% Halal-zertifiziertes Rindfleisch, das täglich frisch für dich vorbereitet wird.
+                        </p>
+                        <p className="text-gray-400 font-light leading-relaxed text-lg">
+                            Der Name steht für Qualität aus Rheine. Jeder Patty wird auf der glühend heißen Platte gesmasht, um diese unvergleichliche Kruste zu erzeugen, die das Fleisch saftig hält. Das ist das Geheimnis unseres Geschmacks.
+                        </p>
+                    </div>
                 </div>
             </section>
         );
 
         const MenuSection = ({ onSelect }) => {
             const items = [
-                { id: 1, name: "Tosbik's Double Smash", price: "14,90 €", desc: "Zwei Smashed Patties, Double Cheddar, Tosbik's Secret Sauce.", tag: "Bestseller", longDesc: "Zwei 100g Patties aus bestem Rindfleisch, auf den Punkt karamellisiert. Dazu geschmolzener Cheddar, unsere geheime Sauce und ein fluffiges Brioche Bun." },
-                { id: 2, name: "Truffle Mushroom", price: "13,50 €", desc: "Smashed Beef, hausgemachte Trüffel-Mayo, Champignons.", tag: "Premium", longDesc: "Der Gourmet-Burger. Hausgemachte Trüffel-Mayonnaise trifft auf frisch geröstete Champignons und saftiges Beef." },
-                { id: 3, name: "Chili Cheese Smash", price: "12,90 €", desc: "Feurige Jalapeños, Cheese-Sauce, karamellisierte Zwiebeln.", tag: "Spicy", longDesc: "Für alle, die es scharf lieben. Unsere würzige Käsesauce kombiniert mit Jalapeños sorgt für den nötigen Kick." },
-                { id: 4, name: "Mc Smash Cheese", price: "10,90 €", desc: "Classic: Patties, Pickles, Mustard, Ketchup, Onion-Cubes.", tag: "Classic", longDesc: "Die Smash-Interpretation des Klassikers. Puristisch, ehrlich, gut." },
-                { id: 5, name: "Loaded Chili Fries", price: "8,50 €", desc: "Pommes mit Cheese-Sauce, Beef-Crumbs & Jalapeños.", tag: "Sides", longDesc: "Keine gewöhnlichen Pommes. Wir laden sie voll mit Käse, Fleischstücken und Jalapeños." },
-                { id: 6, name: "Veggie Smasher", price: "11,90 €", desc: "Plant-Based Patty, Avocado-Cream, frischer Salat.", tag: "Veggie", longDesc: "Wer sagt, dass Smash kein Veggie kann? Unser hausgemachtes Patty überzeugt auch Fleischliebhaber." }
+                { id: 1, name: "Tosbik's Double Smash", price: "14,90 €", desc: "Zwei Smashed Patties, Double Cheddar, Secret Sauce.", tag: "Bestseller", details: "Unser Signature Burger mit doppeltem Fleisch für den maximalen Smash-Effekt." },
+                { id: 2, name: "Truffle Mushroom", price: "13,50 €", desc: "Smashed Beef, Trüffel-Mayo, geröstete Champignons.", tag: "Gourmet", details: "Feine Trüffelnote trifft auf perfekt gebratenes Rindfleisch." },
+                { id: 3, name: "Chili Cheese Smash", price: "12,90 €", desc: "Jalapeños, Cheese-Sauce, karamellisierte Zwiebeln.", tag: "Spicy", details: "Für alle, die eine angenehme Schärfe und viel Käse lieben." },
+                { id: 4, name: "Classic Cheese", price: "10,90 €", desc: "Smashed Beef, Pickles, Zwiebeln, Senf & Ketchup.", tag: "Essential", details: "Die Smash-Variante des absoluten Burger-Klassikers." },
+                { id: 5, name: "Dirty Fries", price: "8,50 €", desc: "Fries mit Cheese-Sauce & Beef-Crumbs.", tag: "Side", details: "Unsere Fries, getoppt mit allem, was gut ist." },
+                { id: 6, name: "Veggie Smash", price: "11,90 €", desc: "Hausgemachtes Veggie-Patty, Avocado, Salat.", tag: "Veggie", details: "Voller Geschmack, ganz ohne Fleisch. Frisch und hausgemacht." }
             ];
 
             return (
-                <section id="menu" className="py-40 bg-[#0c0c0c] px-6">
-                    <div className="max-w-7xl mx-auto">
-                        <div className="flex flex-col items-center text-center mb-32">
-                            <span className="text-tosbik-gold font-black text-[10px] uppercase tracking-[0.5em] mb-4">The Menu</span>
-                            <h3 className="text-6xl md:text-9xl font-black uppercase tracking-tighter italic leading-none">Original<br/>Smash.</h3>
-                        </div>
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <section id="menu" className="py-40 bg-[#080808] px-6">
+                    <div className="max-w-7xl mx-auto text-center">
+                        <h3 className="text-6xl md:text-9xl font-black uppercase tracking-tighter italic mb-32 opacity-20">The Menu</h3>
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 -mt-48 relative z-10">
                             {items.map((item) => (
-                                <div key={item.id} onClick={() => onSelect(item)} className="menu-card p-12 rounded-[3rem] flex flex-col justify-between group cursor-pointer">
-                                    <div>
-                                        <div className="flex justify-between items-start mb-12">
-                                            <span className="text-[9px] font-black uppercase tracking-widest text-tosbik-gold border border-tosbik-gold/30 px-4 py-1.5 rounded-full">{item.tag}</span>
-                                            <span className="text-xl font-bold text-tosbik-yellow">{item.price}</span>
-                                        </div>
-                                        <h4 className="text-3xl font-black mb-4 uppercase tracking-tight group-hover:text-tosbik-yellow transition-colors">{item.name}</h4>
-                                        <p className="text-gray-500 text-sm font-light leading-relaxed">{item.desc}</p>
-                                    </div>
-                                    <div className="mt-12 text-[10px] font-black uppercase tracking-widest border-t border-white/5 pt-6 group-hover:text-white transition-colors">
-                                        Details ansehen +
-                                    </div>
+                                <div key={item.id} onClick={() => onSelect(item)} className="menu-card p-12 rounded-[3rem] text-center flex flex-col items-center group cursor-pointer">
+                                    <span className="text-[9px] font-black uppercase tracking-widest text-tosbik-gold mb-8">{item.tag}</span>
+                                    <h4 className="text-3xl font-black mb-4 uppercase tracking-tight group-hover:text-tosbik-yellow transition-colors">{item.name}</h4>
+                                    <p className="text-gray-500 text-sm font-light mb-10">{item.desc}</p>
+                                    <span className="text-2xl font-bold italic">{item.price}</span>
                                 </div>
                             ))}
                         </div>
@@ -195,52 +171,42 @@
         const Modal = ({ item, onClose }) => {
             if (!item) return null;
             return (
-                <div className="fixed inset-0 z-[100] flex items-center justify-center p-6 bg-black/90 backdrop-blur-md transition-all" onClick={onClose}>
-                    <div className="glass-modal max-w-2xl w-full p-10 md:p-16 rounded-[3.5rem] text-center relative" onClick={e => e.stopPropagation()}>
-                        <button onClick={onClose} className="absolute top-8 right-8 text-gray-500 hover:text-white text-2xl">&times;</button>
-                        <span className="text-tosbik-gold text-[10px] font-black uppercase tracking-[0.4em] mb-8 block">{item.tag}</span>
+                <div className="fixed inset-0 z-[100] flex items-center justify-center p-6 bg-black/95 transition-all" onClick={onClose}>
+                    <div className="glass-modal max-w-xl w-full p-12 rounded-[4rem] text-center" onClick={e => e.stopPropagation()}>
+                        <span className="text-tosbik-gold text-[10px] font-black uppercase tracking-[0.4em] mb-6 block italic">{item.tag}</span>
                         <h2 className="text-5xl font-black uppercase mb-8 tracking-tighter italic">{item.name}</h2>
-                        <p className="text-gray-300 text-lg font-light leading-relaxed mb-12">{item.longDesc}</p>
-                        <div className="text-4xl font-black text-tosbik-yellow mb-12">{item.price}</div>
-                        <button onClick={onClose} className="bg-white text-black px-12 py-4 rounded-full font-black uppercase text-[10px] tracking-widest hover:bg-tosbik-gold hover:text-white transition-all">Schließen</button>
+                        <p className="text-gray-300 text-lg font-light leading-relaxed mb-12">{item.details}</p>
+                        <div className="text-4xl font-black text-tosbik-yellow mb-12 italic">{item.price}</div>
+                        <button onClick={onClose} className="bg-white text-black px-12 py-4 rounded-full font-black uppercase text-[10px] tracking-widest hover:bg-tosbik-gold transition-colors">Close</button>
                     </div>
                 </div>
             );
         };
 
         const Footer = () => (
-            <footer id="location" className="bg-[#050505] pt-40 pb-16 px-6 border-t border-white/5">
+            <footer id="contact" className="bg-tosbik-dark pt-40 pb-20 px-6 border-t border-white/5 text-center">
                 <div className="max-w-7xl mx-auto">
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 mb-32">
+                    <img src="TOSBIKS_MAIN-LOGO_4c-1.png" alt="Logo" className="h-28 mx-auto mb-20 opacity-30 grayscale" />
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-20 mb-32">
                         <div>
-                            <img src="TOSBIKS_MAIN-LOGO_4c-1.png" alt="Logo" className="h-24 mb-12 opacity-80" />
-                            <h4 className="text-4xl font-black uppercase tracking-tighter mb-8 italic">Besuch uns in Rheine.</h4>
-                            <p className="text-gray-500 text-lg font-light max-w-md leading-relaxed">
-                                Wir befinden uns im Herzen von Rheine. Komm vorbei und erlebe den originalen Smash-Burger-Geschmack.
-                            </p>
+                            <h5 className="font-black uppercase text-[10px] tracking-[0.5em] mb-10 text-tosbik-gold">Visit Us</h5>
+                            <p className="text-gray-400 text-lg font-light">Bonifatiusstraße<br/>48429 Rheine</p>
+                            <a href="https://maps.google.com" target="_blank" className="inline-block mt-6 text-[10px] font-bold uppercase border-b border-tosbik-gold pb-1">Route berechnen</a>
                         </div>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
-                            <div>
-                                <h5 className="font-black uppercase text-[10px] tracking-[0.4em] mb-8 text-tosbik-gold italic">Adresse</h5>
-                                <p className="text-gray-300 text-sm font-light leading-loose">
-                                    Bonifatiusstraße<br/>48429 Rheine<br/>Deutschland
-                                </p>
-                            </div>
-                            <div>
-                                <h5 className="font-black uppercase text-[10px] tracking-[0.4em] mb-8 text-tosbik-gold italic">Hours</h5>
-                                <p className="text-gray-300 text-sm font-light leading-loose">
-                                    Di - So: 12:00 - 22:00<br/>Montag: Ruhetag
-                                </p>
+                        <div>
+                            <h5 className="font-black uppercase text-[10px] tracking-[0.5em] mb-10 text-tosbik-gold">Open Hours</h5>
+                            <p className="text-gray-400 text-lg font-light">Di - So: 12:00 - 22:00<br/>Mo: Geschlossen</p>
+                        </div>
+                        <div>
+                            <h5 className="font-black uppercase text-[10px] tracking-[0.5em] mb-10 text-tosbik-gold">Connect</h5>
+                            <div className="flex flex-col gap-4 text-gray-400">
+                                <a href="#" className="hover:text-white transition-colors uppercase font-bold text-sm">Instagram</a>
+                                <a href="#" className="hover:text-white transition-colors uppercase font-bold text-sm">TikTok</a>
+                                <a href="mailto:hello@tosbiks.de" className="hover:text-white transition-colors uppercase font-bold text-sm">E-Mail</a>
                             </div>
                         </div>
                     </div>
-                    <div className="pt-12 border-t border-white/5 flex flex-col md:row justify-between items-center gap-8 text-[9px] text-gray-700 font-black uppercase tracking-[0.6em]">
-                        <p>© 2025 TOSBIK'S KITCHEN RHEINE</p>
-                        <div className="flex gap-10">
-                            <a href="#" className="hover:text-white transition-colors">Instagram</a>
-                            <a href="#" className="hover:text-white transition-colors">Impressum</a>
-                        </div>
-                    </div>
+                    <p className="text-[10px] text-gray-800 font-black uppercase tracking-[1em] mt-20">© 2025 TOSBIK'S KITCHEN RHEINE</p>
                 </div>
             </footer>
         );
@@ -251,18 +217,16 @@
                 <div className="selection:bg-tosbik-yellow selection:text-black">
                     <Navbar />
                     <Hero />
-                    
-                    <div className="bg-tosbik-gold py-8 overflow-hidden border-y border-black/10">
-                        <div className="whitespace-nowrap flex animate-marquee text-black font-black text-4xl uppercase tracking-tighter italic">
-                            {[...Array(8)].map((_, i) => (
-                                <span key={i} className="mx-16 flex items-center gap-10">
-                                    Tosbik's Kitchen <span className="text-white opacity-50">★</span> 100% Halal Smash <span className="text-white opacity-50">★</span> Rheine's Best <span className="text-white opacity-50">★</span>
+                    <div className="bg-tosbik-gold py-10 overflow-hidden border-y border-black/20">
+                        <div className="whitespace-nowrap flex animate-marquee text-black font-black text-5xl uppercase tracking-tighter italic">
+                            {[...Array(6)].map((_, i) => (
+                                <span key={i} className="mx-20">
+                                    Tosbik's Kitchen <span className="text-white">★</span> 100% Halal Smash <span className="text-white">★</span> Best in Rheine <span className="text-white">★</span>
                                 </span>
                             ))}
                         </div>
                     </div>
-
-                    <About />
+                    <Story />
                     <MenuSection onSelect={setSelectedItem} />
                     <Modal item={selectedItem} onClose={() => setSelectedItem(null)} />
                     <Footer />
