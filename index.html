@@ -7,7 +7,7 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bormiolo:wght@700&family=Outfit:wght@300;400;600;800&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100;300;400;600;700;900&display=swap" rel="stylesheet">
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -16,27 +16,12 @@
                 extend: {
                     fontFamily: {
                         sans: ['Outfit', 'sans-serif'],
-                        display: ['Playfair Display', 'serif'],
+                        display: ['Outfit', 'sans-serif'],
                     },
                     colors: {
-                        'tosbik-gold': '#b98b36', // Farbe aus dem Besteck-Icon
-                        'tosbik-yellow': '#f3cc2b', // Farbe aus dem "TOSBIK'S" Schriftzug
+                        'tosbik-gold': '#b98b36',
+                        'tosbik-yellow': '#f3cc2b',
                         'tosbik-dark': '#0f0f0f',
-                        'tosbik-cream': '#faf7f2',
-                    },
-                    animation: {
-                        'float': 'float 6s ease-in-out infinite',
-                        'marquee': 'marquee 30s linear infinite',
-                    },
-                    keyframes: {
-                        float: {
-                            '0%, 100%': { transform: 'translateY(0)' },
-                            '50%': { transform: 'translateY(-20px)' },
-                        },
-                        marquee: {
-                            '0%': { transform: 'translateX(0%)' },
-                            '100%': { transform: 'translateX(-100%)' },
-                        }
                     }
                 }
             }
@@ -49,50 +34,53 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 
     <style>
-        body { background-color: #0f0f0f; color: #ffffff; }
+        body { background-color: #0f0f0f; color: #ffffff; font-family: 'Outfit', sans-serif; overflow-x: hidden; }
+        
         .gold-gradient {
             background: linear-gradient(135deg, #f3cc2b 0%, #b98b36 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
+
         .hero-overlay {
-            background: linear-gradient(to bottom, rgba(15,15,15,0.4) 0%, rgba(15,15,15,1) 100%);
+            background: radial-gradient(circle, rgba(15,15,15,0) 0%, rgba(15,15,15,0.8) 70%, rgba(15,15,15,1) 100%);
         }
+
         .menu-card {
-            background: linear-gradient(180deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.01) 100%);
-            border: 1px solid rgba(185, 139, 54, 0.2);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            background: linear-gradient(180deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0) 100%);
+            border: 1px solid rgba(185, 139, 54, 0.15);
+            transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+            cursor: pointer;
         }
+
         .menu-card:hover {
             border-color: #f3cc2b;
-            transform: translateY(-10px);
-            background: rgba(185, 139, 54, 0.05);
+            transform: translateY(-8px);
+            background: rgba(185, 139, 54, 0.08);
         }
-        /* Custom Cursor Style */
-        #custom-cursor {
-            width: 20px;
-            height: 20px;
-            background: #f3cc2b;
-            border-radius: 50%;
-            position: fixed;
-            pointer-events: none;
-            z-index: 9999;
-            mix-blend-mode: difference;
-            transition: transform 0.2s ease;
+
+        @keyframes marquee {
+            0% { transform: translateX(0%); }
+            100% { transform: translateX(-100%); }
+        }
+        .animate-marquee { animation: marquee 40s linear infinite; }
+
+        .glass-modal {
+            background: rgba(15, 15, 15, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(185, 139, 54, 0.3);
         }
     </style>
 </head>
 <body>
 
-    <div id="custom-cursor" class="hidden md:block"></div>
     <div id="root"></div>
 
     <script type="text/babel">
-        const { useState, useEffect, useRef } = React;
+        const { useState, useEffect } = React;
 
         const Navbar = () => {
             const [scrolled, setScrolled] = useState(false);
-            
             useEffect(() => {
                 const handleScroll = () => setScrolled(window.scrollY > 50);
                 window.addEventListener('scroll', handleScroll);
@@ -100,109 +88,66 @@
             }, []);
 
             return (
-                <nav className={`fixed top-0 w-full z-50 transition-all duration-500 px-6 py-4 ${scrolled ? 'bg-tosbik-dark/95 backdrop-blur-md py-2 border-b border-tosbik-gold/20' : 'bg-transparent'}`}>
+                <nav className={`fixed top-0 w-full z-50 transition-all duration-700 px-6 py-4 ${scrolled ? 'bg-tosbik-dark/90 backdrop-blur-2xl py-3 border-b border-white/5' : 'bg-transparent'}`}>
                     <div className="max-w-7xl mx-auto flex justify-between items-center">
-                        <div className="flex items-center gap-8">
-                            <a href="#menu" className="hidden md:block text-sm uppercase tracking-widest hover:text-tosbik-yellow transition-colors">Menü</a>
-                            <a href="#location" className="hidden md:block text-sm uppercase tracking-widest hover:text-tosbik-yellow transition-colors">Anfahrt</a>
+                        <div className="flex items-center gap-10">
+                            <a href="#menu" className="hidden md:block text-[10px] font-black uppercase tracking-[0.3em] hover:text-tosbik-yellow">Speisekarte</a>
+                            <a href="#footer" className="hidden md:block text-[10px] font-black uppercase tracking-[0.3em] hover:text-tosbik-yellow">Kontakt</a>
                         </div>
-                        
-                        {/* Zentrales Logo */}
-                        <div className={`transition-all duration-500 ${scrolled ? 'scale-75' : 'scale-100'}`}>
-                            <img src="TOSBIKS_MAIN-LOGO_4c-1.png" alt="Tosbik's Kitchen" className="h-20 w-auto" />
+                        <div className={`transition-all duration-500 ${scrolled ? 'opacity-100 scale-100' : 'opacity-0 scale-75 pointer-events-none'}`}>
+                            <img src="TOSBIKS_MAIN-LOGO_4c-1.png" alt="Logo" className="h-10 w-auto" />
                         </div>
-
-                        <div className="flex items-center gap-6">
-                            <div className="hidden md:block text-right">
-                                <p className="text-[10px] text-tosbik-gold uppercase tracking-tighter">Reservierung & Order</p>
-                                <p className="text-sm font-bold">Rheine - Bonifatiusstr.</p>
-                            </div>
-                            <button className="bg-tosbik-gold hover:bg-tosbik-yellow text-black px-6 py-2 rounded-full font-bold text-xs uppercase transition-all transform hover:scale-105">
-                                Jetzt Bestellen
-                            </button>
-                        </div>
+                        <button className="bg-tosbik-gold hover:bg-tosbik-yellow text-black px-7 py-2.5 rounded-full font-black text-[10px] uppercase tracking-widest transition-all">
+                            Bestellen
+                        </button>
                     </div>
                 </nav>
             );
         };
 
-        const Hero = () => {
-            return (
-                <section className="relative h-screen w-full flex items-center justify-center overflow-hidden">
-                    {/* Hintergrundbild für Restaurant-Feeling */}
-                    <div className="absolute inset-0 z-0">
-                        <img 
-                            src="https://images.unsplash.com/photo-1594212699903-ec8a3eca50f5?q=80&w=2071&auto=format&fit=crop" 
-                            className="w-full h-full object-cover scale-110"
-                            alt="Premium Burger"
-                        />
-                        <div className="absolute inset-0 hero-overlay"></div>
-                    </div>
+        const Hero = () => (
+            <section className="relative h-screen w-full flex flex-col items-center justify-center overflow-hidden">
+                <div className="absolute inset-0 z-0 flex items-center justify-center p-4">
+                    <img src="TOSBIKS_MAIN-LOGO_4c-1.png" className="w-full max-w-[550px] h-auto object-contain drop-shadow-[0_0_60px_rgba(185,139,54,0.15)]" alt="Tosbik's Kitchen" />
+                    <div className="absolute inset-0 hero-overlay"></div>
+                </div>
+                <div className="relative z-10 text-center px-4 mt-80">
+                    <h1 className="text-4xl md:text-6xl font-black mb-6 tracking-tighter uppercase">The <span className="gold-gradient">Smash</span> Experience</h1>
+                    <p className="max-w-xl mx-auto text-gray-400 text-sm font-light tracking-[0.2em] mb-12 uppercase">Handcrafted in Rheine • 100% Halal</p>
+                    <a href="#menu" className="inline-block bg-white text-black px-14 py-4 rounded-full font-black uppercase text-[10px] tracking-[0.2em] hover:bg-tosbik-yellow transition-all">Speisekarte</a>
+                </div>
+            </section>
+        );
 
-                    <div className="relative z-10 text-center px-4">
-                        <span className="inline-block py-1 px-4 rounded-full border border-tosbik-gold/50 text-tosbik-yellow text-[10px] uppercase tracking-[0.4em] mb-6 animate-pulse">
-                            Handcrafted in Rheine
-                        </span>
-                        <h1 className="font-display text-7xl md:text-9xl font-bold mb-4 tracking-tight leading-none">
-                            Ehrliches <br />
-                            <span className="gold-gradient italic">Handwerk.</span>
-                        </h1>
-                        <p className="max-w-2xl mx-auto text-gray-300 text-lg md:text-xl font-light leading-relaxed mb-10">
-                            Wir nehmen das "Smash" ernst. 100% Halal Rinderhack, auf den Punkt karamellisiert für den maximalen Geschmack.
-                        </p>
-                        <div className="flex flex-col md:flex-row gap-4 justify-center items-center">
-                            <a href="#menu" className="bg-white text-black px-10 py-4 rounded-full font-bold uppercase text-sm hover:bg-tosbik-yellow transition-all">
-                                Speisekarte entdecken
-                            </a>
-                            <div className="flex items-center gap-3 px-6 py-4">
-                                <div className="w-2 h-2 bg-green-500 rounded-full animate-ping"></div>
-                                <span className="text-sm font-medium tracking-wide uppercase">Heute bis 22:00 geöffnet</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce opacity-50">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M7 13l5 5 5-5M7 6l5 5 5-5"/></svg>
-                    </div>
-                </section>
-            );
-        };
-
-        const MenuSection = () => {
+        const MenuSection = ({ onSelect }) => {
             const items = [
-                { name: "Tosbik's Double Smash", price: "14,90 €", desc: "Zwei Smashed Patties, Double Cheddar, Tosbik's Secret Sauce, Brioche Bun.", tag: "Bestseller" },
-                { name: "Truffle Mushroom", price: "13,50 €", desc: "Smashed Beef, hausgemachte Trüffel-Mayo, gegrillte Champignons, Rucola.", tag: "Premium" },
-                { name: "Chili Cheese Smash", price: "12,90 €", desc: "Feurige Jalapeños, Cheese-Sauce, karamellisierte Zwiebeln.", tag: "Spicy" },
-                { name: "Mc Smash Cheese", price: "10,90 €", desc: "Der Klassiker: Patties, Pickles, Mustard, Ketchup, Onion-Cubes.", tag: "Classic" },
-                { name: "Loaded Chili Fries", price: "8,50 €", desc: "Frische Pommes mit Cheese-Sauce, Beef-Crumbs & Jalapeños.", tag: "Sides" },
-                { name: "Veggie Smasher", price: "11,90 €", desc: "Hausgemachtes Plant-Based Patty, Avocado-Cream, frischer Salat.", tag: "Veggie" }
+                { id: 1, name: "Tosbik's Double Smash", price: "14,90 €", desc: "Zwei Smashed Patties, Double Cheddar, Tosbik's Secret Sauce, Brioche Bun.", tag: "Bestseller", details: "Unser Aushängeschild. Das Fleisch wird extra dünn gesmashed, um die maximale Kruste (Maillard-Reaktion) zu erzielen. Serviert in einem butterweichen Brioche Bun." },
+                { id: 2, name: "Truffle Mushroom", price: "13,50 €", desc: "Smashed Beef, hausgemachte Trüffel-Mayo, gegrillte Champignons, Rucola.", tag: "Premium", details: "Für Feinschmecker. Wir nutzen echtes Trüffelöl für unsere Mayo und rösten die Champignons frisch auf dem Grill an." },
+                { id: 3, name: "Chili Cheese Smash", price: "12,90 €", desc: "Feurige Jalapeños, Cheese-Sauce, karamellisierte Zwiebeln.", tag: "Spicy", details: "Nichts für schwache Nerven. Die Kombination aus scharfen Jalapeños und unserer cremigen Käsesauce ist legendär." },
+                { id: 4, name: "Mc Smash Cheese", price: "10,90 €", desc: "Der Klassiker: Patties, Pickles, Mustard, Ketchup, Onion-Cubes.", tag: "Classic", details: "Back to the Roots. Alles was ein guter Cheeseburger braucht, nur eben in 'Smash'-Perfektion." },
+                { id: 5, name: "Loaded Chili Fries", price: "8,50 €", desc: "Frische Pommes mit Cheese-Sauce, Beef-Crumbs & Jalapeños.", tag: "Sides", details: "Die perfekte Beilage oder als Hauptgang. Unsere Fries bleiben extra lange knusprig." },
+                { id: 6, name: "Veggie Smasher", price: "11,90 €", desc: "Hausgemachtes Plant-Based Patty, Avocado-Cream, frischer Salat.", tag: "Veggie", details: "Voller Geschmack, null Fleisch. Unser Veggie-Patty wird nach eigenem Rezept hergestellt." }
             ];
 
             return (
-                <section id="menu" className="py-32 bg-tosbik-dark relative px-6">
+                <section id="menu" className="py-40 bg-tosbik-dark px-6">
                     <div className="max-w-7xl mx-auto">
-                        <div className="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
-                            <div>
-                                <h2 className="text-tosbik-gold font-display text-2xl italic mb-2">Qualität die man schmeckt</h2>
-                                <h3 className="text-5xl md:text-7xl font-bold uppercase tracking-tighter">Unsere Auswahl</h3>
-                            </div>
-                            <p className="max-w-sm text-gray-400 border-l border-tosbik-gold/30 pl-6">
-                                Alle unsere Burger werden täglich frisch zubereitet. Wir verwenden ausschließlich hochwertiges Fleisch und regionale Zutaten.
-                            </p>
+                        <div className="text-center mb-32">
+                            <span className="text-tosbik-gold font-black text-[10px] uppercase tracking-[0.5em] mb-4 block">Selection</span>
+                            <h3 className="text-5xl md:text-8xl font-black uppercase tracking-tighter italic leading-none">Signature<br/>Burgers</h3>
                         </div>
-
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                            {items.map((item, i) => (
-                                <div key={i} className="menu-card p-10 rounded-3xl group">
-                                    <div className="flex justify-between items-start mb-6">
-                                        <span className="text-[10px] uppercase tracking-widest text-tosbik-gold border border-tosbik-gold/30 px-2 py-1 rounded">{item.tag}</span>
-                                        <span className="text-xl font-bold text-tosbik-yellow">{item.price}</span>
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            {items.map((item) => (
+                                <div key={item.id} onClick={() => onSelect(item)} className="menu-card p-10 rounded-[2.5rem] flex flex-col justify-between group">
+                                    <div>
+                                        <div className="flex justify-between items-start mb-10">
+                                            <span className="text-[9px] font-black uppercase tracking-widest text-tosbik-gold border border-tosbik-gold/20 px-4 py-1.5 rounded-full">{item.tag}</span>
+                                            <span className="text-xl font-bold text-white group-hover:text-tosbik-yellow transition-colors">{item.price}</span>
+                                        </div>
+                                        <h4 className="text-2xl font-black mb-4 uppercase tracking-tight">{item.name}</h4>
+                                        <p className="text-gray-500 text-sm font-light leading-relaxed">{item.desc}</p>
                                     </div>
-                                    <h4 className="text-2xl font-bold mb-3 group-hover:text-tosbik-yellow transition-colors tracking-tight">{item.name}</h4>
-                                    <p className="text-gray-400 text-sm leading-relaxed mb-8">{item.desc}</p>
-                                    <button className="w-full py-3 rounded-xl border border-white/10 group-hover:bg-white group-hover:text-black transition-all text-xs uppercase font-bold tracking-widest">
-                                        Hinzufügen
-                                    </button>
+                                    <div className="mt-10 text-[9px] uppercase tracking-widest font-black text-tosbik-gold opacity-0 group-hover:opacity-100 transition-opacity">Details ansehen +</div>
                                 </div>
                             ))}
                         </div>
@@ -211,67 +156,49 @@
             );
         };
 
-        const Footer = () => (
-            <footer className="bg-[#080808] pt-20 pb-10 border-t border-white/5 px-6">
-                <div className="max-w-7xl mx-auto">
-                    <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-20">
-                        <div className="col-span-1 md:col-span-2">
-                            <img src="TOSBIKS_MAIN-LOGO_4c-1.png" alt="Logo" className="h-24 mb-6" />
-                            <p className="text-gray-500 max-w-sm leading-relaxed">
-                                Das Zuhause für echte Burger-Liebhaber in Rheine. Wir glauben an Qualität, Frische und den perfekten Smash.
-                            </p>
-                        </div>
-                        <div>
-                            <h5 className="font-bold uppercase text-xs tracking-widest mb-6 text-tosbik-gold">Kontakt</h5>
-                            <p className="text-gray-400 text-sm mb-2">Bonifatiusstraße 48429 Rheine</p>
-                            <p className="text-gray-400 text-sm mb-6">hallo@tosbiks-kitchen.de</p>
-                            <div className="flex gap-4">
-                                <a href="#" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-tosbik-yellow hover:text-black transition-all">IG</a>
-                                <a href="#" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-tosbik-yellow hover:text-black transition-all">FB</a>
-                            </div>
-                        </div>
-                        <div>
-                            <h5 className="font-bold uppercase text-xs tracking-widest mb-6 text-tosbik-gold">Öffnungszeiten</h5>
-                            <p className="text-gray-400 text-sm flex justify-between mb-2"><span>Di - So:</span> <span>12:00 - 22:00</span></p>
-                            <p className="text-gray-400 text-sm flex justify-between"><span>Mo:</span> <span className="text-red-500">Ruhetag</span></p>
-                        </div>
-                    </div>
-                    <div className="pt-10 border-t border-white/5 flex flex-col md:row justify-between items-center gap-4 text-[10px] text-gray-600 uppercase tracking-widest">
-                        <p>© 2025 Tosbik's Kitchen Rheine</p>
-                        <div className="flex gap-8">
-                            <a href="#" className="hover:text-white">Impressum</a>
-                            <a href="#" className="hover:text-white">Datenschutz</a>
-                        </div>
+        const Modal = ({ item, onClose }) => {
+            if (!item) return null;
+            return (
+                <div className="fixed inset-0 z-[100] flex items-center justify-center p-6 bg-black/80 backdrop-blur-sm transition-all" onClick={onClose}>
+                    <div className="glass-modal max-w-2xl w-full p-8 md:p-12 rounded-[3rem] text-center" onClick={e => e.stopPropagation()}>
+                        <span className="text-tosbik-gold text-[10px] font-black uppercase tracking-[0.4em] mb-6 block">{item.tag}</span>
+                        <h2 className="text-4xl font-black uppercase mb-6 tracking-tighter">{item.name}</h2>
+                        <p className="text-gray-300 font-light leading-loose mb-10">{item.details}</p>
+                        <div className="text-3xl font-black text-tosbik-yellow mb-10">{item.price}</div>
+                        <button onClick={onClose} className="bg-white text-black px-10 py-3 rounded-full font-black uppercase text-[10px] tracking-widest hover:bg-tosbik-gold transition-colors">Schließen</button>
                     </div>
                 </div>
-            </footer>
-        );
+            );
+        };
 
         const App = () => {
-            useEffect(() => {
-                const cursor = document.getElementById('custom-cursor');
-                const moveCursor = (e) => {
-                    gsap.to(cursor, { x: e.clientX, y: e.clientY, duration: 0.1 });
-                };
-                window.addEventListener('mousemove', moveCursor);
-                return () => window.removeEventListener('mousemove', moveCursor);
-            }, []);
-
+            const [selectedItem, setSelectedItem] = useState(null);
             return (
                 <div className="selection:bg-tosbik-yellow selection:text-black">
                     <Navbar />
                     <Hero />
-                    <div className="bg-tosbik-gold py-6 overflow-hidden">
-                        <div className="whitespace-nowrap flex animate-marquee text-black font-black text-3xl uppercase">
-                            {[...Array(20)].map((_, i) => (
-                                <span key={i} className="mx-10 flex items-center gap-4">
-                                    Tosbik's Kitchen <span className="text-white">★</span> Rheine's Best Smash <span className="text-white">★</span> 100% Halal
+                    <div className="bg-tosbik-gold py-6 overflow-hidden border-y border-black/5">
+                        <div className="whitespace-nowrap flex animate-marquee text-black font-black text-2xl uppercase tracking-tighter">
+                            {[...Array(10)].map((_, i) => (
+                                <span key={i} className="mx-12 flex items-center gap-8">
+                                    Tosbik's Kitchen <span className="text-white">★</span> Rheine's Best Smash <span className="text-white">★</span> 100% Halal <span className="text-white">★</span>
                                 </span>
                             ))}
                         </div>
                     </div>
-                    <MenuSection />
-                    <Footer />
+                    <MenuSection onSelect={setSelectedItem} />
+                    <Modal item={selectedItem} onClose={() => setSelectedItem(null)} />
+                    <footer id="footer" className="bg-[#080808] pt-32 pb-12 px-6 border-t border-white/5">
+                        <div className="max-w-7xl mx-auto text-center">
+                            <img src="TOSBIKS_MAIN-LOGO_4c-1.png" alt="Logo" className="h-24 mx-auto mb-16 opacity-40 grayscale" />
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-20 text-center">
+                                <div><h5 className="font-black uppercase text-[10px] tracking-[0.4em] mb-6 text-tosbik-gold">Find us</h5><p className="text-gray-500 text-sm font-light">Bonifatiusstraße<br/>48429 Rheine</p></div>
+                                <div><h5 className="font-black uppercase text-[10px] tracking-[0.4em] mb-6 text-tosbik-gold">Hours</h5><p className="text-gray-500 text-sm font-light">Di - So: 12:00 - 22:00<br/>Mo: Ruhetag</p></div>
+                                <div><h5 className="font-black uppercase text-[10px] tracking-[0.4em] mb-6 text-tosbik-gold">Social</h5><p className="text-gray-500 text-sm font-light uppercase tracking-widest hover:text-white cursor-pointer transition-colors">Instagram</p></div>
+                            </div>
+                            <p className="text-[9px] text-gray-700 uppercase tracking-[0.5em]">© 2025 Tosbik's Kitchen</p>
+                        </div>
+                    </footer>
                 </div>
             );
         };
