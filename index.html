@@ -2,239 +2,88 @@
 <html lang="de">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Tosbik's Kitchen | Best Smashburger Germany</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tosbik's Kitchen | Best Smashburger</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
-    
-    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    <script src="https://unpkg.com/framer-motion@10.16.4/dist/framer-motion.js"></script>
 
     <style>
+        /* Deine Markenfarben */
         :root {
             --tosbik-yellow: #f2c924;
             --tosbik-brown: #9c6b30;
-            --tosbik-dark: #1a1a1a;
         }
-
-        body {
-            background-color: #ffffff;
-            color: var(--tosbik-dark);
-            margin: 0;
-            padding: 0;
-            font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            overflow-x: hidden;
-        }
-
-        /* Verhindert das weiße Flackern beim Laden von React */
-        #root { min-height: 100vh; }
-
+        
         @keyframes marquee {
             0% { transform: translateX(0); }
             100% { transform: translateX(-50%); }
         }
         .animate-marquee {
-            display: flex;
-            width: max-content;
-            animation: marquee 25s linear infinite;
-        }
-
-        /* Custom Cursor für Desktop */
-        @media (hover: hover) and (pointer: fine) {
-            body, a, button { cursor: none !important; }
-            .custom-cursor {
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 32px;
-                height: 32px;
-                border: 2px solid var(--tosbik-brown);
-                border-radius: 50%;
-                pointer-events: none;
-                z-index: 9999;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                transition: transform 0.1s ease-out;
-            }
-            .cursor-dot {
-                width: 4px;
-                height: 4px;
-                background-color: var(--tosbik-yellow);
-                border-radius: 50%;
-            }
+            display: inline-flex;
+            animation: marquee 20s linear infinite;
         }
     </style>
 </head>
-<body>
+<body class="bg-white text-gray-900 font-sans antialiased">
 
-    <div id="root"></div>
+    <nav class="fixed top-0 w-full z-50 bg-white/90 backdrop-blur-md border-b border-gray-100 px-6 py-4 flex justify-between items-center">
+        <div class="text-2xl font-black tracking-tighter text-[#9c6b30]">
+            TOSBIK'S <span class="text-[#f2c924]">KITCHEN</span>
+        </div>
+        <div class="hidden md:flex gap-8 font-bold uppercase text-[10px] tracking-widest text-[#9c6b30]">
+            <a href="#">Menü</a>
+            <a href="#">Über Uns</a>
+            <a href="#">Standorte</a>
+        </div>
+        <button class="bg-[#9c6b30] text-white px-6 py-2 rounded-full font-bold text-[10px] uppercase tracking-widest hover:bg-[#f2c924] transition-all">
+            Bestellen
+        </button>
+    </nav>
 
-    <script type="text/babel">
-        const { useState, useEffect } = React;
-        const { motion, AnimatePresence } = FramerMotion;
-
-        // --- CUSTOM CURSOR ---
-        const CustomCursor = () => {
-            const [pos, setPos] = useState({ x: -100, y: -100 });
-            useEffect(() => {
-                const handleMove = (e) => setPos({ x: e.clientX, y: e.clientY });
-                window.addEventListener('mousemove', handleMove);
-                return () => window.removeEventListener('mousemove', handleMove);
-            }, []);
-
-            return (
-                <div 
-                    className="custom-cursor hidden md:flex"
-                    style={{ transform: `translate(${pos.x - 16}px, ${pos.y - 16}px)` }}
-                >
-                    <div className="cursor-dot" />
-                </div>
-            );
-        };
-
-        // --- NAVBAR ---
-        const Navbar = () => (
-            <nav className="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md border-b border-gray-100 px-6 py-4 flex justify-between items-center">
-                <div className="flex items-center gap-2">
-                    <div className="font-black text-2xl tracking-tighter text-[#9c6b30]">
-                        TOSBIK'S <span className="text-[#f2c924]">KITCHEN</span>
-                    </div>
-                </div>
-                <div className="hidden md:flex gap-8 font-bold uppercase text-[10px] tracking-[0.2em] text-[#9c6b30]">
-                    <a href="#" className="hover:text-[#f2c924] transition-colors">Menü</a>
-                    <a href="#" className="hover:text-[#f2c924] transition-colors">Über Uns</a>
-                    <a href="#" className="hover:text-[#f2c924] transition-colors">Standorte</a>
-                </div>
-                <button className="bg-[#9c6b30] text-white px-6 py-2 rounded-full font-bold text-[10px] uppercase tracking-widest hover:bg-[#f2c924] transition-all transform hover:scale-105">
-                    Bestellen
+    <section class="relative min-h-screen flex items-center justify-center pt-20 px-6 bg-[#fafafa]">
+        <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+            
+            <div>
+                <span class="bg-[#f2c924] text-black px-4 py-1 rounded-full text-[10px] font-black uppercase mb-6 inline-block">
+                    ⭐ Deutschlands bester Smashburger
+                </span>
+                <h1 class="text-6xl md:text-8xl font-black text-[#9c6b30] leading-[0.85] mb-8">
+                    DER <br/> <span class="text-[#f2c924]">PERFEKTE</span> <br/> SMASH.
+                </h1>
+                <p class="text-gray-500 text-lg max-w-sm mb-10 leading-relaxed">
+                    Frisches Beef. Knuspriger Rand. Saftiger Kern. Erlebe das Original.
+                </p>
+                <button class="bg-[#9c6b30] text-white px-10 py-5 rounded-2xl font-black text-sm uppercase tracking-widest shadow-xl hover:scale-105 transition-transform">
+                    Jetzt Entdecken
                 </button>
-            </nav>
-        );
-
-        // --- HERO ---
-        const Hero = () => (
-            <section className="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden bg-[#fafafa]">
-                <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
-                    <motion.div 
-                        initial={{ opacity: 0, y: 30 }} 
-                        animate={{ opacity: 1, y: 0 }} 
-                        transition={{ duration: 0.8 }}
-                    >
-                        <span className="bg-[#f2c924] text-black px-4 py-1 rounded-full text-[10px] font-black uppercase mb-6 inline-block">
-                            ⭐ Deutschlands bester Smashburger
-                        </span>
-                        <h2 className="text-6xl md:text-8xl font-black text-[#9c6b30] leading-[0.85] mb-8">
-                            DER <br/> <span className="text-[#f2c924]">PERFEKTE</span> <br/> SMASH.
-                        </h2>
-                        <p className="text-gray-500 text-lg max-w-sm mb-10 leading-relaxed font-medium">
-                            Frisches Beef. Knuspriger Rand. Saftiger Kern. Wir bringen das Smashburger-Original nach Deutschland.
-                        </p>
-                        <div className="flex gap-4">
-                            <button className="bg-[#9c6b30] text-white px-10 py-5 rounded-2xl font-black text-sm uppercase tracking-widest shadow-2xl shadow-brown-200 hover:bg-[#f2c924] hover:text-black transition-all transform hover:-translate-y-1">
-                                Jetzt Entdecken
-                            </button>
-                        </div>
-                    </motion.div>
-                    
-                    <motion.div 
-                        initial={{ opacity: 0, scale: 0.8, rotate: 5 }} 
-                        animate={{ opacity: 1, scale: 1, rotate: 0 }} 
-                        transition={{ duration: 1 }}
-                        className="relative"
-                    >
-                        {/* Bild-Bereich */}
-                        <div className="relative z-10 w-full aspect-square bg-white rounded-[40px] shadow-2xl border-[12px] border-white overflow-hidden">
-                            <img 
-                                src="Projekt Bildgröße ändern-2.jpg" 
-                                alt="Tosbik Burger" 
-                                className="w-full h-full object-cover"
-                                onError={(e) => {
-                                    e.target.src = 'https://images.unsplash.com/photo-1586190848861-99aa4a171e90?auto=format&fit=crop&w=800&q=80';
-                                }}
-                            />
-                        </div>
-                        {/* Deko-Elemente */}
-                        <div className="absolute -top-10 -right-10 w-40 h-40 bg-[#f2c924] rounded-full blur-[80px] opacity-30 animate-pulse" />
-                        <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-[#9c6b30] rounded-full blur-[80px] opacity-20" />
-                    </motion.div>
-                </div>
-            </section>
-        );
-
-        // --- MARQUEE ---
-        const Marquee = () => (
-            <div className="bg-[#9c6b30] py-8 border-y-4 border-[#f2c924] overflow-hidden">
-                <div className="animate-marquee whitespace-nowrap">
-                    {[...Array(10)].map((_, i) => (
-                        <div key={i} className="flex items-center gap-8 px-4">
-                            <span className="text-white text-5xl md:text-7xl font-black uppercase tracking-tighter">
-                                Hand Smashed
-                            </span>
-                            <span className="text-[#f2c924] text-5xl md:text-7xl">★</span>
-                            <span className="text-white text-5xl md:text-7xl font-black uppercase tracking-tighter">
-                                Fresh Beef
-                            </span>
-                            <span className="text-[#f2c924] text-5xl md:text-7xl">★</span>
-                            <span className="text-white text-5xl md:text-7xl font-black uppercase tracking-tighter">
-                                Secret Sauce
-                            </span>
-                            <span className="text-[#f2c924] text-5xl md:text-7xl">★</span>
-                        </div>
-                    ))}
-                </div>
             </div>
-        );
 
-        // --- APP ---
-        const App = () => {
-            const [loading, setLoading] = useState(true);
-            useEffect(() => {
-                setTimeout(() => setLoading(false), 1000);
-            }, []);
-
-            return (
-                <div className="antialiased">
-                    <AnimatePresence>
-                        {loading && (
-                            <motion.div 
-                                exit={{ opacity: 0 }} 
-                                className="fixed inset-0 z-[100] bg-white flex items-center justify-center"
-                            >
-                                <div className="text-center">
-                                    <div className="text-4xl font-black text-[#9c6b30] animate-bounce">
-                                        TOSBIK'S
-                                    </div>
-                                </div>
-                            </motion.div>
-                        )}
-                    </AnimatePresence>
-
-                    <CustomCursor />
-                    <Navbar />
-                    <Hero />
-                    <Marquee />
-                    
-                    <section className="py-24 bg-white text-center">
-                        <h2 className="text-[#9c6b30] text-sm font-black tracking-[0.4em] uppercase mb-4">Besuche uns</h2>
-                        <p className="text-4xl md:text-6xl font-black text-gray-900 tracking-tighter">
-                            DIE BESTEN IN <span className="text-[#f2c924]">DEUTSCHLAND.</span>
-                        </p>
-                    </section>
-                    
-                    <footer className="bg-gray-50 py-12 px-6 border-t border-gray-100 text-center">
-                        <div className="text-[#9c6b30] font-black text-xl mb-6">TOSBIK'S KITCHEN</div>
-                        <p className="text-gray-400 text-[10px] tracking-widest uppercase">© 2024 Alle Rechte vorbehalten.</p>
-                    </footer>
+            <div class="relative">
+                <div class="relative z-10 w-full aspect-square bg-white rounded-[40px] shadow-2xl border-[12px] border-white overflow-hidden">
+                    <img 
+                        src="Projekt Bildgröße ändern-2.jpg" 
+                        alt="Tosbik Burger" 
+                        class="w-full h-full object-cover"
+                        onerror="this.src='https://images.unsplash.com/photo-1586190848861-99aa4a171e90?auto=format&fit=crop&w=800&q=80'"
+                    />
                 </div>
-            );
-        };
+                <div class="absolute -top-10 -right-10 w-40 h-40 bg-[#f2c924] rounded-full blur-[80px] opacity-30"></div>
+                <div class="absolute -bottom-10 -left-10 w-40 h-40 bg-[#9c6b30] rounded-full blur-[80px] opacity-20"></div>
+            </div>
+        </div>
+    </section>
 
-        const root = ReactDOM.createRoot(document.getElementById('root'));
-        root.render(<App />);
-    </script>
+    <div class="bg-[#9c6b30] py-6 border-y-4 border-[#f2c924] overflow-hidden whitespace-nowrap">
+        <div class="animate-marquee flex items-center">
+            <span class="text-white text-5xl font-black uppercase mx-8">Hand Smashed • Fresh Beef • Secret Sauce • Best in Town • </span>
+            <span class="text-white text-5xl font-black uppercase mx-8">Hand Smashed • Fresh Beef • Secret Sauce • Best in Town • </span>
+        </div>
+    </div>
+
+    <footer class="bg-white py-12 text-center border-t border-gray-100">
+        <div class="text-[#9c6b30] font-black text-xl mb-4">TOSBIK'S KITCHEN</div>
+        <p class="text-gray-400 text-[10px] tracking-widest uppercase">© 2024 Alle Rechte vorbehalten.</p>
+    </footer>
 
 </body>
 </html>
