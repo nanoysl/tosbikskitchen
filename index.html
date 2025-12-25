@@ -3,86 +3,146 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tosbik's Kitchen | Best Smashburger</title>
-    
+    <title>Tosbik's Kitchen | Best Smashburger Germany</title>
     <script src="https://cdn.tailwindcss.com"></script>
-
     <style>
-        /* Deine Markenfarben */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;900&display=swap');
+        
         :root {
             --tosbik-yellow: #f2c924;
             --tosbik-brown: #9c6b30;
         }
-        
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        /* Cooler Scroll-Effekt für die Bilder */
+        .hover-lift {
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .hover-lift:hover {
+            transform: translateY(-10px) rotate(2deg);
+        }
+
+        /* Das Logo-Animation */
+        .logo-glow {
+            filter: drop-shadow(0 0 10px rgba(242, 201, 36, 0.2));
+            transition: all 0.3s ease;
+        }
+        .logo-glow:hover {
+            filter: drop-shadow(0 0 20px rgba(156, 107, 48, 0.4));
+            transform: scale(1.05);
+        }
+
+        /* Marquee Animation */
         @keyframes marquee {
             0% { transform: translateX(0); }
             100% { transform: translateX(-50%); }
         }
         .animate-marquee {
-            display: inline-flex;
+            display: flex;
+            width: max-content;
             animation: marquee 20s linear infinite;
+        }
+
+        /* Glas-Effekt für das Menü */
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
         }
     </style>
 </head>
-<body class="bg-white text-gray-900 font-sans antialiased">
+<body>
 
-    <nav class="fixed top-0 w-full z-50 bg-white/90 backdrop-blur-md border-b border-gray-100 px-6 py-4 flex justify-between items-center">
-        <div class="text-2xl font-black tracking-tighter text-[#9c6b30]">
-            TOSBIK'S <span class="text-[#f2c924]">KITCHEN</span>
+    <nav class="fixed top-0 w-full z-50 glass-nav border-b border-gray-100 px-6 py-4 flex justify-between items-center">
+        <div class="flex items-center gap-4">
+            <img src="TOSBIKS_MAIN-LOGO_4c-1.png" alt="Tosbik Logo" class="h-12 w-auto logo-glow" onerror="this.style.display='none'; document.getElementById('logo-fallback').style.display='block'">
+            <div id="logo-fallback" class="hidden font-black text-2xl tracking-tighter text-[#9c6b30]">
+                TOSBIK'S <span class="text-[#f2c924]">KITCHEN</span>
+            </div>
         </div>
-        <div class="hidden md:flex gap-8 font-bold uppercase text-[10px] tracking-widest text-[#9c6b30]">
-            <a href="#">Menü</a>
-            <a href="#">Über Uns</a>
-            <a href="#">Standorte</a>
+        
+        <div class="hidden md:flex gap-10 font-black uppercase text-[11px] tracking-[0.2em] text-[#9c6b30]">
+            <a href="#menu" class="hover:text-[#f2c924] transition-colors relative group">
+                Menü
+                <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#f2c924] transition-all group-hover:w-full"></span>
+            </a>
+            <a href="#story" class="hover:text-[#f2c924] transition-colors relative group">
+                Story
+                <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#f2c924] transition-all group-hover:w-full"></span>
+            </a>
+            <a href="#location" class="hover:text-[#f2c924] transition-colors relative group">
+                Standorte
+                <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#f2c924] transition-all group-hover:w-full"></span>
+            </a>
         </div>
-        <button class="bg-[#9c6b30] text-white px-6 py-2 rounded-full font-bold text-[10px] uppercase tracking-widest hover:bg-[#f2c924] transition-all">
+
+        <button class="bg-[#9c6b30] text-white px-8 py-3 rounded-full font-black text-[11px] uppercase tracking-widest hover:bg-[#f2c924] hover:text-black transition-all shadow-lg active:scale-95">
             Bestellen
         </button>
     </nav>
 
-    <section class="relative min-h-screen flex items-center justify-center pt-20 px-6 bg-[#fafafa]">
-        <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
-            
+    <section class="relative min-h-screen flex items-center justify-center pt-20 px-6 overflow-hidden">
+        <div class="absolute top-1/4 -left-20 w-96 h-96 bg-[#f2c924] rounded-full blur-[120px] opacity-20 animate-pulse"></div>
+        <div class="absolute bottom-1/4 -right-20 w-96 h-96 bg-[#9c6b30] rounded-full blur-[120px] opacity-10"></div>
+
+        <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 items-center relative z-10">
             <div>
-                <span class="bg-[#f2c924] text-black px-4 py-1 rounded-full text-[10px] font-black uppercase mb-6 inline-block">
-                    ⭐ Deutschlands bester Smashburger
-                </span>
-                <h1 class="text-6xl md:text-8xl font-black text-[#9c6b30] leading-[0.85] mb-8">
-                    DER <br/> <span class="text-[#f2c924]">PERFEKTE</span> <br/> SMASH.
+                <div class="inline-block bg-black text-[#f2c924] px-4 py-1 rounded-sm text-[10px] font-black uppercase tracking-[0.3em] mb-8">
+                    Original Smash Method
+                </div>
+                <h1 class="text-7xl md:text-9xl font-black text-[#9c6b30] leading-[0.8] mb-8 tracking-tighter">
+                    REAL <br/> <span class="text-[#f2c924]">SMASH.</span> <br/> REAL <span class="text-gray-200">BEEF.</span>
                 </h1>
-                <p class="text-gray-500 text-lg max-w-sm mb-10 leading-relaxed">
-                    Frisches Beef. Knuspriger Rand. Saftiger Kern. Erlebe das Original.
+                <p class="text-gray-600 text-xl max-w-md mb-10 font-medium leading-relaxed">
+                    Vergiss normale Burger. Wir smashen unser Fleisch auf die glühende Platte, bis der Rand perfekt knusprig ist.
                 </p>
-                <button class="bg-[#9c6b30] text-white px-10 py-5 rounded-2xl font-black text-sm uppercase tracking-widest shadow-xl hover:scale-105 transition-transform">
-                    Jetzt Entdecken
-                </button>
+                <div class="flex flex-wrap gap-4">
+                    <a href="#menu" class="bg-[#9c6b30] text-white px-10 py-5 rounded-xl font-black text-sm uppercase tracking-widest shadow-2xl hover:bg-[#f2c924] hover:text-black transition-all transform hover:-translate-y-1">
+                        Speisekarte ansehen
+                    </a>
+                </div>
             </div>
 
-            <div class="relative">
-                <div class="relative z-10 w-full aspect-square bg-white rounded-[40px] shadow-2xl border-[12px] border-white overflow-hidden">
+            <div class="relative group">
+                <div class="relative z-20 hover-lift shadow-[0_50px_100px_-20px_rgba(0,0,0,0.3)] rounded-[50px] overflow-hidden border-[16px] border-white bg-white">
                     <img 
                         src="Projekt Bildgröße ändern-2.jpg" 
-                        alt="Tosbik Burger" 
-                        class="w-full h-full object-cover"
-                        onerror="this.src='https://images.unsplash.com/photo-1586190848861-99aa4a171e90?auto=format&fit=crop&w=800&q=80'"
+                        alt="Der Tosbik Burger" 
+                        class="w-full h-auto object-cover transform transition-transform duration-700 group-hover:scale-110"
+                        onerror="this.src='https://images.unsplash.com/photo-1594212699903-ec8a3eca50f5?auto=format&fit=crop&w=1000&q=80'"
                     />
                 </div>
-                <div class="absolute -top-10 -right-10 w-40 h-40 bg-[#f2c924] rounded-full blur-[80px] opacity-30"></div>
-                <div class="absolute -bottom-10 -left-10 w-40 h-40 bg-[#9c6b30] rounded-full blur-[80px] opacity-20"></div>
+                <div class="absolute -bottom-6 -right-6 z-30 bg-[#f2c924] w-32 h-32 rounded-full flex items-center justify-center rotate-12 shadow-xl border-4 border-white">
+                    <span class="text-black font-black text-center text-sm leading-none uppercase">100%<br>Beef</span>
+                </div>
             </div>
         </div>
     </section>
 
-    <div class="bg-[#9c6b30] py-6 border-y-4 border-[#f2c924] overflow-hidden whitespace-nowrap">
-        <div class="animate-marquee flex items-center">
-            <span class="text-white text-5xl font-black uppercase mx-8">Hand Smashed • Fresh Beef • Secret Sauce • Best in Town • </span>
-            <span class="text-white text-5xl font-black uppercase mx-8">Hand Smashed • Fresh Beef • Secret Sauce • Best in Town • </span>
+    <div class="bg-[#9c6b30] py-10 border-y-[6px] border-[#f2c924] overflow-hidden relative z-20">
+        <div class="animate-marquee">
+            <div class="flex items-center gap-10 px-4">
+                <span class="text-white text-6xl font-black uppercase tracking-tighter italic">No Salad • Just Meat • No Bullshit • Best Sauce •</span>
+                <span class="text-[#f2c924] text-6xl font-black uppercase tracking-tighter italic">Tosbik's Kitchen •</span>
+                <span class="text-white text-6xl font-black uppercase tracking-tighter italic">No Salad • Just Meat • No Bullshit • Best Sauce •</span>
+                <span class="text-[#f2c924] text-6xl font-black uppercase tracking-tighter italic">Tosbik's Kitchen •</span>
+            </div>
         </div>
     </div>
 
-    <footer class="bg-white py-12 text-center border-t border-gray-100">
-        <div class="text-[#9c6b30] font-black text-xl mb-4">TOSBIK'S KITCHEN</div>
-        <p class="text-gray-400 text-[10px] tracking-widest uppercase">© 2024 Alle Rechte vorbehalten.</p>
+    <footer class="bg-white py-20 px-6 text-center">
+        <img src="TOSBIKS_MAIN-LOGO_4c-1.png" alt="Logo" class="h-16 mx-auto mb-8 opacity-50 grayscale hover:grayscale-0 transition-all cursor-pointer">
+        <div class="flex justify-center gap-8 mb-10 text-[#9c6b30] font-bold text-xs uppercase tracking-widest">
+            <a href="#">Instagram</a>
+            <a href="#">TikTok</a>
+            <a href="#">Impressum</a>
+        </div>
+        <p class="text-gray-300 text-[10px] font-medium tracking-[0.5em] uppercase">© 2024 Tosbik's Kitchen - Crafted for Meat Lovers</p>
     </footer>
 
 </body>
