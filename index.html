@@ -3,282 +3,156 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Tosbik's Kitchen | Best Smashburger in Germany</title>
+    <title>Tosbik's Kitchen | Best Smashburger Germany</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
     <style>
         :root {
-            /* Tosbik's Color Palette */
-            --color-primary: #f2c924;   /* Das helle Gold-Gelb aus dem Logo */
-            --color-secondary: #9c6b30; /* Das Braun der Schrift */
-            --color-dark: #1a1a1a;      /* Fast Schwarz für Kontrast */
-            --color-white: #ffffff;
+            --tosbik-yellow: #f2c924;
+            --tosbik-brown: #9c6b30;
+            --tosbik-dark: #1a1a1a;
         }
 
         body {
-            background-color: var(--color-white);
-            color: var(--color-dark);
+            background-color: #ffffff;
+            color: var(--tosbik-dark);
             margin: 0;
             padding: 0;
+            font-family: 'sans-serif';
             overflow-x: hidden;
-            font-family: 'Inter', sans-serif;
-            -webkit-font-smoothing: antialiased;
         }
 
-        .text-tosbik-yellow { color: var(--color-primary); }
-        .bg-tosbik-yellow { background-color: var(--color-primary); }
-        .text-tosbik-brown { color: var(--color-secondary); }
-        .bg-tosbik-brown { background-color: var(--color-secondary); }
+        /* Verhindert weißes Flackern beim Laden */
+        #root { min-height: 100vh; background-color: white; }
 
-        /* Custom Cursor - angepasst auf Braun/Gold */
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        .animate-marquee { animation: marquee 20s linear infinite; }
+
         @media (hover: hover) and (pointer: fine) {
             body, a, button { cursor: none !important; }
         }
-
-        /* Smooth Scroll */
-        html { scroll-behavior: smooth; }
-
-        /* Scrollbar Design */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #f1f1f1; }
-        ::-webkit-scrollbar-thumb { background: var(--color-secondary); border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: var(--color-primary); }
-
-        /* Burger Glow Effect */
-        .burger-shadow {
-            filter: drop-shadow(0 20px 30px rgba(156, 107, 48, 0.3));
-        }
     </style>
 </head>
-<body class="selection:bg-yellow-400 selection:text-black">
+<body>
 
     <div id="root"></div>
 
-    <script type="text/babel" data-type="module">
-        import React, { useState, useEffect, useRef } from 'https://esm.sh/react@18.2.0';
-        import { createRoot } from 'https://esm.sh/react-dom@18.2.0/client';
-        import { motion, useScroll, useTransform, useSpring, AnimatePresence, useMotionValue } from 'https://esm.sh/framer-motion@10.16.4';
-        import { Utensils, MapPin, Instagram, Clock, Menu, X, ArrowRight, Star, ChevronDown, Phone } from 'https://esm.sh/lucide-react@0.292.0';
+    <script type="text/babel">
+        const { useState, useEffect, useRef } = React;
+        const { motion, AnimatePresence } = FramerMotion;
 
         // --- CUSTOM CURSOR ---
         const CustomCursor = () => {
-            const mouseX = useMotionValue(0);
-            const mouseY = useMotionValue(0);
-            const springX = useSpring(mouseX, { stiffness: 1000, damping: 50 });
-            const springY = useSpring(mouseY, { stiffness: 1000, damping: 50 });
-
+            const [pos, setPos] = useState({ x: 0, y: 0 });
             useEffect(() => {
-                const handleMove = (e) => { mouseX.set(e.clientX); mouseY.set(e.clientY); };
+                const handleMove = (e) => setPos({ x: e.clientX, y: e.clientY });
                 window.addEventListener('mousemove', handleMove);
                 return () => window.removeEventListener('mousemove', handleMove);
             }, []);
 
             return (
-                <motion.div 
-                    className="fixed top-0 left-0 w-8 h-8 border-2 border-[#9c6b30] rounded-full pointer-events-none z-[9999] flex items-center justify-center"
-                    style={{ x: springX, y: springY, translateX: "-50%", translateY: "-50%" }}
+                <div 
+                    className="fixed top-0 left-0 w-8 h-8 border-2 border-[#9c6b30] rounded-full pointer-events-none z-[9999] hidden md:flex items-center justify-center transition-transform duration-100 ease-out"
+                    style={{ transform: `translate(${pos.x - 16}px, ${pos.y - 16}px)` }}
                 >
                     <div className="w-1 h-1 bg-[#f2c924] rounded-full" />
-                </motion.div>
+                </div>
             );
         };
 
-        // --- HEADER ---
-        const Header = () => {
-            const [isScrolled, setIsScrolled] = useState(false);
-            useEffect(() => {
-                const handleScroll = () => setIsScrolled(window.scrollY > 50);
-                window.addEventListener('scroll', handleScroll);
-                return () => window.removeEventListener('scroll', handleScroll);
-            }, []);
+        // --- COMPONENTS ---
+        const Header = () => (
+            <header className="fixed top-0 w-full z-50 bg-white/90 backdrop-blur-sm shadow-sm px-6 py-4 flex justify-between items-center">
+                <div className="flex items-center">
+                    <h1 className="text-2xl font-black tracking-tighter text-[#9c6b30]">
+                        TOSBIK'S <span className="text-[#f2c924]">KITCHEN</span>
+                    </h1>
+                </div>
+                <nav className="hidden md:flex gap-6 font-bold uppercase text-xs tracking-widest">
+                    <a href="#" className="hover:text-[#f2c924]">Menu</a>
+                    <a href="#" className="hover:text-[#f2c924]">Locations</a>
+                    <a href="#" className="hover:text-[#f2c924]">Story</a>
+                </nav>
+                <button className="bg-[#9c6b30] text-white px-5 py-2 rounded-full font-bold text-xs uppercase hover:bg-[#f2c924] transition-colors">
+                    Bestellen
+                </button>
+            </header>
+        );
 
-            return (
-                <header className={`fixed top-0 w-full z-50 transition-all duration-300 px-6 py-4 ${isScrolled ? 'bg-white shadow-md' : 'bg-transparent'}`}>
-                    <div className="max-w-7xl mx-auto flex justify-between items-center">
-                        <div className="flex items-center gap-2">
-                            <img src="TOSBIKS_MAIN-LOGO_4c-1.png" className="h-12 md:h-16 object-contain" alt="Tosbik's Kitchen Logo" />
-                        </div>
-                        <nav className="hidden md:flex gap-8 font-bold uppercase text-sm tracking-widest text-tosbik-brown">
-                            <a href="#menu" className="hover:text-yellow-500 transition-colors">Speisekarte</a>
-                            <a href="#about" className="hover:text-yellow-500 transition-colors">Story</a>
-                            <a href="#location" className="hover:text-yellow-500 transition-colors">Standorte</a>
-                        </nav>
-                        <button className="bg-tosbik-brown text-white px-6 py-2 rounded-full font-bold uppercase text-xs tracking-tighter hover:bg-yellow-500 transition-all transform hover:scale-105">
-                            Jetzt Bestellen
+        const Hero = () => (
+            <section className="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden bg-[#fafafa]">
+                <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
+                    <motion.div initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.8 }}>
+                        <span className="bg-[#f2c924] text-black px-3 py-1 rounded-full text-[10px] font-black uppercase mb-4 inline-block">
+                            Best Smashburger in Germany
+                        </span>
+                        <h2 className="text-6xl md:text-8xl font-black text-[#9c6b30] leading-[0.9] mb-6">
+                            SMASHED <br/> <span className="text-[#f2c924]">TO PERFECTION.</span>
+                        </h2>
+                        <p className="text-gray-600 max-w-sm mb-8 font-medium">
+                            100% regionales Beef, täglich frisch gepresst. Knuspriger Rand, saftiger Kern.
+                        </p>
+                        <button className="bg-[#9c6b30] text-white px-8 py-4 rounded-2xl font-black text-lg shadow-xl hover:scale-105 transition-transform">
+                            JETZT PROBIEREN
                         </button>
-                    </div>
-                </header>
-            );
-        };
-
-        // --- HERO SECTION ---
-        const Hero = () => {
-            const { scrollY } = useScroll();
-            const burgerY = useTransform(scrollY, [0, 500], [0, -100]);
-            const textY = useTransform(scrollY, [0, 500], [0, 50]);
-
-            return (
-                <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#fafafa] pt-20">
-                    <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
-                        <motion.div style={{ y: textY }} className="z-10">
-                            <motion.span 
-                                initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
-                                className="inline-block bg-yellow-400 text-black px-4 py-1 rounded-full text-sm font-black uppercase mb-6"
-                            >
-                                🏆 Best Smashburger in Germany
-                            </motion.span>
-                            <motion.h1 
-                                initial={{ opacity: 0, x: -50 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.2 }}
-                                className="text-6xl md:text-8xl font-black text-tosbik-brown leading-none mb-6"
-                            >
-                                CRAFTED <br/> <span className="text-tosbik-yellow">TO SMASH.</span>
-                            </motion.h1>
-                            <p className="text-lg text-gray-600 mb-8 max-w-md">
-                                Wir haben das Handwerk perfektioniert. Saftiges Beef, knusprige Ränder und unsere geheime Tosbik-Sauce.
-                            </p>
-                            <div className="flex gap-4">
-                                <button className="bg-tosbik-yellow text-black px-8 py-4 rounded-xl font-black text-lg shadow-lg hover:shadow-yellow-200 transition-all transform hover:-translate-y-1">
-                                    MENÜ ENTDECKEN
-                                </button>
-                            </div>
-                        </motion.div>
-
-                        <motion.div 
-                            style={{ y: burgerY }}
-                            initial={{ opacity: 0, scale: 0.8, rotate: -10 }}
-                            animate={{ opacity: 1, scale: 1, rotate: 0 }}
-                            transition={{ duration: 1, ease: "easeOut" }}
-                            className="relative"
-                        >
-                            {/* Hier kommt dein Banner oder ein Burger Bild rein */}
-                            <img src="Projekt Bildgröße ändern-2.jpg" className="w-full h-auto rounded-3xl burger-shadow" alt="Smashburger" />
-                            
-                            {/* Floating Badges */}
-                            <motion.div 
-                                animate={{ y: [0, -15, 0] }} transition={{ duration: 4, repeat: Infinity }}
-                                className="absolute -top-10 -right-10 bg-white p-6 rounded-2xl shadow-2xl flex flex-col items-center"
-                            >
-                                <span className="text-4xl">⭐</span>
-                                <span className="font-black text-tosbik-brown">4.9/5</span>
-                                <span className="text-[10px] uppercase font-bold text-gray-400">Reviews</span>
-                            </motion.div>
-                        </motion.div>
-                    </div>
-
-                    {/* Background Decor */}
-                    <div className="absolute top-0 right-0 w-1/3 h-full bg-tosbik-yellow/10 -skew-x-12 translate-x-1/2" />
-                </section>
-            );
-        };
-
-        // --- MARQUEE ---
-        const Marquee = () => {
-            return (
-                <div className="bg-tosbik-brown py-6 overflow-hidden flex whitespace-nowrap border-y-4 border-tosbik-yellow">
-                    {[...Array(2)].map((_, i) => (
-                        <div key={i} className="flex animate-[marquee_20s_linear_infinite] items-center">
-                            <span className="text-white text-4xl md:text-6xl font-black px-8">FRESH BEEF</span>
-                            <Utensils className="text-tosbik-yellow w-12 h-12" />
-                            <span className="text-white text-4xl md:text-6xl font-black px-8">HAND SMASHED</span>
-                            <Star className="text-tosbik-yellow fill-current w-12 h-12" />
-                            <span className="text-white text-4xl md:text-6xl font-black px-8">SECRET SAUCE</span>
-                            <Utensils className="text-tosbik-yellow w-12 h-12" />
+                    </motion.div>
+                    
+                    <motion.div 
+                        initial={{ opacity: 0, scale: 0.9 }} 
+                        animate={{ opacity: 1, scale: 1 }} 
+                        className="relative bg-[#f2c924]/10 p-4 rounded-[40px]"
+                    >
+                        {/* Platzhalter für dein Bild - falls Bild fehlt, wird eine Box angezeigt */}
+                        <div className="aspect-square bg-white rounded-[30px] shadow-2xl overflow-hidden flex items-center justify-center border-4 border-[#f2c924]">
+                            <img 
+                                src="Projekt Bildgröße ändern-2.jpg" 
+                                alt="Smashburger" 
+                                className="w-full h-full object-cover"
+                                onError={(e) => e.target.src='https://via.placeholder.com/600x600?text=Tosbik+Smashburger'}
+                            />
                         </div>
+                    </motion.div>
+                </div>
+            </section>
+        );
+
+        const Marquee = () => (
+            <div className="bg-[#9c6b30] py-6 border-y-4 border-[#f2c924] overflow-hidden flex">
+                <div className="flex animate-marquee whitespace-nowrap">
+                    {[...Array(10)].map((_, i) => (
+                        <span key={i} className="text-white text-4xl md:text-6xl font-black mx-8 uppercase">
+                            Hand Smashed • Fresh Beef • Secret Sauce • Best in Town • 
+                        </span>
                     ))}
                 </div>
-            );
-        };
+            </div>
+        );
 
-        // --- MAIN APP ---
         const App = () => {
-            const [isLoading, setIsLoading] = useState(true);
-
-            useEffect(() => {
-                setTimeout(() => setIsLoading(false), 1500);
-            }, []);
-
             return (
                 <div className="relative">
-                    <AnimatePresence>
-                        {isLoading && (
-                            <motion.div 
-                                exit={{ y: "-100%" }} transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
-                                className="fixed inset-0 z-[100] bg-white flex items-center justify-center"
-                            >
-                                <motion.img 
-                                    initial={{ scale: 0.8, opacity: 0 }} animate={{ scale: 1, opacity: 1 }}
-                                    src="TOSBIKS_MAIN-LOGO_4c-1.png" className="w-64" 
-                                />
-                            </motion.div>
-                        )}
-                    </AnimatePresence>
-
                     <CustomCursor />
                     <Header />
-                    <main>
-                        <Hero />
-                        <Marquee />
-                        
-                        {/* Menu Teaser */}
-                        <section id="menu" className="py-24 bg-white px-6">
-                            <div className="max-w-7xl mx-auto">
-                                <h2 className="text-5xl font-black text-tosbik-brown text-center mb-16 uppercase">Unsere Bestseller</h2>
-                                <div className="grid md:grid-cols-3 gap-8">
-                                    {[
-                                        { name: "Classic Smash", desc: "Doppel-Beef, Cheddar, Zwiebeln", price: "9.90€" },
-                                        { name: "Bacon Tosbik", desc: "Crispy Bacon, BBQ Sauce, Beef", price: "11.50€" },
-                                        { name: "Veggie Smash", desc: "Plant-based Beef, Best Sauce", price: "10.50€" }
-                                    ].map((item, idx) => (
-                                        <div key={idx} className="bg-gray-50 p-8 rounded-3xl border-2 border-transparent hover:border-tosbik-yellow transition-all group">
-                                            <div className="w-full h-48 bg-gray-200 rounded-2xl mb-6 overflow-hidden">
-                                                 <div className="w-full h-full bg-tosbik-yellow/20 flex items-center justify-center text-4xl group-hover:scale-110 transition-transform">🍔</div>
-                                            </div>
-                                            <h3 className="text-2xl font-black text-tosbik-brown mb-2">{item.name}</h3>
-                                            <p className="text-gray-500 mb-6">{item.desc}</p>
-                                            <div className="flex justify-between items-center">
-                                                <span className="text-xl font-bold text-tosbik-brown">{item.price}</span>
-                                                <button className="p-3 bg-tosbik-brown text-white rounded-full hover:bg-tosbik-yellow hover:text-black transition-colors">
-                                                    <ArrowRight size={20} />
-                                                </button>
-                                            </div>
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
-                        </section>
-                    </main>
-
-                    <footer className="bg-tosbik-brown text-white py-12 px-6">
-                        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
-                            <img src="TOSBIKS_MAIN-LOGO_4c-1.png" className="h-12 brightness-0 invert" />
-                            <div className="flex gap-8 text-sm font-bold uppercase tracking-widest">
-                                <a href="#" className="hover:text-tosbik-yellow">Impressum</a>
-                                <a href="#" className="hover:text-tosbik-yellow">Datenschutz</a>
-                                <a href="#" className="hover:text-tosbik-yellow">Kontakt</a>
-                            </div>
-                            <div className="flex gap-4">
-                                <Instagram className="hover:text-tosbik-yellow cursor-pointer" />
-                                <Phone className="hover:text-tosbik-yellow cursor-pointer" />
-                                <MapPin className="hover:text-tosbik-yellow cursor-pointer" />
-                            </div>
-                        </div>
-                        <p className="text-center text-xs text-white/30 mt-8">© 2024 TOSBIK'S KITCHEN. BEST SMASHBURGER IN GERMANY.</p>
-                    </footer>
+                    <Hero />
+                    <Marquee />
+                    <section className="py-20 text-center">
+                        <h3 className="text-3xl font-black text-[#9c6b30]">STAY HUNGRY.</h3>
+                    </section>
                 </div>
             );
         };
 
-        const root = createRoot(document.getElementById('root'));
+        const root = ReactDOM.createRoot(document.getElementById('root'));
         root.render(<App />);
     </script>
 
-    <style>
-        @keyframes marquee {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-        }
-    </style>
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/framer-motion@10.16.4/dist/framer-motion.js"></script>
 </body>
 </html>
