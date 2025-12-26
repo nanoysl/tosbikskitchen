@@ -203,33 +203,66 @@
   </nav>
 
   <!-- HERO -->
-  <header id="home" class="bg-cinema relative min-h-[92vh] flex items-center px-6 pt-20">
+  <header id="home" class="bg-cinema relative min-h-[92vh] flex items-center px-6 pt-20 pb-10">
     <div class="max-w-6xl mx-auto grid lg:grid-cols-2 gap-10 items-center w-full relative z-10">
+
+      <!-- LEFT -->
       <div>
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[#FF9F00] text-[9px] font-bold uppercase tracking-widest mb-6">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[#FF9F00] text-[9px] font-bold uppercase tracking-widest mb-5">
           <span class="flex h-1.5 w-1.5 rounded-full bg-[#FF9F00] animate-pulse"></span>
           Smash Burger · Halal · frisch zubereitet
         </div>
 
-        <h1 class="text-6xl md:text-8xl lg:text-[104px] font-black uppercase italic leading-[0.82] mb-6 tracking-tighter">
-          GUTE<br><span class="text-gradient">ZUTATEN.</span>
-        </h1>
+        <!-- HERO BRAND CARD (moved up, replaces big headline) -->
+        <div class="relative mb-6">
+          <div class="absolute -inset-5 rounded-[2.5rem] blur-2xl opacity-35"
+               style="background: radial-gradient(circle at 30% 30%, rgba(255,159,0,.45), transparent 55%), radial-gradient(circle at 70% 60%, rgba(255,95,0,.35), transparent 55%);">
+          </div>
 
-        <p class="text-gray-300 text-base md:text-lg max-w-xl mb-8 leading-snug">
-          Frisches Rind, hohe Hitze, eine richtig gute Kruste. Bei Tosbik’s Kitchen bekommst du Smash Burger,
+          <div class="glass-bright rounded-[2.5rem] relative overflow-hidden">
+            <!-- tighter padding on mobile so nothing falls out -->
+            <div class="p-7 sm:p-8 md:p-10">
+              <h1 class="text-5xl sm:text-6xl md:text-7xl font-black uppercase italic leading-[0.9] tracking-tighter">
+                GUTE<br>
+                <span class="text-white">ZUTATEN.</span><br>
+                <span class="text-gradient">GUTER</span><br>
+                <span class="text-gradient">BURGER.</span>
+              </h1>
+
+              <div class="mt-5 flex items-center justify-center">
+                <!-- smaller logo so headline stays king -->
+                <img src="tosbik-logo-2025.png" alt="Tosbik's Kitchen Logo"
+                     class="w-[160px] sm:w-[175px] md:w-[190px] object-contain opacity-95" />
+              </div>
+
+              <!-- refined spacing so meta row stays inside the card -->
+              <div class="mt-6 hairline pt-4 flex items-center justify-between text-[10px] uppercase tracking-widest text-white/60">
+                <span>Rheine</span>
+                <span class="text-[#FF9F00] font-black">Smash Burger</span>
+                <span>Since 2024+</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Friendly copy -->
+        <p class="text-gray-300 text-base md:text-lg max-w-xl mb-7 leading-snug">
+          Frisches Rind, hohe Hitze und eine richtig gute Kruste. Bei Tosbik’s Kitchen bekommst du Smash Burger,
           wie wir ihn selbst am liebsten essen – direkt in Rheine.
         </p>
 
-        <div class="flex flex-col sm:flex-row gap-3">
+        <!-- Buttons -->
+        <div class="flex flex-col sm:flex-row gap-3 mb-8">
           <a href="#menu" class="bg-[#FF9F00] text-black px-7 py-4 rounded-xl font-black uppercase text-xs flex items-center justify-center gap-3 hover:scale-[1.03] transition-transform">
             Menü ansehen <i data-lucide="arrow-right" class="w-4 h-4"></i>
           </a>
           <a href="#visit" class="glass px-7 py-4 rounded-xl font-black uppercase text-xs flex items-center justify-center gap-3 hover:border-white/20 transition">
-            Standort & Zeiten <i data-lucide="map-pin" class="w-4 h-4 text-[#FF9F00]"></i>
+            Bestellen & Zeiten <i data-lucide="map-pin" class="w-4 h-4 text-[#FF9F00]"></i>
           </a>
         </div>
 
-        <div class="mt-10 flex items-center gap-6 text-[10px] font-bold uppercase tracking-widest text-white/60">
+        <!-- Feature mini-row -->
+        <div class="flex items-center gap-8 text-[10px] font-bold uppercase tracking-widest text-white/60">
           <div class="flex items-center gap-2">
             <i data-lucide="flame" class="w-4 h-4 text-[#FF9F00]"></i>
             <span>Smash auf Platte</span>
@@ -241,35 +274,21 @@
         </div>
       </div>
 
-      <div class="flex justify-center lg:justify-end">
-        <div class="relative w-full max-w-[520px]">
-          <div class="absolute -inset-6 rounded-[2.5rem] blur-2xl opacity-40"
-               style="background: radial-gradient(circle at 30% 30%, rgba(255,159,0,.45), transparent 55%), radial-gradient(circle at 70% 60%, rgba(255,95,0,.35), transparent 55%);">
-          </div>
-
-          <!-- UPDATED HERO LOGO CARD (claim inside, logo under it) -->
-          <div class="glass-bright rounded-[2.5rem] p-8 md:p-10 relative">
-            <div class="text-center">
-              <h2 class="text-4xl md:text-5xl font-black uppercase italic leading-[0.9] tracking-tight">
-                GUTE ZUTATEN.<br><span class="text-gradient">GUTER BURGER.</span>
-              </h2>
-
-              <div class="mt-8 flex justify-center">
-                <img src="tosbik-logo-2025.png" alt="Tosbik's Kitchen" class="logo-float w-[190px] md:w-[220px] object-contain" />
-              </div>
-            </div>
-
-            <div class="mt-8 hairline pt-5 flex items-center justify-between text-[10px] uppercase tracking-widest text-white/60">
-              <span>Rheine</span>
-              <span class="text-[#FF9F00] font-black">Smash Burger</span>
-              <span>Since 2024+</span>
-            </div>
+      <!-- RIGHT (kept for desktop balance, but simpler so no duplicate card) -->
+      <div class="hidden lg:flex justify-end">
+        <div class="glass-bright rounded-[2.5rem] p-10 relative">
+          <img src="tosbik-logo-2025.png" alt="Tosbik's Kitchen" class="logo-float w-[320px] object-contain" />
+          <div class="mt-6 hairline pt-5 flex items-center justify-between text-[10px] uppercase tracking-widest text-white/60">
+            <span>Rheine</span>
+            <span class="text-[#FF9F00] font-black">Smash Burger</span>
+            <span>Since 2024+</span>
           </div>
         </div>
       </div>
+
     </div>
 
-    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 text-white/40 text-[10px] uppercase tracking-[0.35em] flex items-center gap-3">
+    <div class="absolute bottom-6 left-1/2 -translate-x-1/2 text-white/40 text-[10px] uppercase tracking-[0.35em] flex items-center gap-3">
       <span>Scroll</span>
       <span class="w-10 h-px bg-white/20"></span>
     </div>
@@ -280,7 +299,9 @@
     <div class="max-w-6xl mx-auto">
       <div class="mb-10">
         <p class="text-[#FF9F00] font-bold uppercase text-[10px] tracking-widest mb-2">Warum Tosbik’s</p>
-        <h2 class="text-4xl md:text-6xl font-black uppercase italic tracking-tight">Wenig Schnickschnack.<br><span class="text-gradient">Viel Geschmack.</span></h2>
+        <h2 class="text-4xl md:text-6xl font-black uppercase italic tracking-tight">
+          Wenig Schnickschnack.<br><span class="text-gradient">Einfach guter Smash.</span>
+        </h2>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-12 gap-4">
@@ -290,8 +311,8 @@
           </div>
           <h3 class="text-2xl md:text-3xl font-black uppercase italic mb-4">So entsteht die Kruste</h3>
           <p class="text-gray-300 text-lg leading-relaxed max-w-2xl">
-            Wir smashen das Patty direkt auf der heißen Platte. Dadurch entsteht die typische Kruste
-            – außen knusprig, innen saftig. Dazu gute Zutaten und saubere Abläufe. Mehr braucht’s nicht.
+            Wir smashen das Patty direkt auf der heißen Platte. Dadurch entsteht die typische Kruste –
+            außen knusprig, innen saftig. Gute Zutaten, saubere Abläufe – fertig.
           </p>
         </div>
 
@@ -358,7 +379,6 @@
       </div>
 
       <div class="grid md:grid-cols-12 gap-4">
-        <!-- Big feature card -->
         <div class="md:col-span-7 bento-card glass-bright rounded-[2.5rem] p-8 md:p-10 relative overflow-hidden">
           <div class="absolute inset-0 opacity-30"
                style="background: radial-gradient(circle at 20% 20%, rgba(255,159,0,.35), transparent 55%), radial-gradient(circle at 80% 70%, rgba(255,95,0,.25), transparent 55%);">
@@ -390,7 +410,6 @@
           </div>
         </div>
 
-        <!-- List cards -->
         <div class="md:col-span-5 grid gap-4">
           <div class="bento-card glass rounded-[2.5rem] p-7">
             <div class="flex items-start justify-between gap-4">
@@ -440,35 +459,12 @@
     </div>
   </section>
 
-  <!-- BIG CTA -->
-  <section class="py-14 px-6 bg-[#030303]">
-    <div class="max-w-6xl mx-auto">
-      <div class="bento-card glass-bright rounded-[2.5rem] p-8 md:p-10 flex flex-col md:flex-row items-center justify-between gap-6">
-        <h2 class="text-4xl md:text-6xl font-black uppercase italic text-white opacity-90">
-          HUNGER AUF <span class="text-gradient">ECHTES?</span>
-        </h2>
-
-        <div class="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
-          <a href="https://www.lieferando.de/speisekarte/tosbiks-kitchen" target="_blank" rel="noopener"
-             class="bg-white text-black px-7 py-4 rounded-xl font-black uppercase text-xs hover:bg-[#FF9F00] transition text-center flex items-center justify-center gap-2">
-            Lieferando <i data-lucide="external-link" class="w-4 h-4"></i>
-          </a>
-
-          <a href="https://www.ubereats.com/store/tosbiks-kitchen/pBVRcipkUmGLkzAqVCP4Wg" target="_blank" rel="noopener"
-             class="glass px-7 py-4 rounded-xl font-black uppercase text-xs hover:border-white/20 transition text-center flex items-center justify-center gap-2">
-            Uber Eats <i data-lucide="external-link" class="w-4 h-4 text-[#FF9F00]"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- REVIEWS -->
   <section id="reviews" class="py-20 px-6 bg-[#050505]">
     <div class="max-w-6xl mx-auto">
       <div class="mb-10">
         <p class="text-[#FF9F00] font-bold uppercase text-[10px] tracking-widest mb-2">Bewertungen</p>
-        <h2 class="text-4xl md:text-6xl font-black uppercase italic tracking-tight">Was Gäste sagen.<br><span class="text-gradient">Kurz & ehrlich.</span></h2>
+        <h2 class="text-4xl md:text-6xl font-black uppercase italic tracking-tight">Was Gäste sagen.<br><span class="text-gradient"></span></h2>
       </div>
 
       <div class="grid md:grid-cols-3 gap-4">
@@ -603,7 +599,6 @@
   </footer>
 
   <script>
-    // Init icons safely after load
     window.addEventListener("DOMContentLoaded", () => {
       if (window.lucide) lucide.createIcons();
 
@@ -636,8 +631,8 @@
       if (window.gsap && window.ScrollTrigger && !reduceMotion) {
         gsap.registerPlugin(ScrollTrigger);
 
-        gsap.from("header .text-gradient, header h1, header p, header a", {
-          y: 18, opacity: 0, duration: 0.7, stagger: 0.07, ease: "power3.out"
+        gsap.from("header .glass-bright, header p, header a, header .flex", {
+          y: 14, opacity: 0, duration: 0.65, stagger: 0.06, ease: "power3.out"
         });
 
         gsap.utils.toArray(".bento-card").forEach((card) => {
