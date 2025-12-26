@@ -409,24 +409,24 @@
           </div>
         </div>
       </div>
-      
-<!-- HERO Buttons (SAFE + sichtbar auf iOS) -->
-<div class="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-3 max-w-2xl">
-  <a href="#menu"
-     class="bg-[#FF9F00] text-black px-7 py-4 rounded-xl font-black uppercase text-xs
-            flex items-center justify-center gap-3 hover:scale-[1.02] transition-transform w-full">
-    <span>Menü ansehen</span>
-    <i data-lucide="arrow-right" class="w-4 h-4"></i>
-  </a>
 
-  <a href="#visit"
-     class="px-7 py-4 rounded-xl font-black uppercase text-xs
-            flex items-center justify-center gap-3 w-full
-            bg-white/10 border border-white/15 text-white hover:border-white/25 transition">
-    <span>Jetzt bestellen</span>
-    <i data-lucide="shopping-bag" class="w-4 h-4 text-[#FF9F00]"></i>
-  </a>
-</div>
+      <!-- HERO Buttons (SAFE + sichtbar auf iOS) -->
+      <div id="heroButtons" class="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-3 max-w-2xl">
+        <a href="#menu"
+           class="bg-[#FF9F00] text-black px-7 py-4 rounded-xl font-black uppercase text-xs
+                  flex items-center justify-center gap-3 hover:scale-[1.02] transition-transform w-full">
+          <span>Menü ansehen</span>
+          <i data-lucide="arrow-right" class="w-4 h-4"></i>
+        </a>
+
+        <a href="#visit"
+           class="px-7 py-4 rounded-xl font-black uppercase text-xs
+                  flex items-center justify-center gap-3 w-full
+                  bg-white/10 border border-white/15 text-white hover:border-white/25 transition">
+          <span>Jetzt bestellen</span>
+          <i data-lucide="shopping-bag" class="w-4 h-4 text-[#FF9F00]"></i>
+        </a>
+      </div>
 
       <!-- GALLERY TICKER (pure HTML/CSS) -->
       <section id="gallery" class="relative z-10 mt-3 overflow-hidden border-t border-white/10 pt-8">
@@ -459,8 +459,6 @@
         Frisches Rind, hohe Hitze und eine richtig gute Kruste. Bei Tosbik’s Kitchen bekommst du Smash Burger,
         wie wir ihn selbst am liebsten essen – direkt in Rheine.
       </p>
-
-      
 
       <!-- Feature row -->
       <div class="flex flex-wrap items-center gap-6 text-[10px] font-bold uppercase tracking-widest text-white/60">
@@ -896,61 +894,29 @@
     });
   </script>
 
-<style>
-  /* FIX: Nur Carousel Bilder farbig */
-  #gallery img {
-    filter: none !important;
-  }
-</style>
   <style>
-/* =========================================
-   GLOBAL MOBILE SPACING FIX (SAFE)
-   Wirkt NUR auf Mobile, Desktop bleibt gleich
-   ========================================= */
+    /* FIX: Nur Carousel Bilder farbig */
+    #gallery img { filter: none !important; }
 
-@media (max-width: 640px) {
+    /* =========================================
+       MOBILE SPACING FIX (sauber + zielgenau)
+       Desktop bleibt unverändert
+       ========================================= */
+    @media (max-width: 640px) {
 
-  /* HERO: oben/unten mehr Luft */
-  header#home {
-    padding-top: 7rem !important;
-    padding-bottom: 4.5rem !important;
-  }
+      /* HERO: weniger „unnötig Space“ */
+      header#home { padding-bottom: 2.5rem !important; }
 
-  /* HERO CARD Abstand nach unten */
-  header#home .glass-bright {
-    margin-bottom: 2rem !important;
-  }
+      /* Buttons: minimal Abstand nach unten */
+      #heroButtons { margin-bottom: 0.75rem !important; }
 
-  /* BUTTON-BEREICH (Menü / Bestellen) */
-  header#home .grid,
-  header#home .flex {
-    gap: 1rem !important;
-  }
+      /* Gallery: weniger Abstand nach oben */
+      #gallery { margin-top: 0.75rem !important; padding-top: 1rem !important; }
 
-  /* Buttons selbst */
-  header#home a {
-    min-height: 56px;
-    padding-top: 1rem !important;
-    padding-bottom: 1rem !important;
-  }
+      /* Copytext: nicht zu weit weg */
+      header#home p { margin-top: 1.25rem !important; }
+    }
+  </style>
 
-  /* Abstand zwischen Buttons und Gallery */
-  #gallery {
-    margin-top: 3rem !important;
-    padding-top: 2rem !important;
-  }
-
-  /* Text unter Gallery */
-  header#home p {
-    margin-top: 2rem !important;
-  }
-
-  /* Allgemein: Sektionen auf Mobile luftiger */
-  section {
-    padding-top: 3.5rem !important;
-    padding-bottom: 3.5rem !important;
-  }
-}
-</style>
 </body>
 </html>
