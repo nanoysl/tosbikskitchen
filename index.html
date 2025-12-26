@@ -10,7 +10,7 @@
   <meta property="og:title" content="Tosbik's Kitchen | Smash Burger Rheine" />
   <meta property="og:description" content="Smash Burger & Loaded Fries in Rheine. Frisch zubereitet. Vorbeikommen oder online bestellen." />
   <meta property="og:type" content="website" />
-  <meta name="theme-color" content="#FF8A00" />
+  <meta name="theme-color" content="#FF9F00" />
 
   <!-- Perf: preconnect fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -28,35 +28,22 @@
   <script defer src="https://unpkg.com/lucide@latest"></script>
 
   <style>
-    :root {
-      /* leicht wärmer / edler als #FF9F00 */
-      --brand: #FF8A00;
-      --brand2: #FF5F00;
-      --ink: #030303;
-    }
-
-    body{
-      font-family:'Inter',sans-serif;
-      background: var(--ink);
-      color:#fff;
-      overflow-x:hidden;
-
-      /* Typo-Feinschliff: wirkt sofort hochwertiger */
-      font-size: 17px;
-      line-height: 1.6;
-      text-rendering: geometricPrecision;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
+    :root { --brand: #FF9F00; --brand2: #FF5F00; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #030303;
+      color: #fff;
+      overflow-x: hidden;
     }
 
     /* Igloo-ish cinematic background: glow + grain + vignette */
-    .bg-cinema{
-      position:relative;
-      isolation:isolate;
+    .bg-cinema {
+      position: relative;
+      isolation: isolate;
       background:
-        radial-gradient(1200px 600px at 20% 20%, rgba(255,138,0,.18), transparent 55%),
+        radial-gradient(1200px 600px at 20% 20%, rgba(255,159,0,.18), transparent 55%),
         radial-gradient(900px 700px at 80% 30%, rgba(255,95,0,.16), transparent 55%),
-        radial-gradient(700px 700px at 50% 80%, rgba(255,138,0,.10), transparent 55%),
+        radial-gradient(700px 700px at 50% 80%, rgba(255,159,0,.10), transparent 55%),
         linear-gradient(180deg, #050505 0%, #030303 60%, #030303 100%);
     }
     .bg-cinema:before{
@@ -73,85 +60,63 @@
       content:"";
       position:absolute; inset:0;
       pointer-events:none;
-      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E");
+      background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E");
       mix-blend-mode: overlay;
-      opacity:.18;
-      z-index:0;
+      opacity: .18;
+      z-index: 0;
     }
 
-    .glass{
+    .glass {
       background: rgba(255,255,255,0.04);
       backdrop-filter: blur(18px);
       -webkit-backdrop-filter: blur(18px);
       border: 1px solid rgba(255,255,255,0.10);
     }
-    .glass-bright{
+    .glass-bright {
       background: rgba(255,255,255,0.07);
       border: 1px solid rgba(255,255,255,0.14);
       backdrop-filter: blur(18px);
       -webkit-backdrop-filter: blur(18px);
     }
 
-    .text-gradient{
+    .text-gradient {
       background: linear-gradient(135deg, var(--brand), var(--brand2));
-      -webkit-background-clip:text;
-      -webkit-text-fill-color:transparent;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
 
-    .bento-card{
-      position: relative;
+    .bento-card {
       transition: transform .45s cubic-bezier(.2,1,.25,1), border-color .45s ease, background .45s ease;
       border: 1px solid rgba(255,255,255,0.06);
       will-change: transform;
-      overflow: hidden; /* für Magic Hover */
     }
-    .bento-card:hover{
-      border-color: rgba(255,138,0,0.85);
+    .bento-card:hover {
+      border-color: rgba(255,159,0,0.85);
       transform: translateY(-4px);
     }
 
-    /* Magic Hover (cursor glow) */
-    .bento-card:before{
-      content:"";
-      position:absolute; inset:-1px;
-      background: radial-gradient(380px circle at var(--mx, 50%) var(--my, 40%),
-        rgba(255,138,0,.16),
-        rgba(255,95,0,.08) 35%,
-        transparent 60%);
-      opacity:0;
-      transition: opacity .25s ease;
-      pointer-events:none;
-      z-index:0;
-    }
-    .bento-card:hover:before{ opacity:1; }
-    .bento-card > *{ position: relative; z-index: 1; }
-
-    .logo-float{ animation:floating 6s ease-in-out infinite; filter: drop-shadow(0 0 22px rgba(255,138,0,.22)); }
-    @keyframes floating{ 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+    .logo-float { animation: floating 6s ease-in-out infinite; filter: drop-shadow(0 0 22px rgba(255,159,0,.22)); }
+    @keyframes floating { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
 
     /* Cursor (desktop only) */
-    #cursor{ transition: transform 0.2s ease-out; }
+    #cursor { transition: transform 0.2s ease-out; }
 
-    .hairline{ border-top: 1px solid rgba(255,255,255,0.06); }
+    /* Subtle separators */
+    .hairline { border-top: 1px solid rgba(255,255,255,0.06); }
 
-    a:focus-visible, button:focus-visible{
-      outline: 2px solid rgba(255,138,0,.92);
+    /* Focus */
+    a:focus-visible, button:focus-visible {
+      outline: 2px solid rgba(255,159,0,.9);
       outline-offset: 3px;
       border-radius: 12px;
     }
 
-    /* Modal */
-    .modal-backdrop{
-      background: rgba(0,0,0,.62);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-    }
-
-    @media (prefers-reduced-motion: reduce){
-      .logo-float{ animation:none !important; }
-      #cursor{ display:none !important; }
-      html{ scroll-behavior:auto !important; }
-      .bento-card:before{ display:none !important; }
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      .logo-float { animation: none !important; }
+      #cursor { display:none !important; }
+      html { scroll-behavior: auto !important; }
     }
   </style>
 
@@ -181,7 +146,7 @@
 <body>
 
   <!-- Custom cursor -->
-  <div id="cursor" class="fixed w-6 h-6 border-2 border-[var(--brand)] rounded-full pointer-events-none z-[9999] hidden md:block"></div>
+  <div id="cursor" class="fixed w-6 h-6 border-2 border-[#FF9F00] rounded-full pointer-events-none z-[9999] hidden md:block"></div>
 
   <!-- NAV -->
   <nav class="fixed w-full z-50 px-4 py-4">
@@ -189,25 +154,24 @@
       <a href="#home" class="flex items-center gap-3 group">
         <img src="tosbik-logo-2025.png" alt="Tosbik's Kitchen Logo" class="w-9 h-9 object-contain" />
         <div class="leading-none">
-          <span class="block font-black uppercase text-base italic group-hover:text-[var(--brand)] transition-colors">Tosbik's</span>
+          <span class="block font-black uppercase text-base italic group-hover:text-[#FF9F00] transition-colors">Tosbik's</span>
           <span class="text-[8px] font-bold tracking-[0.22em] uppercase opacity-70">Kitchen</span>
         </div>
       </a>
 
       <div class="hidden md:flex gap-8 text-[10px] font-black uppercase tracking-widest">
-        <a data-nav href="#home" class="opacity-80 hover:opacity-100 hover:text-[var(--brand)] transition-colors">Home</a>
-        <a data-nav href="#story" class="opacity-80 hover:opacity-100 hover:text-[var(--brand)] transition-colors">Story</a>
-        <a data-nav href="#menu" class="opacity-80 hover:opacity-100 hover:text-[var(--brand)] transition-colors">Menü</a>
-        <a data-nav href="#reviews" class="opacity-80 hover:opacity-100 hover:text-[var(--brand)] transition-colors">Reviews</a>
-        <a data-nav href="#visit" class="opacity-80 hover:opacity-100 hover:text-[var(--brand)] transition-colors">Besuch</a>
+        <a data-nav href="#home" class="opacity-80 hover:opacity-100 hover:text-[#FF9F00] transition-colors">Home</a>
+        <a data-nav href="#story" class="opacity-80 hover:opacity-100 hover:text-[#FF9F00] transition-colors">Story</a>
+        <a data-nav href="#menu" class="opacity-80 hover:opacity-100 hover:text-[#FF9F00] transition-colors">Menü</a>
+        <a data-nav href="#reviews" class="opacity-80 hover:opacity-100 hover:text-[#FF9F00] transition-colors">Reviews</a>
+        <a data-nav href="#visit" class="opacity-80 hover:opacity-100 hover:text-[#FF9F00] transition-colors">Besuch</a>
       </div>
 
       <div class="flex items-center gap-2">
-        <!-- Top-CTA: Modal statt “einfach irgendwo hin” -->
-        <button data-order-open
-          class="hidden sm:inline-flex bg-white text-black px-4 py-1.5 rounded-lg font-black text-[10px] uppercase hover:bg-[var(--brand)] transition-all">
+        <a href="https://www.lieferando.de/speisekarte/tosbiks-kitchen" target="_blank" rel="noopener"
+           class="hidden sm:inline-flex bg-white text-black px-4 py-1.5 rounded-lg font-black text-[10px] uppercase hover:bg-[#FF9F00] transition-all">
           Bestellen
-        </button>
+        </a>
 
         <button id="mobileBtn" class="md:hidden inline-flex items-center justify-center w-10 h-10 rounded-xl glass hover:border-white/20 transition"
                 aria-label="Menü öffnen" aria-expanded="false">
@@ -219,117 +183,85 @@
     <!-- Mobile menu -->
     <div id="mobileMenu" class="max-w-6xl mx-auto mt-3 hidden">
       <div class="glass rounded-2xl p-4 flex flex-col gap-3 text-[11px] font-black uppercase tracking-widest">
-        <a class="opacity-80 hover:opacity-100 hover:text-[var(--brand)] transition-colors" href="#home">Home</a>
-        <a class="opacity-80 hover:opacity-100 hover:text-[var(--brand)] transition-colors" href="#story">Story</a>
-        <a class="opacity-80 hover:opacity-100 hover:text-[var(--brand)] transition-colors" href="#menu">Menü</a>
-        <a class="opacity-80 hover:opacity-100 hover:text-[var(--brand)] transition-colors" href="#reviews">Reviews</a>
-        <a class="opacity-80 hover:opacity-100 hover:text-[var(--brand)] transition-colors" href="#visit">Besuch</a>
+        <a class="opacity-80 hover:opacity-100 hover:text-[#FF9F00] transition-colors" href="#home">Home</a>
+        <a class="opacity-80 hover:opacity-100 hover:text-[#FF9F00] transition-colors" href="#story">Story</a>
+        <a class="opacity-80 hover:opacity-100 hover:text-[#FF9F00] transition-colors" href="#menu">Menü</a>
+        <a class="opacity-80 hover:opacity-100 hover:text-[#FF9F00] transition-colors" href="#reviews">Reviews</a>
+        <a class="opacity-80 hover:opacity-100 hover:text-[#FF9F00] transition-colors" href="#visit">Besuch</a>
 
-        <button data-order-open
-          class="mt-2 bg-white text-black px-4 py-3 rounded-xl font-black text-[11px] uppercase hover:bg-[var(--brand)] transition-all text-center">
-          Bestellen
-        </button>
+        <a href="https://www.lieferando.de/speisekarte/tosbiks-kitchen" target="_blank" rel="noopener"
+           class="mt-2 bg-white text-black px-4 py-3 rounded-xl font-black text-[11px] uppercase hover:bg-[#FF9F00] transition-all text-center">
+          Bestellen (Lieferando)
+        </a>
+
+        <a href="https://www.ubereats.com/store/tosbiks-kitchen/pBVRcipkUmGLkzAqVCP4Wg" target="_blank" rel="noopener"
+           class="bg-white/10 border border-white/15 text-white px-4 py-3 rounded-xl font-black text-[11px] uppercase hover:border-white/25 transition-all text-center">
+          Bestellen (Uber Eats)
+        </a>
       </div>
     </div>
   </nav>
-
-  <!-- ORDER MODAL -->
-  <div id="orderModal" class="fixed inset-0 z-[9998] hidden">
-    <div class="absolute inset-0 modal-backdrop"></div>
-
-    <div class="relative max-w-xl mx-auto px-6 h-full flex items-center">
-      <div class="glass-bright rounded-[2.5rem] p-7 md:p-9 w-full">
-        <div class="flex items-start justify-between gap-4">
-          <div>
-            <p class="text-[var(--brand)] font-bold uppercase text-[10px] tracking-widest mb-2">Bestellen</p>
-            <h3 class="text-2xl md:text-3xl font-black uppercase italic leading-tight">
-              Wähle deine Plattform
-            </h3>
-            <p class="text-white/70 text-sm mt-3">
-              Bestellung läuft direkt über Lieferando oder Uber Eats.
-            </p>
-          </div>
-
-          <button id="orderClose" class="w-11 h-11 rounded-2xl glass hover:border-white/20 transition flex items-center justify-center"
-                  aria-label="Modal schließen">
-            <i data-lucide="x" class="w-5 h-5"></i>
-          </button>
-        </div>
-
-        <div class="mt-6 grid sm:grid-cols-2 gap-3">
-          <a href="https://www.lieferando.de/speisekarte/tosbiks-kitchen" target="_blank" rel="noopener"
-             class="bg-white text-black px-6 py-4 rounded-2xl font-black uppercase text-xs hover:bg-[var(--brand)] transition flex items-center justify-center gap-2">
-            Lieferando öffnen <i data-lucide="external-link" class="w-4 h-4"></i>
-          </a>
-
-          <a href="https://www.ubereats.com/store/tosbiks-kitchen/pBVRcipkUmGLkzAqVCP4Wg" target="_blank" rel="noopener"
-             class="glass px-6 py-4 rounded-2xl font-black uppercase text-xs hover:border-white/20 transition flex items-center justify-center gap-2">
-            Uber Eats öffnen <i data-lucide="external-link" class="w-4 h-4 text-[var(--brand)]"></i>
-          </a>
-        </div>
-
-        <div class="hairline my-6"></div>
-
-        <div class="flex items-center justify-between text-[10px] uppercase tracking-widest text-white/50">
-          <span>Rheine</span>
-          <span class="text-[var(--brand)] font-black">Smash Burger</span>
-          <span>Halal</span>
-        </div>
-      </div>
-    </div>
-  </div>
 
   <!-- HERO -->
   <header id="home" class="bg-cinema relative min-h-[92vh] flex items-center px-6 pt-20">
     <div class="max-w-6xl mx-auto grid lg:grid-cols-2 gap-10 items-center w-full relative z-10">
       <div>
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[var(--brand)] text-[9px] font-bold uppercase tracking-widest mb-6">
-          <span class="flex h-1.5 w-1.5 rounded-full bg-[var(--brand)] animate-pulse"></span>
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[#FF9F00] text-[9px] font-bold uppercase tracking-widest mb-6">
+          <span class="flex h-1.5 w-1.5 rounded-full bg-[#FF9F00] animate-pulse"></span>
           Smash Burger · Halal · frisch zubereitet
         </div>
 
         <h1 class="text-6xl md:text-8xl lg:text-[104px] font-black uppercase italic leading-[0.82] mb-6 tracking-tighter">
-          GUTE ZUTATEN.<br><span class="text-gradient">GUTER BURGER.</span>
+          GUTE<br><span class="text-gradient">ZUTATEN.</span>
         </h1>
 
-        <p class="text-gray-300 text-[17px] md:text-lg max-w-xl mb-8 leading-relaxed">
+        <p class="text-gray-300 text-base md:text-lg max-w-xl mb-8 leading-snug">
           Frisches Rind, hohe Hitze, eine richtig gute Kruste. Bei Tosbik’s Kitchen bekommst du Smash Burger,
           wie wir ihn selbst am liebsten essen – direkt in Rheine.
         </p>
 
         <div class="flex flex-col sm:flex-row gap-3">
-          <a href="#menu" class="bg-[var(--brand)] text-black px-7 py-4 rounded-xl font-black uppercase text-xs flex items-center justify-center gap-3 hover:scale-[1.03] transition-transform">
+          <a href="#menu" class="bg-[#FF9F00] text-black px-7 py-4 rounded-xl font-black uppercase text-xs flex items-center justify-center gap-3 hover:scale-[1.03] transition-transform">
             Menü ansehen <i data-lucide="arrow-right" class="w-4 h-4"></i>
           </a>
-
-          <!-- CTA: öffnet Modal -->
-          <button data-order-open class="glass px-7 py-4 rounded-xl font-black uppercase text-xs flex items-center justify-center gap-3 hover:border-white/20 transition">
-            Jetzt bestellen <i data-lucide="shopping-bag" class="w-4 h-4 text-[var(--brand)]"></i>
-          </button>
+          <a href="#visit" class="glass px-7 py-4 rounded-xl font-black uppercase text-xs flex items-center justify-center gap-3 hover:border-white/20 transition">
+            Standort & Zeiten <i data-lucide="map-pin" class="w-4 h-4 text-[#FF9F00]"></i>
+          </a>
         </div>
 
         <div class="mt-10 flex items-center gap-6 text-[10px] font-bold uppercase tracking-widest text-white/60">
           <div class="flex items-center gap-2">
-            <i data-lucide="flame" class="w-4 h-4 text-[var(--brand)]"></i>
+            <i data-lucide="flame" class="w-4 h-4 text-[#FF9F00]"></i>
             <span>Smash auf Platte</span>
           </div>
           <div class="flex items-center gap-2">
-            <i data-lucide="badge-check" class="w-4 h-4 text-[var(--brand)]"></i>
+            <i data-lucide="badge-check" class="w-4 h-4 text-[#FF9F00]"></i>
             <span>Frisch · nicht gefroren</span>
           </div>
         </div>
       </div>
 
       <div class="flex justify-center lg:justify-end">
-        <div class="relative">
+        <div class="relative w-full max-w-[520px]">
           <div class="absolute -inset-6 rounded-[2.5rem] blur-2xl opacity-40"
-               style="background: radial-gradient(circle at 30% 30%, rgba(255,138,0,.45), transparent 55%), radial-gradient(circle at 70% 60%, rgba(255,95,0,.35), transparent 55%);">
+               style="background: radial-gradient(circle at 30% 30%, rgba(255,159,0,.45), transparent 55%), radial-gradient(circle at 70% 60%, rgba(255,95,0,.35), transparent 55%);">
           </div>
-          <div class="glass-bright rounded-[2.5rem] p-10 relative">
-            <img src="tosbik-logo-2025.png" alt="Tosbik's Kitchen" class="logo-float w-[260px] md:w-[320px] object-contain" />
-            <div class="mt-6 hairline pt-5 flex items-center justify-between text-[10px] uppercase tracking-widest text-white/60">
+
+          <!-- UPDATED HERO LOGO CARD (claim inside, logo under it) -->
+          <div class="glass-bright rounded-[2.5rem] p-8 md:p-10 relative">
+            <div class="text-center">
+              <h2 class="text-4xl md:text-5xl font-black uppercase italic leading-[0.9] tracking-tight">
+                GUTE ZUTATEN.<br><span class="text-gradient">GUTER BURGER.</span>
+              </h2>
+
+              <div class="mt-8 flex justify-center">
+                <img src="tosbik-logo-2025.png" alt="Tosbik's Kitchen" class="logo-float w-[190px] md:w-[220px] object-contain" />
+              </div>
+            </div>
+
+            <div class="mt-8 hairline pt-5 flex items-center justify-between text-[10px] uppercase tracking-widest text-white/60">
               <span>Rheine</span>
-              <span class="text-[var(--brand)] font-black">Smash Burger</span>
+              <span class="text-[#FF9F00] font-black">Smash Burger</span>
               <span>Since 2024+</span>
             </div>
           </div>
@@ -347,16 +279,16 @@
   <section id="story" class="py-20 px-6 bg-[#050505]">
     <div class="max-w-6xl mx-auto">
       <div class="mb-10">
-        <p class="text-[var(--brand)] font-bold uppercase text-[10px] tracking-widest mb-2">Warum Tosbik’s</p>
-        <h2 class="text-4xl md:text-6xl font-black uppercase italic tracking-tight">HITZE, TIMING, GESCHMACK.<br><span class="text-gradient">TOSBIK'S KITCHEN.</span></h2>
+        <p class="text-[#FF9F00] font-bold uppercase text-[10px] tracking-widest mb-2">Warum Tosbik’s</p>
+        <h2 class="text-4xl md:text-6xl font-black uppercase italic tracking-tight">Wenig Schnickschnack.<br><span class="text-gradient">Viel Geschmack.</span></h2>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-12 gap-4">
         <div class="md:col-span-8 bento-card glass-bright rounded-[2.5rem] p-8 md:p-10 flex flex-col justify-center min-h-[320px]">
-          <div class="w-12 h-12 rounded-xl bg-[var(--brand)]/20 flex items-center justify-center text-[var(--brand)] mb-6">
+          <div class="w-12 h-12 rounded-xl bg-[#FF9F00]/20 flex items-center justify-center text-[#FF9F00] mb-6">
             <i data-lucide="award" class="w-6 h-6"></i>
           </div>
-          <h3 class="text-2xl md:text-3xl font-black uppercase italic mb-4">Der perfekte Smash</h3>
+          <h3 class="text-2xl md:text-3xl font-black uppercase italic mb-4">So entsteht die Kruste</h3>
           <p class="text-gray-300 text-lg leading-relaxed max-w-2xl">
             Wir smashen das Patty direkt auf der heißen Platte. Dadurch entsteht die typische Kruste
             – außen knusprig, innen saftig. Dazu gute Zutaten und saubere Abläufe. Mehr braucht’s nicht.
@@ -365,7 +297,7 @@
 
         <div class="md:col-span-4 grid gap-4">
           <div class="bento-card bg-white text-black rounded-[2.5rem] p-8 flex flex-col justify-between">
-            <div class="flex gap-1 text-[var(--brand)]">
+            <div class="flex gap-1 text-[#FF9F00]">
               <i data-lucide="star" class="fill-current w-4 h-4"></i>
               <i data-lucide="star" class="fill-current w-4 h-4"></i>
               <i data-lucide="star" class="fill-current w-4 h-4"></i>
@@ -380,7 +312,7 @@
 
           <div class="bento-card glass rounded-[2.5rem] p-8 flex items-center gap-4">
             <div class="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center">
-              <i data-lucide="flame" class="text-[var(--brand)] w-6 h-6"></i>
+              <i data-lucide="flame" class="text-[#FF9F00] w-6 h-6"></i>
             </div>
             <div>
               <p class="font-black uppercase italic text-sm">Frisch statt gefroren</p>
@@ -389,14 +321,13 @@
           </div>
         </div>
 
-        <div class="md:col-span-12 bento-card glass-bright rounded-[2.5rem] p-8 flex flex-col md:flex-row justify-between items-center border-l-4"
-             style="border-left-color: var(--brand);">
+        <div class="md:col-span-12 bento-card glass-bright rounded-[2.5rem] p-8 flex flex-col md:flex-row justify-between items-center border-l-4 border-l-[#FF9F00]">
           <div class="mb-4 md:mb-0">
-            <p class="text-[var(--brand)] font-bold uppercase text-[10px] tracking-widest mb-1">Location</p>
+            <p class="text-[#FF9F00] font-bold uppercase text-[10px] tracking-widest mb-1">Location</p>
             <h4 class="text-2xl font-black italic uppercase">Bonifatiusstraße 48a, 48429 Rheine</h4>
           </div>
           <div class="text-center md:text-right">
-            <p class="text-[var(--brand)] font-bold uppercase text-[10px] tracking-widest mb-1">Öffnungszeiten</p>
+            <p class="text-[#FF9F00] font-bold uppercase text-[10px] tracking-widest mb-1">Öffnungszeiten</p>
             <p class="text-xl font-black italic uppercase">Di – So · 17:00 – 22:00</p>
             <p class="text-white/40 text-xs mt-1">Zeiten ggf. an Feiertagen abweichend.</p>
           </div>
@@ -411,18 +342,18 @@
     <div class="max-w-6xl mx-auto">
       <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10">
         <div>
-          <p class="text-[var(--brand)] font-bold uppercase text-[10px] tracking-widest mb-2">Menü Highlights</p>
+          <p class="text-[#FF9F00] font-bold uppercase text-[10px] tracking-widest mb-2">Menü Highlights</p>
           <h2 class="text-4xl md:text-6xl font-black uppercase italic tracking-tight">Unsere Favoriten.<br><span class="text-gradient">Einfach richtig gut.</span></h2>
         </div>
         <div class="flex gap-3">
           <a href="https://www.instagram.com/tosbiks_kitchen/" target="_blank" rel="noopener"
              class="glass px-5 py-3 rounded-xl font-black uppercase text-xs hover:border-white/20 transition flex items-center gap-2">
-            Instagram <i data-lucide="instagram" class="w-4 h-4 text-[var(--brand)]"></i>
+            Instagram <i data-lucide="instagram" class="w-4 h-4 text-[#FF9F00]"></i>
           </a>
-          <button data-order-open
-             class="bg-white text-black px-5 py-3 rounded-xl font-black uppercase text-xs hover:bg-[var(--brand)] transition flex items-center gap-2">
+          <a href="#visit"
+             class="bg-white text-black px-5 py-3 rounded-xl font-black uppercase text-xs hover:bg-[#FF9F00] transition flex items-center gap-2">
             Jetzt bestellen <i data-lucide="shopping-bag" class="w-4 h-4"></i>
-          </button>
+          </a>
         </div>
       </div>
 
@@ -430,10 +361,10 @@
         <!-- Big feature card -->
         <div class="md:col-span-7 bento-card glass-bright rounded-[2.5rem] p-8 md:p-10 relative overflow-hidden">
           <div class="absolute inset-0 opacity-30"
-               style="background: radial-gradient(circle at 20% 20%, rgba(255,138,0,.35), transparent 55%), radial-gradient(circle at 80% 70%, rgba(255,95,0,.25), transparent 55%);">
+               style="background: radial-gradient(circle at 20% 20%, rgba(255,159,0,.35), transparent 55%), radial-gradient(circle at 80% 70%, rgba(255,95,0,.25), transparent 55%);">
           </div>
           <div class="relative">
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[var(--brand)] text-[9px] font-bold uppercase tracking-widest mb-5">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[#FF9F00] text-[9px] font-bold uppercase tracking-widest mb-5">
               Signature
             </div>
             <h3 class="text-3xl md:text-4xl font-black uppercase italic tracking-tight">Smashies Signature</h3>
@@ -464,7 +395,7 @@
           <div class="bento-card glass rounded-[2.5rem] p-7">
             <div class="flex items-start justify-between gap-4">
               <div>
-                <p class="text-[var(--brand)] font-bold uppercase text-[10px] tracking-widest">Burger</p>
+                <p class="text-[#FF9F00] font-bold uppercase text-[10px] tracking-widest">Burger</p>
                 <h4 class="text-2xl font-black italic uppercase mt-1">Mc Smash</h4>
                 <p class="text-white/60 text-sm mt-2 leading-snug">
                   Smashed Rindfleischpatty, Ketchup, Senfmayo, Essiggurken, Zwiebeln. Halal.
@@ -481,11 +412,11 @@
 
           <div class="bento-card glass-bright rounded-[2.5rem] p-7">
             <div class="flex items-center gap-3">
-              <div class="w-12 h-12 rounded-2xl bg-[var(--brand)]/15 border border-[var(--brand)]/30 flex items-center justify-center">
-                <i data-lucide="pizza" class="w-6 h-6 text-[var(--brand)]"></i>
+              <div class="w-12 h-12 rounded-2xl bg-[#FF9F00]/15 border border-[#FF9F00]/30 flex items-center justify-center">
+                <i data-lucide="pizza" class="w-6 h-6 text-[#FF9F00]"></i>
               </div>
               <div>
-                <p class="text-[var(--brand)] font-bold uppercase text-[10px] tracking-widest">Loaded Fries</p>
+                <p class="text-[#FF9F00] font-bold uppercase text-[10px] tracking-widest">Loaded Fries</p>
                 <h4 class="text-xl font-black italic uppercase">Passt immer</h4>
               </div>
             </div>
@@ -494,11 +425,11 @@
 
           <div class="bento-card glass rounded-[2.5rem] p-7 flex items-center justify-between">
             <div>
-              <p class="text-[var(--brand)] font-bold uppercase text-[10px] tracking-widest">Tipp</p>
+              <p class="text-[#FF9F00] font-bold uppercase text-[10px] tracking-widest">Tipp</p>
               <h4 class="text-xl font-black italic uppercase mt-1">Abholung lohnt sich</h4>
               <p class="text-white/60 text-sm mt-1">Kurz vorbei, warm mitnehmen, voller Crunch.</p>
             </div>
-            <i data-lucide="timer" class="w-6 h-6 text-[var(--brand)]"></i>
+            <i data-lucide="timer" class="w-6 h-6 text-[#FF9F00]"></i>
           </div>
         </div>
       </div>
@@ -509,7 +440,7 @@
     </div>
   </section>
 
-  <!-- BIG CTA: moved up -->
+  <!-- BIG CTA -->
   <section class="py-14 px-6 bg-[#030303]">
     <div class="max-w-6xl mx-auto">
       <div class="bento-card glass-bright rounded-[2.5rem] p-8 md:p-10 flex flex-col md:flex-row items-center justify-between gap-6">
@@ -518,15 +449,14 @@
         </h2>
 
         <div class="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
-          <button data-order-open
-             class="bg-white text-black px-7 py-4 rounded-xl font-black uppercase text-xs hover:bg-[var(--brand)] transition text-center flex items-center justify-center gap-2 w-full md:w-auto">
-            Jetzt bestellen <i data-lucide="external-link" class="w-4 h-4"></i>
-          </button>
+          <a href="https://www.lieferando.de/speisekarte/tosbiks-kitchen" target="_blank" rel="noopener"
+             class="bg-white text-black px-7 py-4 rounded-xl font-black uppercase text-xs hover:bg-[#FF9F00] transition text-center flex items-center justify-center gap-2">
+            Lieferando <i data-lucide="external-link" class="w-4 h-4"></i>
+          </a>
 
-          <a href="https://www.google.com/maps/search/?api=1&query=Bonifatiusstra%C3%9Fe%2048a%2048429%20Rheine%20Tosbik's%20Kitchen"
-             target="_blank" rel="noopener"
-             class="glass px-7 py-4 rounded-xl font-black uppercase text-xs hover:border-white/20 transition text-center flex items-center justify-center gap-2 w-full md:w-auto">
-            Route öffnen <i data-lucide="navigation" class="w-4 h-4 text-[var(--brand)]"></i>
+          <a href="https://www.ubereats.com/store/tosbiks-kitchen/pBVRcipkUmGLkzAqVCP4Wg" target="_blank" rel="noopener"
+             class="glass px-7 py-4 rounded-xl font-black uppercase text-xs hover:border-white/20 transition text-center flex items-center justify-center gap-2">
+            Uber Eats <i data-lucide="external-link" class="w-4 h-4 text-[#FF9F00]"></i>
           </a>
         </div>
       </div>
@@ -537,13 +467,13 @@
   <section id="reviews" class="py-20 px-6 bg-[#050505]">
     <div class="max-w-6xl mx-auto">
       <div class="mb-10">
-        <p class="text-[var(--brand)] font-bold uppercase text-[10px] tracking-widest mb-2">Bewertungen</p>
-        <h2 class="text-4xl md:text-6xl font-black uppercase italic tracking-tight">Was Gäste sagen.<br><span class="text-gradient"></span></h2>
+        <p class="text-[#FF9F00] font-bold uppercase text-[10px] tracking-widest mb-2">Bewertungen</p>
+        <h2 class="text-4xl md:text-6xl font-black uppercase italic tracking-tight">Was Gäste sagen.<br><span class="text-gradient">Kurz & ehrlich.</span></h2>
       </div>
 
       <div class="grid md:grid-cols-3 gap-4">
         <div class="bento-card glass-bright rounded-[2.5rem] p-7">
-          <div class="flex gap-1 text-[var(--brand)] mb-4">
+          <div class="flex gap-1 text-[#FF9F00] mb-4">
             <i data-lucide="star" class="fill-current w-4 h-4"></i><i data-lucide="star" class="fill-current w-4 h-4"></i>
             <i data-lucide="star" class="fill-current w-4 h-4"></i><i data-lucide="star" class="fill-current w-4 h-4"></i>
             <i data-lucide="star" class="fill-current w-4 h-4"></i>
@@ -556,7 +486,7 @@
 
         <div class="bento-card glass rounded-[2.5rem] p-7">
           <div class="flex items-center justify-between">
-            <div class="flex gap-1 text-[var(--brand)]">
+            <div class="flex gap-1 text-[#FF9F00]">
               <i data-lucide="star" class="fill-current w-4 h-4"></i><i data-lucide="star" class="fill-current w-4 h-4"></i>
               <i data-lucide="star" class="fill-current w-4 h-4"></i><i data-lucide="star" class="fill-current w-4 h-4"></i>
               <i data-lucide="star" class="fill-current w-4 h-4"></i>
@@ -571,11 +501,11 @@
 
         <div class="bento-card glass-bright rounded-[2.5rem] p-7">
           <div class="flex items-center gap-3">
-            <div class="w-12 h-12 rounded-2xl bg-[var(--brand)]/15 border border-[var(--brand)]/30 flex items-center justify-center">
-              <i data-lucide="badge-check" class="w-6 h-6 text-[var(--brand)]"></i>
+            <div class="w-12 h-12 rounded-2xl bg-[#FF9F00]/15 border border-[#FF9F00]/30 flex items-center justify-center">
+              <i data-lucide="badge-check" class="w-6 h-6 text-[#FF9F00]"></i>
             </div>
             <div>
-              <p class="text-[var(--brand)] font-bold uppercase text-[10px] tracking-widest">Score</p>
+              <p class="text-[#FF9F00] font-bold uppercase text-[10px] tracking-widest">Score</p>
               <h4 class="text-2xl font-black italic uppercase">4.8 ★</h4>
             </div>
           </div>
@@ -592,12 +522,12 @@
     <div class="max-w-6xl mx-auto">
       <div class="bento-card glass-bright rounded-[2.5rem] p-8 md:p-12 overflow-hidden relative">
         <div class="absolute inset-0 opacity-35"
-             style="background: radial-gradient(circle at 15% 20%, rgba(255,138,0,.35), transparent 60%), radial-gradient(circle at 85% 70%, rgba(255,95,0,.30), transparent 60%);">
+             style="background: radial-gradient(circle at 15% 20%, rgba(255,159,0,.35), transparent 60%), radial-gradient(circle at 85% 70%, rgba(255,95,0,.30), transparent 60%);">
         </div>
 
         <div class="relative grid md:grid-cols-2 gap-10 items-center">
           <div>
-            <p class="text-[var(--brand)] font-bold uppercase text-[10px] tracking-widest mb-2">Bestellen</p>
+            <p class="text-[#FF9F00] font-bold uppercase text-[10px] tracking-widest mb-2">Bestellen</p>
             <h2 class="text-4xl md:text-6xl font-black uppercase italic leading-[0.9]">
               Vorbeikommen oder<br><span class="text-gradient">online bestellen.</span>
             </h2>
@@ -606,14 +536,14 @@
             </p>
 
             <div class="mt-7 flex flex-col sm:flex-row gap-3">
-              <button data-order-open
-                 class="bg-white text-black px-7 py-4 rounded-xl font-black uppercase text-xs hover:bg-[var(--brand)] transition flex items-center justify-center gap-2">
-                Bestellung öffnen <i data-lucide="external-link" class="w-4 h-4"></i>
-              </button>
+              <a href="https://www.lieferando.de/speisekarte/tosbiks-kitchen" target="_blank" rel="noopener"
+                 class="bg-white text-black px-7 py-4 rounded-xl font-black uppercase text-xs hover:bg-[#FF9F00] transition flex items-center justify-center gap-2">
+                Lieferando öffnen <i data-lucide="external-link" class="w-4 h-4"></i>
+              </a>
 
-              <a href="https://www.instagram.com/tosbiks_kitchen/" target="_blank" rel="noopener"
+              <a href="https://www.ubereats.com/store/tosbiks-kitchen/pBVRcipkUmGLkzAqVCP4Wg" target="_blank" rel="noopener"
                  class="glass px-7 py-4 rounded-xl font-black uppercase text-xs hover:border-white/20 transition flex items-center justify-center gap-2">
-                Instagram <i data-lucide="instagram" class="w-4 h-4 text-[var(--brand)]"></i>
+                Uber Eats öffnen <i data-lucide="external-link" class="w-4 h-4 text-[#FF9F00]"></i>
               </a>
             </div>
           </div>
@@ -621,28 +551,28 @@
           <div class="glass rounded-[2rem] p-6 md:p-8">
             <div class="flex items-start justify-between gap-6">
               <div>
-                <p class="text-[var(--brand)] font-bold uppercase text-[10px] tracking-widest mb-1">Adresse</p>
+                <p class="text-[#FF9F00] font-bold uppercase text-[10px] tracking-widest mb-1">Adresse</p>
                 <p class="text-xl font-black italic uppercase">Bonifatiusstraße 48a</p>
                 <p class="text-white/60 text-sm mt-1">48429 Rheine</p>
               </div>
-              <i data-lucide="map-pin" class="w-6 h-6 text-[var(--brand)]"></i>
+              <i data-lucide="map-pin" class="w-6 h-6 text-[#FF9F00]"></i>
             </div>
 
             <div class="hairline my-6"></div>
 
             <div class="flex items-start justify-between gap-6">
               <div>
-                <p class="text-[var(--brand)] font-bold uppercase text-[10px] tracking-widest mb-1">Öffnungszeiten</p>
+                <p class="text-[#FF9F00] font-bold uppercase text-[10px] tracking-widest mb-1">Öffnungszeiten</p>
                 <p class="text-xl font-black italic uppercase">Di – So · 17:00 – 22:00</p>
                 <p class="text-white/50 text-xs mt-1">Feiertage/Events ggf. abweichend.</p>
               </div>
-              <i data-lucide="clock" class="w-6 h-6 text-[var(--brand)]"></i>
+              <i data-lucide="clock" class="w-6 h-6 text-[#FF9F00]"></i>
             </div>
 
             <div class="mt-6">
               <a href="https://www.google.com/maps/search/?api=1&query=Bonifatiusstra%C3%9Fe%2048a%2048429%20Rheine%20Tosbik's%20Kitchen"
                  target="_blank" rel="noopener"
-                 class="w-full inline-flex items-center justify-center gap-2 bg-[var(--brand)] text-black px-6 py-4 rounded-xl font-black uppercase text-xs hover:scale-[1.02] transition-transform">
+                 class="w-full inline-flex items-center justify-center gap-2 bg-[#FF9F00] text-black px-6 py-4 rounded-xl font-black uppercase text-xs hover:scale-[1.02] transition-transform">
                 In Google Maps öffnen <i data-lucide="navigation" class="w-4 h-4"></i>
               </a>
             </div>
@@ -673,6 +603,7 @@
   </footer>
 
   <script>
+    // Init icons safely after load
     window.addEventListener("DOMContentLoaded", () => {
       if (window.lucide) lucide.createIcons();
 
@@ -691,43 +622,9 @@
         }));
       }
 
-      // Order modal (open/close)
-      const modal = document.getElementById('orderModal');
-      const closeBtn = document.getElementById('orderClose');
-      const openers = document.querySelectorAll('[data-order-open]');
-      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-      function openModal(){
-        if (!modal) return;
-        modal.classList.remove('hidden');
-        document.body.style.overflow = 'hidden';
-        // focus close
-        setTimeout(() => closeBtn && closeBtn.focus(), 10);
-      }
-      function closeModal(){
-        if (!modal) return;
-        modal.classList.add('hidden');
-        document.body.style.overflow = '';
-      }
-
-      openers.forEach(b => b.addEventListener('click', openModal));
-      closeBtn && closeBtn.addEventListener('click', closeModal);
-
-      // click backdrop to close
-      if (modal) {
-        modal.addEventListener('click', (e) => {
-          const isBackdrop = e.target === modal || e.target.classList.contains('modal-backdrop');
-          if (isBackdrop) closeModal();
-        });
-      }
-
-      // ESC closes
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && modal && !modal.classList.contains('hidden')) closeModal();
-      });
-
       // Cursor (desktop only)
       const cursor = document.getElementById('cursor');
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       if (cursor && !reduceMotion) {
         document.addEventListener('mousemove', (e) => {
           if (!window.gsap) return;
@@ -735,23 +632,11 @@
         });
       }
 
-      // Magic hover: set per-card mouse position
-      const cards = document.querySelectorAll('.bento-card');
-      cards.forEach(card => {
-        card.addEventListener('mousemove', (e) => {
-          const r = card.getBoundingClientRect();
-          const x = ((e.clientX - r.left) / r.width) * 100;
-          const y = ((e.clientY - r.top) / r.height) * 100;
-          card.style.setProperty('--mx', x + '%');
-          card.style.setProperty('--my', y + '%');
-        });
-      });
-
       // GSAP animations
       if (window.gsap && window.ScrollTrigger && !reduceMotion) {
         gsap.registerPlugin(ScrollTrigger);
 
-        gsap.from("header .text-gradient, header h1, header p, header a, header button", {
+        gsap.from("header .text-gradient, header h1, header p, header a", {
           y: 18, opacity: 0, duration: 0.7, stagger: 0.07, ease: "power3.out"
         });
 
@@ -762,7 +647,7 @@
           });
         });
 
-        // Active nav highlighting
+        // Active nav highlighting (simple)
         const navLinks = document.querySelectorAll('[data-nav]');
         const sections = ["#home","#story","#menu","#reviews","#visit"].map(id => document.querySelector(id)).filter(Boolean);
 
@@ -780,7 +665,7 @@
           navLinks.forEach(a => {
             const href = (a.getAttribute('href') || '').replace('#','');
             const active = href === id;
-            a.classList.toggle('text-[var(--brand)]', active);
+            a.classList.toggle('text-[#FF9F00]', active);
             a.classList.toggle('opacity-100', active);
             a.classList.toggle('opacity-80', !active);
           });
