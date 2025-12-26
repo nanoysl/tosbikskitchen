@@ -90,22 +90,18 @@
       transform: translateY(-4px);
     }
 
-    /* Subtle separators */
     .hairline { border-top: 1px solid rgba(255,255,255,0.06); }
 
-    /* Focus */
     a:focus-visible, button:focus-visible {
       outline: 2px solid rgba(255,159,0,.9);
       outline-offset: 3px;
       border-radius: 12px;
     }
 
-    /* Prevent “rutschen raus” on mobile */
     .safe-wrap { min-width: 0; }
     .safe-wrap * { min-width: 0; }
     .break-any { overflow-wrap: anywhere; word-break: break-word; }
 
-    /* Reduce huge vertical "black gaps" on mobile */
     .sec-pad { padding-top: 3.25rem; padding-bottom: 3.25rem; }
     @media (min-width: 768px){
       .sec-pad { padding-top: 5rem; padding-bottom: 5rem; }
@@ -134,20 +130,13 @@
         radial-gradient(900px 700px at 80% 30%, rgba(255,95,0,.16), transparent 55%),
         linear-gradient(180deg, rgba(0,0,0,.46) 0%, rgba(0,0,0,.66) 62%, rgba(0,0,0,.82) 100%);
     }
-
-    /* Only show the video on mobile/tablet */
     @media (min-width: 1024px){
       .hero-video-wrap { display:none; }
     }
 
-    /* CTA buttons: full-width and safe */
-    .cta-btn {
-      width: 100%;
-      box-sizing: border-box;
-      max-width: 100%;
-    }
+    .cta-btn { width: 100%; box-sizing: border-box; max-width: 100%; }
 
-    /* Simple marquee band */
+    /* Marquee */
     .marquee {
       position: relative;
       overflow: hidden;
@@ -180,7 +169,184 @@
       to   { transform: translateX(-50%); }
     }
 
-    /* Gallery grid cards */
+    /* =========================
+       HERO CAROUSEL (NEU)
+       Ziel: großes Bild, komplette Anzeige (contain), auto-rotate, Igloo/Pullup-style
+       ========================= */
+    .hero-carousel{
+      margin: 14px 0 18px;
+      border-radius: 26px;
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(255,255,255,0.04);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      overflow: hidden;
+      position: relative;
+    }
+    /* Höhe: bewusst groß auf Mobile */
+    .hero-carousel{
+      height: 320px;
+    }
+    @media (min-width: 480px){
+      .hero-carousel{ height: 360px; }
+    }
+    @media (min-width: 768px){
+      .hero-carousel{ height: 420px; }
+    }
+    @media (min-width: 1024px){
+      .hero-carousel{ height: 440px; }
+    }
+
+    .hc-viewport{
+      height: 100%;
+      position: relative;
+    }
+    .hc-slide{
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transform: scale(1.01);
+      transition: opacity .55s ease, transform .7s cubic-bezier(.2,1,.25,1);
+      pointer-events: none;
+    }
+    .hc-slide.is-active{
+      opacity: 1;
+      transform: scale(1);
+      pointer-events: auto;
+    }
+
+    /* Hintergrundfüllung (blur) + Vordergrund (contain) */
+    .hc-bg{
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      filter: blur(16px) brightness(.65) saturate(1.05);
+      transform: scale(1.10);
+      opacity: .95;
+    }
+    .hc-vignette{
+      position:absolute;
+      inset:0;
+      background:
+        radial-gradient(900px 520px at 30% 20%, rgba(255,159,0,.20), transparent 55%),
+        radial-gradient(800px 520px at 70% 70%, rgba(255,95,0,.16), transparent 60%),
+        linear-gradient(180deg, rgba(0,0,0,.30) 0%, rgba(0,0,0,.55) 70%, rgba(0,0,0,.70) 100%);
+      pointer-events:none;
+    }
+    .hc-imgwrap{
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+    .hc-imgwrap img{
+      width: 100%;
+      height: 100%;
+      object-fit: contain; /* WICHTIG: gesamtes Bild sichtbar */
+      border-radius: 18px;
+      filter: contrast(1.05) saturate(1.05);
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+
+    .hc-controls{
+      position:absolute;
+      inset:0;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding: 0 14px;
+      pointer-events:none;
+    }
+    .hc-btn{
+      width: 46px;
+      height: 46px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(0,0,0,0.35);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      pointer-events:auto;
+      cursor:pointer;
+      transition: transform .2s ease, border-color .2s ease, background .2s ease;
+    }
+    .hc-btn:hover{
+      transform: scale(1.03);
+      border-color: rgba(255,159,0,.65);
+      background: rgba(0,0,0,0.45);
+    }
+
+    .hc-dots{
+      position:absolute;
+      left: 50%;
+      bottom: 14px;
+      transform: translateX(-50%);
+      display:flex;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(0,0,0,0.28);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+    .hc-dot{
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.25);
+      border: 1px solid rgba(255,255,255,0.18);
+      cursor:pointer;
+      transition: transform .2s ease, background .2s ease, border-color .2s ease;
+    }
+    .hc-dot.is-active{
+      background: var(--brand);
+      border-color: rgba(255,159,0,.65);
+      box-shadow: 0 0 18px rgba(255,159,0,.45);
+      transform: scale(1.05);
+    }
+
+    .hc-badge{
+      position:absolute;
+      top: 14px;
+      left: 14px;
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: 16px;
+      background: rgba(0,0,0,0.35);
+      border: 1px solid rgba(255,255,255,0.12);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      max-width: calc(100% - 28px);
+    }
+    .hc-badge .dot{
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--brand);
+      box-shadow: 0 0 16px rgba(255,159,0,.55);
+      flex: 0 0 auto;
+    }
+    .hc-badge .txt{
+      font-size: 10px;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      font-weight: 900;
+      opacity: .90;
+      white-space: nowrap;
+      overflow:hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* Gallery section (bleibt) */
     .gallery-grid{
       display:grid;
       grid-template-columns: 1fr;
@@ -188,6 +354,9 @@
     }
     @media (min-width: 640px){
       .gallery-grid{ grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (min-width: 1024px){
+      .gallery-grid{ grid-template-columns: repeat(12, 1fr); }
     }
     .g-card{
       position: relative;
@@ -290,110 +459,11 @@
       cursor:pointer;
     }
 
-    /* HERO Carousel (replaces the copy position) */
-    .hero-carousel{
-      position: relative;
-      width: 100%;
-      max-width: 42rem;
-      border-radius: 28px;
-      overflow: hidden;
-      border: 1px solid rgba(255,255,255,0.10);
-      background: rgba(255,255,255,0.03);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-    }
-    .hero-carousel-track{
-      display: flex;
-      overflow-x: auto;
-      scroll-snap-type: x mandatory;
-      scroll-behavior: smooth;
-      -webkit-overflow-scrolling: touch;
-      scrollbar-width: none;
-    }
-    .hero-carousel-track::-webkit-scrollbar{ display:none; }
-    .hero-slide{
-      flex: 0 0 100%;
-      scroll-snap-align: center;
-      position: relative;
-      aspect-ratio: 16 / 10;
-      background: #0a0a0a;
-    }
-    @media (min-width: 768px){
-      .hero-slide{ aspect-ratio: 16 / 9; }
-    }
-    .hero-slide img{
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      filter: contrast(1.05) saturate(1.08);
-      transform: scale(1.02);
-      display: block;
-    }
-    .hero-slide:after{
-      content:"";
-      position:absolute; inset:0;
-      background:
-        radial-gradient(700px 260px at 20% 20%, rgba(255,159,0,.18), transparent 60%),
-        radial-gradient(700px 360px at 80% 80%, rgba(255,95,0,.14), transparent 65%),
-        linear-gradient(180deg, rgba(0,0,0,.00) 0%, rgba(0,0,0,.25) 70%, rgba(0,0,0,.45) 100%);
-      pointer-events:none;
-    }
-    .hero-carousel-ui{
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-    }
-    .hero-carousel-btn{
-      pointer-events: auto;
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 44px;
-      height: 44px;
-      border-radius: 16px;
-      background: rgba(0,0,0,0.40);
-      border: 1px solid rgba(255,255,255,0.14);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-    }
-    .hero-carousel-btn:hover{ border-color: rgba(255,159,0,0.55); }
-    .hero-carousel-btn.prev{ left: 12px; }
-    .hero-carousel-btn.next{ right: 12px; }
-    .hero-carousel-dots{
-      pointer-events: auto;
-      position: absolute;
-      left: 50%;
-      bottom: 12px;
-      transform: translateX(-50%);
-      display: flex;
-      gap: 8px;
-      padding: 8px 10px;
-      border-radius: 999px;
-      background: rgba(0,0,0,0.28);
-      border: 1px solid rgba(255,255,255,0.12);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-    }
-    .hero-dot{
-      width: 7px; height: 7px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.35);
-      cursor: pointer;
-    }
-    .hero-dot.active{
-      background: var(--brand);
-      box-shadow: 0 0 14px rgba(255,159,0,.55);
-    }
-
-    /* Reduced motion */
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto !important; }
       .marquee-track{ animation: none !important; }
       .g-card img{ transition: none !important; }
-      .hero-carousel-track{ scroll-behavior: auto !important; }
+      .hc-slide{ transition: none !important; }
     }
   </style>
 
@@ -501,13 +571,11 @@
         <div class="glass-bright rounded-[2.5rem] relative overflow-hidden">
           <div class="p-6 sm:p-8 md:p-10">
 
-            <!-- Desktop: centered bigger logo -->
             <div class="flex justify-center mb-5">
               <img src="tosbik-logo-2025.png" alt="Tosbik's Kitchen Logo"
                    class="w-[170px] sm:w-[190px] md:w-[260px] lg:w-[340px] object-contain opacity-95" />
             </div>
 
-            <!-- Headline -->
             <h1 class="font-black uppercase italic tracking-tighter leading-[0.95] break-any text-center lg:text-left">
               <span class="block lg:inline text-4xl sm:text-5xl md:text-6xl lg:text-6xl text-white">GUTE ZUTATEN.</span>
               <span class="block lg:inline lg:ml-4 text-4xl sm:text-5xl md:text-6xl lg:text-6xl text-gradient">GUTER BURGER.</span>
@@ -523,28 +591,78 @@
         </div>
       </div>
 
-      <!-- HERO Carousel (HIER statt dem Absatz) -->
-      <div class="hero-carousel mb-6">
-        <div class="hero-carousel-track" id="heroTrack" aria-label="Bilderkarussell">
-          <div class="hero-slide"><img src="gallery-1.jpg" alt="Tosbik's Kitchen Foto 1" loading="eager" /></div>
-          <div class="hero-slide"><img src="gallery-2.jpg" alt="Tosbik's Kitchen Foto 2" loading="lazy" /></div>
-          <div class="hero-slide"><img src="gallery-3.jpg" alt="Tosbik's Kitchen Foto 3" loading="lazy" /></div>
-          <div class="hero-slide"><img src="gallery-4.jpg" alt="Tosbik's Kitchen Foto 4" loading="lazy" /></div>
-          <div class="hero-slide"><img src="gallery-5.jpg" alt="Tosbik's Kitchen Foto 5" loading="lazy" /></div>
+      <!-- HERO CAROUSEL (NEU: groß + gesamtes Bild sichtbar + autoplay) -->
+      <div class="hero-carousel" id="heroCarousel" aria-label="Galerie Carousel">
+        <div class="hc-viewport">
+          <!-- Slides (Nutzen deine Dateien) -->
+          <div class="hc-slide is-active" data-caption="Gallery 1">
+            <div class="hc-bg" style="background-image:url('gallery-1.jpg')"></div>
+            <div class="hc-vignette"></div>
+            <div class="hc-imgwrap">
+              <img src="gallery-1.jpg" alt="Tosbik's Kitchen Foto 1" loading="eager" />
+            </div>
+          </div>
+
+          <div class="hc-slide" data-caption="Gallery 2">
+            <div class="hc-bg" style="background-image:url('gallery-2.jpg')"></div>
+            <div class="hc-vignette"></div>
+            <div class="hc-imgwrap">
+              <img src="gallery-2.jpg" alt="Tosbik's Kitchen Foto 2" loading="lazy" />
+            </div>
+          </div>
+
+          <div class="hc-slide" data-caption="Gallery 3">
+            <div class="hc-bg" style="background-image:url('gallery-3.jpg')"></div>
+            <div class="hc-vignette"></div>
+            <div class="hc-imgwrap">
+              <img src="gallery-3.jpg" alt="Tosbik's Kitchen Foto 3" loading="lazy" />
+            </div>
+          </div>
+
+          <div class="hc-slide" data-caption="Gallery 4">
+            <div class="hc-bg" style="background-image:url('gallery-4.jpg')"></div>
+            <div class="hc-vignette"></div>
+            <div class="hc-imgwrap">
+              <img src="gallery-4.jpg" alt="Tosbik's Kitchen Foto 4" loading="lazy" />
+            </div>
+          </div>
+
+          <div class="hc-slide" data-caption="Gallery 5">
+            <div class="hc-bg" style="background-image:url('gallery-5.jpg')"></div>
+            <div class="hc-vignette"></div>
+            <div class="hc-imgwrap">
+              <img src="gallery-5.jpg" alt="Tosbik's Kitchen Foto 5" loading="lazy" />
+            </div>
+          </div>
         </div>
 
-        <div class="hero-carousel-ui">
-          <button class="hero-carousel-btn prev" id="heroPrev" aria-label="Vorheriges Bild">
+        <!-- Badge -->
+        <div class="hc-badge" id="hcBadge">
+          <span class="dot"></span>
+          <span class="txt">Gallery 1</span>
+        </div>
+
+        <!-- Controls -->
+        <div class="hc-controls" aria-hidden="false">
+          <button class="hc-btn" id="hcPrev" aria-label="Vorheriges Bild">
             <i data-lucide="chevron-left" class="w-5 h-5 text-white"></i>
           </button>
-          <button class="hero-carousel-btn next" id="heroNext" aria-label="Nächstes Bild">
+          <button class="hc-btn" id="hcNext" aria-label="Nächstes Bild">
             <i data-lucide="chevron-right" class="w-5 h-5 text-white"></i>
           </button>
-          <div class="hero-carousel-dots" id="heroDots" aria-label="Carousel Navigation"></div>
+        </div>
+
+        <!-- Dots -->
+        <div class="hc-dots" id="hcDots" aria-label="Carousel Navigation">
+          <button class="hc-dot is-active" aria-label="Bild 1"></button>
+          <button class="hc-dot" aria-label="Bild 2"></button>
+          <button class="hc-dot" aria-label="Bild 3"></button>
+          <button class="hc-dot" aria-label="Bild 4"></button>
+          <button class="hc-dot" aria-label="Bild 5"></button>
         </div>
       </div>
 
-      <!-- Copy (NICHT verändert – nur nach unten geschoben) -->
+      <!-- Copy (NICHT verändert) -->
       <p class="text-gray-200/90 text-base md:text-lg max-w-2xl mb-6 leading-snug">
         Frisches Rind, hohe Hitze und eine richtig gute Kruste. Bei Tosbik’s Kitchen bekommst du Smash Burger,
         wie wir ihn selbst am liebsten essen – direkt in Rheine.
@@ -652,6 +770,50 @@
           </div>
         </div>
 
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERY (optional) -->
+  <section id="gallery" class="sec-pad px-6 bg-[#030303]">
+    <div class="max-w-6xl mx-auto">
+      <div class="mb-10">
+        <p class="text-[#FF9F00] font-bold uppercase text-[10px] tracking-widest mb-2">Bilder</p>
+        <h2 class="text-4xl md:text-6xl font-black uppercase italic tracking-tight">
+          Close-ups.<br><span class="text-gradient">Real Kitchen Vibes.</span>
+        </h2>
+      </div>
+
+      <div class="gallery-grid safe-wrap">
+        <a class="g-card md:col-span-7 lg:col-span-7" href="gallery-1.jpg" data-lightbox>
+          <img src="gallery-1.jpg" alt="Tosbik's Kitchen Foto 1" loading="lazy">
+          <div class="g-glow"></div>
+          <div class="g-label"><span class="dot"></span><span class="txt">Heart of Fries</span></div>
+        </a>
+
+        <a class="g-card md:col-span-5 lg:col-span-5" href="gallery-2.jpg" data-lightbox>
+          <img src="gallery-2.jpg" alt="Tosbik's Kitchen Foto 2" loading="lazy">
+          <div class="g-glow"></div>
+          <div class="g-label"><span class="dot"></span><span class="txt">Burger Love</span></div>
+        </a>
+
+        <a class="g-card md:col-span-4 lg:col-span-4" href="gallery-3.jpg" data-lightbox>
+          <img src="gallery-3.jpg" alt="Tosbik's Kitchen Foto 3" loading="lazy">
+          <div class="g-glow"></div>
+          <div class="g-label"><span class="dot"></span><span class="txt">100% Fresh</span></div>
+        </a>
+
+        <a class="g-card md:col-span-4 lg:col-span-4" href="gallery-4.jpg" data-lightbox>
+          <img src="gallery-4.jpg" alt="Tosbik's Kitchen Foto 4" loading="lazy">
+          <div class="g-glow"></div>
+          <div class="g-label"><span class="dot"></span><span class="txt">Cheese Lover</span></div>
+        </a>
+
+        <a class="g-card md:col-span-4 lg:col-span-4" href="gallery-5.jpg" data-lightbox>
+          <img src="gallery-5.jpg" alt="Tosbik's Kitchen Foto 5" loading="lazy">
+          <div class="g-glow"></div>
+          <div class="g-label"><span class="dot"></span><span class="txt">Unser Double</span></div>
+        </a>
       </div>
     </div>
   </section>
@@ -813,7 +975,7 @@
     </div>
   </section>
 
-  <!-- VISIT / CTA -->
+  <!-- VISIT -->
   <section id="visit" class="sec-pad px-6 bg-[#030303]">
     <div class="max-w-6xl mx-auto">
       <div class="bento-card glass-bright rounded-[2.5rem] p-7 md:p-12 overflow-hidden relative safe-wrap">
@@ -898,6 +1060,16 @@
     </div>
   </footer>
 
+  <!-- LIGHTBOX -->
+  <div id="lightbox" class="lb" aria-hidden="true">
+    <div class="lb-inner">
+      <button class="lb-close" id="lbClose" aria-label="Schließen">
+        <i data-lucide="x" class="w-5 h-5 text-white"></i>
+      </button>
+      <img id="lbImg" src="" alt="Bildvorschau">
+    </div>
+  </div>
+
   <script>
     window.addEventListener("DOMContentLoaded", () => {
       if (window.lucide) lucide.createIcons();
@@ -917,82 +1089,115 @@
         }));
       }
 
-      // HERO Carousel
-      const track = document.getElementById('heroTrack');
-      const prevBtn = document.getElementById('heroPrev');
-      const nextBtn = document.getElementById('heroNext');
-      const dotsWrap = document.getElementById('heroDots');
+      // Lightbox (Gallery grid)
+      const lb = document.getElementById('lightbox');
+      const lbImg = document.getElementById('lbImg');
+      const lbClose = document.getElementById('lbClose');
 
-      if (track && prevBtn && nextBtn && dotsWrap) {
-        const slides = Array.from(track.children);
-        let index = 0;
-        let timer = null;
-        let isUserInteracting = false;
-
-        dotsWrap.innerHTML = '';
-        slides.forEach((_, i) => {
-          const d = document.createElement('span');
-          d.className = 'hero-dot' + (i === 0 ? ' active' : '');
-          d.addEventListener('click', () => goTo(i, true));
-          dotsWrap.appendChild(d);
-        });
-        const dots = Array.from(dotsWrap.querySelectorAll('.hero-dot'));
-
-        function setActiveDot(i){
-          dots.forEach((d, di) => d.classList.toggle('active', di === i));
-        }
-
-        function goTo(i, userAction=false){
-          index = (i + slides.length) % slides.length;
-          const left = index * track.clientWidth;
-          track.scrollTo({ left, behavior: 'smooth' });
-          setActiveDot(index);
-          if (userAction) restartAutoplay();
-        }
-
-        prevBtn.addEventListener('click', () => goTo(index - 1, true));
-        nextBtn.addEventListener('click', () => goTo(index + 1, true));
-
-        let raf = null;
-        track.addEventListener('scroll', () => {
-          if (raf) cancelAnimationFrame(raf);
-          raf = requestAnimationFrame(() => {
-            const i = Math.round(track.scrollLeft / track.clientWidth);
-            if (i !== index) {
-              index = i;
-              setActiveDot(index);
-            }
-          });
-        }, { passive: true });
-
-        ['touchstart','mousedown'].forEach(ev => track.addEventListener(ev, () => {
-          isUserInteracting = true;
-          stopAutoplay();
-        }, { passive: true }));
-
-        ['touchend','mouseup','mouseleave'].forEach(ev => track.addEventListener(ev, () => {
-          if (isUserInteracting) {
-            isUserInteracting = false;
-            restartAutoplay();
-          }
-        }, { passive: true }));
-
-        function startAutoplay(){
-          stopAutoplay();
-          if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-          timer = setInterval(() => goTo(index + 1), 3200);
-        }
-        function stopAutoplay(){
-          if (timer) clearInterval(timer);
-          timer = null;
-        }
-        function restartAutoplay(){
-          startAutoplay();
-        }
-        startAutoplay();
+      function openLB(src){
+        lbImg.src = src;
+        lb.classList.add('open');
+        lb.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+        if (window.lucide) lucide.createIcons();
+      }
+      function closeLB(){
+        lb.classList.remove('open');
+        lb.setAttribute('aria-hidden', 'true');
+        lbImg.src = '';
+        document.body.style.overflow = '';
       }
 
+      document.querySelectorAll('[data-lightbox]').forEach(a => {
+        a.addEventListener('click', (e) => {
+          e.preventDefault();
+          const href = a.getAttribute('href');
+          if (href) openLB(href);
+        });
+      });
+
+      lb.addEventListener('click', (e) => {
+        if (e.target === lb) closeLB();
+      });
+      lbClose?.addEventListener('click', closeLB);
+      window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && lb.classList.contains('open')) closeLB();
+      });
+
+      // =========================
+      // HERO CAROUSEL (autoplay + swipe)
+      // =========================
       const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      const carousel = document.getElementById('heroCarousel');
+      const slides = carousel ? Array.from(carousel.querySelectorAll('.hc-slide')) : [];
+      const dotsWrap = document.getElementById('hcDots');
+      const dots = dotsWrap ? Array.from(dotsWrap.querySelectorAll('.hc-dot')) : [];
+      const badge = document.getElementById('hcBadge');
+      const badgeTxt = badge ? badge.querySelector('.txt') : null;
+
+      const prevBtn = document.getElementById('hcPrev');
+      const nextBtn = document.getElementById('hcNext');
+
+      let idx = 0;
+      let timer = null;
+      const AUTO_MS = 3200;
+
+      function setActive(i){
+        if (!slides.length) return;
+        idx = (i + slides.length) % slides.length;
+
+        slides.forEach((s, k) => s.classList.toggle('is-active', k === idx));
+        dots.forEach((d, k) => d.classList.toggle('is-active', k === idx));
+
+        const caption = slides[idx].getAttribute('data-caption') || `Bild ${idx+1}`;
+        if (badgeTxt) badgeTxt.textContent = caption;
+      }
+
+      function next(){ setActive(idx + 1); }
+      function prev(){ setActive(idx - 1); }
+
+      function startAuto(){
+        if (reduceMotion) return;
+        stopAuto();
+        timer = setInterval(next, AUTO_MS);
+      }
+      function stopAuto(){
+        if (timer) clearInterval(timer);
+        timer = null;
+      }
+
+      if (prevBtn) prevBtn.addEventListener('click', () => { prev(); startAuto(); });
+      if (nextBtn) nextBtn.addEventListener('click', () => { next(); startAuto(); });
+      dots.forEach((d, k) => d.addEventListener('click', () => { setActive(k); startAuto(); }));
+
+      // Swipe support (mobile)
+      let xStart = null;
+      let yStart = null;
+      carousel?.addEventListener('touchstart', (e) => {
+        const t = e.touches[0];
+        xStart = t.clientX;
+        yStart = t.clientY;
+        stopAuto();
+      }, { passive: true });
+
+      carousel?.addEventListener('touchend', (e) => {
+        if (xStart === null || yStart === null) { startAuto(); return; }
+        const t = e.changedTouches[0];
+        const dx = t.clientX - xStart;
+        const dy = t.clientY - yStart;
+
+        // horizontal swipe only
+        if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) {
+          if (dx < 0) next(); else prev();
+        }
+        xStart = null; yStart = null;
+        startAuto();
+      }, { passive: true });
+
+      // init
+      setActive(0);
+      startAuto();
 
       // GSAP animations
       if (window.gsap && window.ScrollTrigger && !reduceMotion) {
@@ -1002,14 +1207,14 @@
           y: 14, opacity: 0, duration: 0.65, stagger: 0.06, ease: "power3.out"
         });
 
-        gsap.utils.toArray(".bento-card").forEach((card) => {
+        gsap.utils.toArray(".bento-card, .g-card").forEach((card) => {
           gsap.from(card, {
             scrollTrigger: { trigger: card, start: "top 88%" },
             y: 18, opacity: 0, duration: 0.6, ease: "power3.out"
           });
         });
 
-        // Active nav highlighting (simple)
+        // Active nav highlighting
         const navLinks = document.querySelectorAll('[data-nav]');
         const sections = ["#home","#story","#menu","#reviews","#visit"].map(id => document.querySelector(id)).filter(Boolean);
 
@@ -1018,12 +1223,12 @@
             trigger: sec,
             start: "top 35%",
             end: "bottom 35%",
-            onEnter: () => setActive(sec.id),
-            onEnterBack: () => setActive(sec.id),
+            onEnter: () => setActiveNav(sec.id),
+            onEnterBack: () => setActiveNav(sec.id),
           });
         });
 
-        function setActive(id){
+        function setActiveNav(id){
           navLinks.forEach(a => {
             const href = (a.getAttribute('href') || '').replace('#','');
             const active = href === id;
