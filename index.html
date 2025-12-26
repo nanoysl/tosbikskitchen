@@ -83,25 +83,29 @@
       transition: transform .45s cubic-bezier(.2,1,.25,1), border-color .45s ease, background .45s ease;
       border: 1px solid rgba(255,255,255,0.06);
       will-change: transform;
-      overflow: hidden;
+      overflow: hidden; /* wichtig: verhindert "rutschen raus" bei inneren Elementen */
     }
     .bento-card:hover {
       border-color: rgba(255,159,0,0.85);
       transform: translateY(-4px);
     }
 
+    /* Subtle separators */
     .hairline { border-top: 1px solid rgba(255,255,255,0.06); }
 
+    /* Focus */
     a:focus-visible, button:focus-visible {
       outline: 2px solid rgba(255,159,0,.9);
       outline-offset: 3px;
       border-radius: 12px;
     }
 
+    /* Prevent “rutschen raus” on mobile */
     .safe-wrap { min-width: 0; }
     .safe-wrap * { min-width: 0; }
     .break-any { overflow-wrap: anywhere; word-break: break-word; }
 
+    /* Reduce huge vertical "black gaps" on mobile */
     .sec-pad { padding-top: 3.25rem; padding-bottom: 3.25rem; }
     @media (min-width: 768px){
       .sec-pad { padding-top: 5rem; padding-bottom: 5rem; }
@@ -119,8 +123,8 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      filter: blur(7px) brightness(.70) saturate(1.08);
-      transform: scale(1.08);
+      filter: blur(7px) brightness(.70) saturate(1.08); /* weniger blur als vorher */
+      transform: scale(1.08); /* avoid edges after blur */
     }
     .hero-video-overlay {
       position: absolute;
@@ -130,13 +134,20 @@
         radial-gradient(900px 700px at 80% 30%, rgba(255,95,0,.16), transparent 55%),
         linear-gradient(180deg, rgba(0,0,0,.46) 0%, rgba(0,0,0,.66) 62%, rgba(0,0,0,.82) 100%);
     }
+
+    /* Only show the video on mobile/tablet */
     @media (min-width: 1024px){
       .hero-video-wrap { display:none; }
     }
 
-    .cta-btn { width: 100%; box-sizing: border-box; max-width: 100%; }
+    /* CTA buttons: full-width and safe */
+    .cta-btn {
+      width: 100%;
+      box-sizing: border-box;
+      max-width: 100%;
+    }
 
-    /* Simple marquee band */
+    /* Simple marquee band (Igloo-ish vibe, lightweight) */
     .marquee {
       position: relative;
       overflow: hidden;
@@ -169,46 +180,40 @@
       to   { transform: translateX(-50%); }
     }
 
-    /* === HERO CAROUSEL (NEU) === */
-    .hero-carousel {
+    /* Gallery */
+    .gallery-grid{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+    @media (min-width: 640px){
+      .gallery-grid{ grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (min-width: 1024px){
+      .gallery-grid{ grid-template-columns: repeat(12, 1fr); }
+    }
+    .g-card{
       position: relative;
       border-radius: 28px;
       overflow: hidden;
-      border: 1px solid rgba(255,255,255,0.10);
+      border: 1px solid rgba(255,255,255,0.08);
       background: rgba(255,255,255,0.03);
       transform: translateZ(0);
-      user-select: none;
-      -webkit-user-select: none;
-      touch-action: pan-y;
     }
-    .hero-carousel-viewport {
-      overflow: hidden;
-      width: 100%;
-    }
-    .hero-carousel-track {
-      display: flex;
-      will-change: transform;
-      transform: translate3d(0,0,0);
-      transition: transform .45s cubic-bezier(.2,1,.25,1);
-    }
-    .hero-slide {
-      flex: 0 0 100%;
-      aspect-ratio: 16 / 11;
-      position: relative;
-      background: rgba(0,0,0,0.25);
-    }
-    @media (min-width: 768px){
-      .hero-slide { aspect-ratio: 16 / 9; }
-    }
-    .hero-slide img{
-      width: 100%;
-      height: 100%;
-      object-fit: cover; /* genau wie du es “cinematic” willst */
-      display: block;
+    .g-card img{
+      width:100%;
+      height:100%;
+      object-fit: cover;
       filter: contrast(1.05) saturate(1.05);
       transform: scale(1.02);
+      transition: transform .5s cubic-bezier(.2,1,.25,1), filter .4s ease;
+      display:block;
     }
-    .hero-carousel-glow{
+    .g-card:hover img{
+      transform: scale(1.08);
+      filter: contrast(1.08) saturate(1.12);
+    }
+    .g-glow{
       position:absolute; inset:0;
       background:
         radial-gradient(600px 260px at 20% 20%, rgba(255,159,0,.22), transparent 60%),
@@ -217,9 +222,9 @@
       mix-blend-mode: screen;
       pointer-events:none;
     }
-    .hero-carousel-label{
+    .g-label{
       position:absolute;
-      left: 14px; top: 14px;
+      left: 14px; bottom: 14px;
       padding: 10px 12px;
       border-radius: 16px;
       background: rgba(0,0,0,0.42);
@@ -228,15 +233,14 @@
       -webkit-backdrop-filter: blur(14px);
       display:flex; align-items:center; gap:10px;
       max-width: calc(100% - 28px);
-      z-index: 2;
     }
-    .hero-carousel-label .dot{
+    .g-label .dot{
       width: 8px; height: 8px; border-radius: 99px;
       background: var(--brand);
       box-shadow: 0 0 16px rgba(255,159,0,.55);
       flex: 0 0 auto;
     }
-    .hero-carousel-label .txt{
+    .g-label .txt{
       font-size: 10px;
       letter-spacing: .22em;
       text-transform: uppercase;
@@ -247,58 +251,53 @@
       text-overflow: ellipsis;
     }
 
-    .hc-btn{
+    /* Lightbox */
+    .lb {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.78);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      padding: 18px;
+    }
+    .lb.open { display:flex; }
+    .lb-inner{
+      width: min(980px, 100%);
+      border-radius: 26px;
+      overflow:hidden;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.03);
+      position: relative;
+    }
+    .lb-inner img{
+      width: 100%;
+      height: auto;
+      display:block;
+    }
+    .lb-close{
       position:absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 46px;
-      height: 46px;
-      border-radius: 18px;
+      top: 12px;
+      right: 12px;
+      width: 44px;
+      height: 44px;
+      border-radius: 16px;
       background: rgba(0,0,0,0.45);
       border: 1px solid rgba(255,255,255,0.12);
       display:flex;
       align-items:center;
       justify-content:center;
       cursor:pointer;
-      z-index: 3;
-    }
-    .hc-btn:hover{ border-color: rgba(255,159,0,.55); }
-    .hc-prev{ left: 12px; }
-    .hc-next{ right: 12px; }
-
-    .hc-dots{
-      position:absolute;
-      left: 50%;
-      transform: translateX(-50%);
-      bottom: 12px;
-      display:flex;
-      gap: 8px;
-      padding: 10px 12px;
-      border-radius: 999px;
-      background: rgba(0,0,0,0.35);
-      border: 1px solid rgba(255,255,255,0.10);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      z-index: 3;
-    }
-    .hc-dot{
-      width: 10px;
-      height: 10px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.25);
-      border: 1px solid rgba(255,255,255,0.18);
-      cursor:pointer;
-    }
-    .hc-dot.is-active{
-      background: var(--brand);
-      border-color: rgba(255,159,0,0.65);
-      box-shadow: 0 0 16px rgba(255,159,0,.45);
     }
 
+    /* Reduced motion */
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto !important; }
       .marquee-track{ animation: none !important; }
-      .hero-carousel-track{ transition: none !important; }
+      .g-card img{ transition: none !important; }
     }
   </style>
 
@@ -386,6 +385,7 @@
 
     <!-- Mobile video background -->
     <div class="hero-video-wrap">
+      <!-- Benenne dein Video in hero.mp4 um (sauber & sicher für GitHub Pages) -->
       <video class="hero-video" autoplay muted playsinline loop preload="metadata" src="hero.mp4"></video>
       <div class="hero-video-overlay"></div>
     </div>
@@ -397,7 +397,7 @@
         Smash Burger · Halal · frisch zubereitet
       </div>
 
-      <!-- HERO CARD -->
+      <!-- HERO CARD (single, desktop-focused) -->
       <div class="relative mb-6">
         <div class="absolute -inset-5 rounded-[2.5rem] blur-2xl opacity-35"
              style="background: radial-gradient(circle at 30% 30%, rgba(255,159,0,.45), transparent 55%), radial-gradient(circle at 70% 60%, rgba(255,95,0,.35), transparent 55%);">
@@ -412,52 +412,7 @@
                    class="w-[170px] sm:w-[190px] md:w-[260px] lg:w-[340px] object-contain opacity-95" />
             </div>
 
-            <!-- === CAROUSEL: direkt unter Logo (NEU) === -->
-            <div class="mb-6">
-              <div class="hero-carousel glass">
-                <div class="hero-carousel-label">
-                  <span class="dot"></span>
-                  <span class="txt" id="hcLabel">Burger Love</span>
-                </div>
-
-                <button class="hc-btn hc-prev" id="hcPrev" aria-label="Vorheriges Bild">
-                  <i data-lucide="chevron-left" class="w-5 h-5 text-white"></i>
-                </button>
-                <button class="hc-btn hc-next" id="hcNext" aria-label="Nächstes Bild">
-                  <i data-lucide="chevron-right" class="w-5 h-5 text-white"></i>
-                </button>
-
-                <div class="hero-carousel-viewport" id="hcViewport">
-                  <div class="hero-carousel-track" id="hcTrack">
-                    <div class="hero-slide" data-label="Burger Love">
-                      <img src="burger-1.jpg" alt="Burger Foto 1" loading="eager">
-                      <div class="hero-carousel-glow"></div>
-                    </div>
-                    <div class="hero-slide" data-label="Loaded Fries">
-                      <img src="burger-2.jpg" alt="Burger Foto 2" loading="lazy">
-                      <div class="hero-carousel-glow"></div>
-                    </div>
-                    <div class="hero-slide" data-label="Fresh Smash">
-                      <img src="burger-3.jpg" alt="Burger Foto 3" loading="lazy">
-                      <div class="hero-carousel-glow"></div>
-                    </div>
-                    <div class="hero-slide" data-label="Cheese Melt">
-                      <img src="burger-4.jpg" alt="Burger Foto 4" loading="lazy">
-                      <div class="hero-carousel-glow"></div>
-                    </div>
-                    <div class="hero-slide" data-label="Kitchen Vibes">
-                      <img src="burger-5.jpg" alt="Burger Foto 5" loading="lazy">
-                      <div class="hero-carousel-glow"></div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="hc-dots" id="hcDots" aria-label="Carousel Navigation"></div>
-              </div>
-            </div>
-            <!-- === /CAROUSEL === -->
-
-            <!-- Headline -->
+            <!-- Headline: mobile stacks, desktop inline -->
             <h1 class="font-black uppercase italic tracking-tighter leading-[0.95] break-any text-center lg:text-left">
               <span class="block lg:inline text-4xl sm:text-5xl md:text-6xl lg:text-6xl text-white">GUTE ZUTATEN.</span>
               <span class="block lg:inline lg:ml-4 text-4xl sm:text-5xl md:text-6xl lg:text-6xl text-gradient">GUTER BURGER.</span>
@@ -479,7 +434,7 @@
         wie wir ihn selbst am liebsten essen – direkt in Rheine.
       </p>
 
-      <!-- Buttons -->
+      <!-- Buttons (safe on mobile) -->
       <div class="flex flex-col sm:flex-row gap-3 mb-7 safe-wrap">
         <a href="#menu"
            class="bg-[#FF9F00] text-black px-7 py-4 rounded-xl font-black uppercase text-xs flex items-center justify-center gap-3 hover:scale-[1.02] transition-transform w-full sm:w-auto cta-btn">
@@ -511,7 +466,7 @@
     </div>
   </header>
 
-  <!-- Marquee Band -->
+  <!-- Marquee Band (NEU, nur Zusatz) -->
   <div class="marquee">
     <div class="marquee-track">
       <span><b>SMASH BURGER</b> · HALAL · FRISCH ZUBEREITET · <b>LOADED FRIES</b> · RHEINE ·</span>
@@ -521,7 +476,7 @@
     </div>
   </div>
 
-  <!-- STORY (unverändert) -->
+  <!-- STORY (Text bleibt) -->
   <section id="story" class="sec-pad px-6 bg-[#050505]">
     <div class="max-w-6xl mx-auto">
       <div class="mb-10">
@@ -585,26 +540,307 @@
     </div>
   </section>
 
-  <!-- MENU (unverändert) -->
+  <!-- GALLERY (NEU, nur Zusatz – Texte oben bleiben unangetastet) -->
+  <section id="gallery" class="sec-pad px-6 bg-[#030303]">
+    <div class="max-w-6xl mx-auto">
+      <div class="mb-10">
+        <p class="text-[#FF9F00] font-bold uppercase text-[10px] tracking-widest mb-2">Bilder</p>
+        <h2 class="text-4xl md:text-6xl font-black uppercase italic tracking-tight">
+          Close-ups.<br><span class="text-gradient">Real Kitchen Vibes.</span>
+        </h2>
+        <p class="text-white/60 mt-4 max-w-2xl">
+          (Nur Ergänzung: die bestehenden Texte auf der Seite wurden nicht verändert.)
+        </p>
+      </div>
+
+      <div class="gallery-grid safe-wrap">
+        <!-- Desktop layout: 12-col feel via responsive col-spans -->
+        <a class="g-card md:col-span-7 lg:col-span-7" href="gallery-1.jpg" data-lightbox>
+          <img src="gallery-1.jpg" alt="Tosbik's Kitchen Foto 1" loading="lazy">
+          <div class="g-glow"></div>
+          <div class="g-label"><span class="dot"></span><span class="txt">Heart of Fries</span></div>
+        </a>
+
+        <a class="g-card md:col-span-5 lg:col-span-5" href="gallery-2.jpg" data-lightbox>
+          <img src="gallery-2.jpg" alt="Tosbik's Kitchen Foto 2" loading="lazy">
+          <div class="g-glow"></div>
+          <div class="g-label"><span class="dot"></span><span class="txt">Burger Love</span></div>
+        </a>
+
+        <a class="g-card md:col-span-4 lg:col-span-4" href="gallery-3.jpg" data-lightbox>
+          <img src="gallery-3.jpg" alt="Tosbik's Kitchen Foto 3" loading="lazy">
+          <div class="g-glow"></div>
+          <div class="g-label"><span class="dot"></span><span class="txt">100% Fresh</span></div>
+        </a>
+
+        <a class="g-card md:col-span-4 lg:col-span-4" href="gallery-4.jpg" data-lightbox>
+          <img src="gallery-4.jpg" alt="Tosbik's Kitchen Foto 4" loading="lazy">
+          <div class="g-glow"></div>
+          <div class="g-label"><span class="dot"></span><span class="txt">Cheese Lover</span></div>
+        </a>
+
+        <a class="g-card md:col-span-4 lg:col-span-4" href="gallery-5.jpg" data-lightbox>
+          <img src="gallery-5.jpg" alt="Tosbik's Kitchen Foto 5" loading="lazy">
+          <div class="g-glow"></div>
+          <div class="g-label"><span class="dot"></span><span class="txt">Unser Double</span></div>
+        </a>
+
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- MENU (Text bleibt) -->
   <section id="menu" class="sec-pad px-6 bg-[#030303]">
-    <!-- ... DEIN MENU BLOCK BLEIBT 1:1 WIE BEI DIR ... -->
-    <!-- Ich lasse ihn hier absichtlich weg, weil er in deinem Original exakt so bleiben soll. -->
+    <div class="max-w-6xl mx-auto">
+      <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10 safe-wrap">
+        <div>
+          <p class="text-[#FF9F00] font-bold uppercase text-[10px] tracking-widest mb-2">Menü Highlights</p>
+          <h2 class="text-4xl md:text-6xl font-black uppercase italic tracking-tight">
+            Unsere Favoriten.<br><span class="text-gradient">Einfach richtig gut.</span>
+          </h2>
+        </div>
+        <div class="flex gap-3 flex-wrap">
+          <a href="https://www.instagram.com/tosbiks_kitchen/" target="_blank" rel="noopener"
+             class="glass px-5 py-3 rounded-xl font-black uppercase text-xs hover:border-white/20 transition flex items-center gap-2">
+            Instagram <i data-lucide="instagram" class="w-4 h-4 text-[#FF9F00]"></i>
+          </a>
+          <a href="#visit"
+             class="bg-white text-black px-5 py-3 rounded-xl font-black uppercase text-xs hover:bg-[#FF9F00] transition flex items-center gap-2">
+            Jetzt bestellen <i data-lucide="shopping-bag" class="w-4 h-4"></i>
+          </a>
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-12 gap-4 safe-wrap">
+        <div class="md:col-span-7 bento-card glass-bright rounded-[2.5rem] p-8 md:p-10 relative overflow-hidden">
+          <div class="absolute inset-0 opacity-30"
+               style="background: radial-gradient(circle at 20% 20%, rgba(255,159,0,.35), transparent 55%), radial-gradient(circle at 80% 70%, rgba(255,95,0,.25), transparent 55%);">
+          </div>
+          <div class="relative">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[#FF9F00] text-[9px] font-bold uppercase tracking-widest mb-5">
+              Signature
+            </div>
+            <h3 class="text-3xl md:text-4xl font-black uppercase italic tracking-tight">Smashies Signature</h3>
+            <p class="text-white/70 mt-3 max-w-xl">
+              Unser Klassiker: saftig, knusprig und genau richtig abgestimmt.
+              (Details/Varianten bitte final nach eurer Karte.)
+            </p>
+
+            <div class="mt-8 grid sm:grid-cols-3 gap-3">
+              <div class="glass rounded-2xl p-4">
+                <p class="text-[10px] uppercase tracking-widest text-white/50">Patty</p>
+                <p class="font-black italic mt-1">Smash</p>
+              </div>
+              <div class="glass rounded-2xl p-4">
+                <p class="text-[10px] uppercase tracking-widest text-white/50">Cheese</p>
+                <p class="font-black italic mt-1">Melt</p>
+              </div>
+              <div class="glass rounded-2xl p-4">
+                <p class="text-[10px] uppercase tracking-widest text-white/50">Finish</p>
+                <p class="font-black italic mt-1">Crunch</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="md:col-span-5 grid gap-4">
+          <div class="bento-card glass rounded-[2.5rem] p-7">
+            <div class="flex items-start justify-between gap-4 safe-wrap">
+              <div class="safe-wrap">
+                <p class="text-[#FF9F00] font-bold uppercase text-[10px] tracking-widest">Burger</p>
+                <h4 class="text-2xl font-black italic uppercase mt-1">Mc Smash</h4>
+                <p class="text-white/60 text-sm mt-2 leading-snug">
+                  Smashed Rindfleischpatty, Ketchup, Senfmayo, Essiggurken, Zwiebeln. Halal.
+                </p>
+              </div>
+              <div class="bg-white text-black rounded-2xl px-4 py-3 font-black italic text-lg shrink-0">€9,90</div>
+            </div>
+            <div class="mt-5 flex gap-2 flex-wrap">
+              <span class="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[10px] uppercase tracking-widest text-white/70">Halal</span>
+              <span class="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[10px] uppercase tracking-widest text-white/70">Classic</span>
+              <span class="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[10px] uppercase tracking-widest text-white/70">Smash</span>
+            </div>
+          </div>
+
+          <div class="bento-card glass-bright rounded-[2.5rem] p-7">
+            <div class="flex items-center gap-3">
+              <div class="w-12 h-12 rounded-2xl bg-[#FF9F00]/15 border border-[#FF9F00]/30 flex items-center justify-center">
+                <i data-lucide="pizza" class="w-6 h-6 text-[#FF9F00]"></i>
+              </div>
+              <div>
+                <p class="text-[#FF9F00] font-bold uppercase text-[10px] tracking-widest">Loaded Fries</p>
+                <h4 class="text-xl font-black italic uppercase">Passt immer</h4>
+              </div>
+            </div>
+            <p class="text-white/70 text-sm mt-3">Knusprig, voll belegt und super als Side. (Varianten bitte final ergänzen.)</p>
+          </div>
+
+          <div class="bento-card glass rounded-[2.5rem] p-7 flex items-center justify-between gap-6 safe-wrap">
+            <div class="safe-wrap">
+              <p class="text-[#FF9F00] font-bold uppercase text-[10px] tracking-widest">Tipp</p>
+              <h4 class="text-xl font-black italic uppercase mt-1">Abholung lohnt sich</h4>
+              <p class="text-white/60 text-sm mt-1">Kurz vorbei, warm mitnehmen, voller Crunch.</p>
+            </div>
+            <i data-lucide="timer" class="w-6 h-6 text-[#FF9F00] shrink-0"></i>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-10 text-white/40 text-xs">
+        Hinweis: Menü/Preise sind Beispielwerte für das Layout. Bitte final mit eurer Karte abgleichen.
+      </div>
+    </div>
   </section>
 
-  <!-- REVIEWS (unverändert) -->
+  <!-- REVIEWS (Text bleibt) -->
   <section id="reviews" class="sec-pad px-6 bg-[#050505]">
-    <!-- ... DEIN REVIEWS BLOCK BLEIBT 1:1 WIE BEI DIR ... -->
+    <div class="max-w-6xl mx-auto">
+      <div class="mb-10">
+        <p class="text-[#FF9F00] font-bold uppercase text-[10px] tracking-widest mb-2">Bewertungen</p>
+        <h2 class="text-4xl md:text-6xl font-black uppercase italic tracking-tight">Was Gäste sagen.</h2>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-4 safe-wrap">
+        <div class="bento-card glass-bright rounded-[2.5rem] p-7">
+          <div class="flex gap-1 text-[#FF9F00] mb-4">
+            <i data-lucide="star" class="fill-current w-4 h-4"></i><i data-lucide="star" class="fill-current w-4 h-4"></i>
+            <i data-lucide="star" class="fill-current w-4 h-4"></i><i data-lucide="star" class="fill-current w-4 h-4"></i>
+            <i data-lucide="star" class="fill-current w-4 h-4"></i>
+          </div>
+          <p class="text-white/80 leading-relaxed">
+            „Mit großem Abstand der beste Burgerladen in Rheine… alles wirkt super frisch…“
+          </p>
+          <p class="text-white/40 text-xs mt-4 uppercase tracking-widest">Öffentliche Bewertung</p>
+        </div>
+
+        <div class="bento-card glass rounded-[2.5rem] p-7">
+          <div class="flex items-center justify-between">
+            <div class="flex gap-1 text-[#FF9F00]">
+              <i data-lucide="star" class="fill-current w-4 h-4"></i><i data-lucide="star" class="fill-current w-4 h-4"></i>
+              <i data-lucide="star" class="fill-current w-4 h-4"></i><i data-lucide="star" class="fill-current w-4 h-4"></i>
+              <i data-lucide="star" class="fill-current w-4 h-4"></i>
+            </div>
+            <i data-lucide="quote" class="w-5 h-5 text-white/30"></i>
+          </div>
+          <p class="text-white/80 leading-relaxed mt-4">
+            „Sie bekommen es sogar hin, die Pommes bei der Lieferung knusprig zu behalten.“
+          </p>
+          <p class="text-white/40 text-xs mt-4 uppercase tracking-widest">Öffentliche Bewertung</p>
+        </div>
+
+        <div class="bento-card glass-bright rounded-[2.5rem] p-7">
+          <div class="flex items-center gap-3">
+            <div class="w-12 h-12 rounded-2xl bg-[#FF9F00]/15 border border-[#FF9F00]/30 flex items-center justify-center">
+              <i data-lucide="badge-check" class="w-6 h-6 text-[#FF9F00]"></i>
+            </div>
+            <div>
+              <p class="text-[#FF9F00] font-bold uppercase text-[10px] tracking-widest">Score</p>
+              <h4 class="text-2xl font-black italic uppercase">4.8 ★</h4>
+            </div>
+          </div>
+          <p class="text-white/70 text-sm mt-4">
+            Danke für das Feedback – wir freuen uns über jede Bewertung.
+          </p>
+        </div>
+      </div>
+    </div>
   </section>
 
-  <!-- VISIT (unverändert) -->
+  <!-- VISIT / CTA (Text bleibt, nur Mobile-Fix & safe widths) -->
   <section id="visit" class="sec-pad px-6 bg-[#030303]">
-    <!-- ... DEIN VISIT BLOCK BLEIBT 1:1 WIE BEI DIR ... -->
+    <div class="max-w-6xl mx-auto">
+      <div class="bento-card glass-bright rounded-[2.5rem] p-7 md:p-12 overflow-hidden relative safe-wrap">
+        <div class="absolute inset-0 opacity-35"
+             style="background: radial-gradient(circle at 15% 20%, rgba(255,159,0,.35), transparent 60%), radial-gradient(circle at 85% 70%, rgba(255,95,0,.30), transparent 60%);">
+        </div>
+
+        <div class="relative grid md:grid-cols-2 gap-8 md:gap-10 items-center safe-wrap">
+          <div class="safe-wrap">
+            <p class="text-[#FF9F00] font-bold uppercase text-[10px] tracking-widest mb-2">Bestellen</p>
+            <h2 class="text-4xl md:text-6xl font-black uppercase italic leading-[0.9] break-any">
+              Vorbeikommen oder<br><span class="text-gradient">online bestellen.</span>
+            </h2>
+            <p class="text-white/70 mt-5 max-w-xl">
+              Wähle einfach deine Plattform – und wir kümmern uns um den Rest.
+            </p>
+
+            <div class="mt-7 flex flex-col gap-3 safe-wrap">
+              <a href="https://www.lieferando.de/speisekarte/tosbiks-kitchen" target="_blank" rel="noopener"
+                 class="bg-white text-black px-7 py-4 rounded-xl font-black uppercase text-xs hover:bg-[#FF9F00] transition flex items-center justify-center gap-2 cta-btn">
+                Lieferando öffnen <i data-lucide="external-link" class="w-4 h-4"></i>
+              </a>
+
+              <a href="https://www.ubereats.com/store/tosbiks-kitchen/pBVRcipkUmGLkzAqVCP4Wg" target="_blank" rel="noopener"
+                 class="glass px-7 py-4 rounded-xl font-black uppercase text-xs hover:border-white/20 transition flex items-center justify-center gap-2 cta-btn">
+                Uber Eats öffnen <i data-lucide="external-link" class="w-4 h-4 text-[#FF9F00]"></i>
+              </a>
+            </div>
+          </div>
+
+          <div class="glass rounded-[2rem] p-6 md:p-8 overflow-hidden safe-wrap">
+            <div class="flex items-start justify-between gap-6 safe-wrap">
+              <div class="safe-wrap">
+                <p class="text-[#FF9F00] font-bold uppercase text-[10px] tracking-widest mb-1">Adresse</p>
+                <p class="text-xl font-black italic uppercase break-any">Bonifatiusstraße 48a</p>
+                <p class="text-white/60 text-sm mt-1">48429 Rheine</p>
+              </div>
+              <i data-lucide="map-pin" class="w-6 h-6 text-[#FF9F00] shrink-0"></i>
+            </div>
+
+            <div class="hairline my-6"></div>
+
+            <div class="flex items-start justify-between gap-6 safe-wrap">
+              <div class="safe-wrap">
+                <p class="text-[#FF9F00] font-bold uppercase text-[10px] tracking-widest mb-1">Öffnungszeiten</p>
+                <p class="text-xl font-black italic uppercase">Di – So · 17:00 – 22:00</p>
+                <p class="text-white/50 text-xs mt-1">Feiertage/Events ggf. abweichend.</p>
+              </div>
+              <i data-lucide="clock" class="w-6 h-6 text-[#FF9F00] shrink-0"></i>
+            </div>
+
+            <div class="mt-6 safe-wrap">
+              <a href="https://www.google.com/maps/search/?api=1&query=Bonifatiusstra%C3%9Fe%2048a%2048429%20Rheine%20Tosbik's%20Kitchen"
+                 target="_blank" rel="noopener"
+                 class="w-full inline-flex items-center justify-center gap-2 bg-[#FF9F00] text-black px-6 py-4 rounded-xl font-black uppercase text-xs hover:scale-[1.01] transition-transform cta-btn">
+                In Google Maps öffnen <i data-lucide="navigation" class="w-4 h-4"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
   </section>
 
-  <!-- FOOTER (unverändert) -->
+  <!-- FOOTER (Text bleibt) -->
   <footer class="py-12 px-6 border-t border-white/5 bg-[#030303]">
-    <!-- ... DEIN FOOTER BLEIBT 1:1 WIE BEI DIR ... -->
+    <div class="max-w-4xl mx-auto text-center">
+      <h2 class="text-3xl md:text-4xl font-black uppercase italic mb-8 text-white opacity-90">
+        Danke fürs Vorbeischauen.
+      </h2>
+      <div class="flex justify-center flex-wrap gap-6 text-[10px] font-bold uppercase tracking-widest text-white/40 mb-8">
+        <a href="https://www.instagram.com/tosbiks_kitchen/" target="_blank" rel="noopener" class="hover:text-white">Instagram</a>
+        <a href="https://www.lieferando.de/speisekarte/tosbiks-kitchen" target="_blank" rel="noopener" class="hover:text-white">Lieferando</a>
+        <a href="https://www.ubereats.com/store/tosbiks-kitchen/pBVRcipkUmGLkzAqVCP4Wg" target="_blank" rel="noopener" class="hover:text-white">Uber Eats</a>
+        <a href="#" class="hover:text-white">Impressum</a>
+        <a href="#" class="hover:text-white">Datenschutz</a>
+      </div>
+      <p class="text-[8px] font-bold uppercase tracking-[0.4em] opacity-20 text-white">
+        &copy; 2025 Tosbik's Kitchen
+      </p>
+    </div>
   </footer>
+
+  <!-- LIGHTBOX -->
+  <div id="lightbox" class="lb" aria-hidden="true">
+    <div class="lb-inner">
+      <button class="lb-close" id="lbClose" aria-label="Schließen">
+        <i data-lucide="x" class="w-5 h-5 text-white"></i>
+      </button>
+      <img id="lbImg" src="" alt="Bildvorschau">
+    </div>
+  </div>
 
   <script>
     window.addEventListener("DOMContentLoaded", () => {
@@ -625,102 +861,40 @@
         }));
       }
 
-      // === HERO CAROUSEL JS (NEU) ===
-      const track = document.getElementById('hcTrack');
-      const viewport = document.getElementById('hcViewport');
-      const prev = document.getElementById('hcPrev');
-      const next = document.getElementById('hcNext');
-      const dotsWrap = document.getElementById('hcDots');
-      const labelEl = document.getElementById('hcLabel');
-      if (track && viewport && prev && next && dotsWrap) {
-        const slides = Array.from(track.querySelectorAll('.hero-slide'));
-        const labels = slides.map(s => s.getAttribute('data-label') || '');
-        let index = 0;
+      // Lightbox
+      const lb = document.getElementById('lightbox');
+      const lbImg = document.getElementById('lbImg');
+      const lbClose = document.getElementById('lbClose');
 
-        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        let autoTimer = null;
-
-        function setLabel(i){
-          if (!labelEl) return;
-          labelEl.textContent = labels[i] || 'Gallery';
-        }
-
-        function renderDots(){
-          dotsWrap.innerHTML = '';
-          slides.forEach((_, i) => {
-            const b = document.createElement('button');
-            b.className = 'hc-dot' + (i === index ? ' is-active' : '');
-            b.type = 'button';
-            b.setAttribute('aria-label', `Bild ${i+1}`);
-            b.addEventListener('click', () => goTo(i, true));
-            dotsWrap.appendChild(b);
-          });
-        }
-
-        function update(){
-          const x = -index * 100;
-          track.style.transform = `translate3d(${x}%,0,0)`;
-          setLabel(index);
-          renderDots();
-        }
-
-        function goTo(i, userAction=false){
-          index = (i + slides.length) % slides.length;
-          update();
-          if (userAction) restartAuto();
-        }
-
-        function restartAuto(){
-          if (reduceMotion) return;
-          if (autoTimer) clearInterval(autoTimer);
-          autoTimer = setInterval(() => goTo(index + 1, false), 4200);
-        }
-
-        prev.addEventListener('click', () => goTo(index - 1, true));
-        next.addEventListener('click', () => goTo(index + 1, true));
-
-        // Swipe
-        let startX = 0;
-        let currentX = 0;
-        let dragging = false;
-
-        function onStart(x){
-          dragging = true;
-          startX = x;
-          currentX = x;
-          track.style.transition = 'none';
-        }
-        function onMove(x){
-          if (!dragging) return;
-          currentX = x;
-          const dx = currentX - startX;
-          const px = (dx / viewport.clientWidth) * 100;
-          track.style.transform = `translate3d(${(-index * 100) + px}%,0,0)`;
-        }
-        function onEnd(){
-          if (!dragging) return;
-          dragging = false;
-          track.style.transition = '';
-          const dx = currentX - startX;
-          const threshold = Math.max(40, viewport.clientWidth * 0.12);
-
-          if (dx > threshold) goTo(index - 1, true);
-          else if (dx < -threshold) goTo(index + 1, true);
-          else update();
-        }
-
-        viewport.addEventListener('touchstart', (e) => onStart(e.touches[0].clientX), { passive: true });
-        viewport.addEventListener('touchmove', (e) => onMove(e.touches[0].clientX), { passive: true });
-        viewport.addEventListener('touchend', onEnd);
-
-        viewport.addEventListener('mousedown', (e) => { e.preventDefault(); onStart(e.clientX); });
-        window.addEventListener('mousemove', (e) => onMove(e.clientX));
-        window.addEventListener('mouseup', onEnd);
-
-        // Init
-        update();
-        restartAuto();
+      function openLB(src){
+        lbImg.src = src;
+        lb.classList.add('open');
+        lb.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+        if (window.lucide) lucide.createIcons();
       }
+      function closeLB(){
+        lb.classList.remove('open');
+        lb.setAttribute('aria-hidden', 'true');
+        lbImg.src = '';
+        document.body.style.overflow = '';
+      }
+
+      document.querySelectorAll('[data-lightbox]').forEach(a => {
+        a.addEventListener('click', (e) => {
+          e.preventDefault();
+          const href = a.getAttribute('href');
+          if (href) openLB(href);
+        });
+      });
+
+      lb.addEventListener('click', (e) => {
+        if (e.target === lb) closeLB();
+      });
+      lbClose.addEventListener('click', closeLB);
+      window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && lb.classList.contains('open')) closeLB();
+      });
 
       const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -732,7 +906,7 @@
           y: 14, opacity: 0, duration: 0.65, stagger: 0.06, ease: "power3.out"
         });
 
-        gsap.utils.toArray(".bento-card").forEach((card) => {
+        gsap.utils.toArray(".bento-card, .g-card").forEach((card) => {
           gsap.from(card, {
             scrollTrigger: { trigger: card, start: "top 88%" },
             y: 18, opacity: 0, duration: 0.6, ease: "power3.out"
