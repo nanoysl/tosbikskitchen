@@ -123,8 +123,8 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      filter: blur(7px) brightness(.70) saturate(1.08); /* weniger blur als vorher */
-      transform: scale(1.08); /* avoid edges after blur */
+      filter: blur(7px) brightness(.70) saturate(1.08);
+      transform: scale(1.08);
     }
     .hero-video-overlay {
       position: absolute;
@@ -147,7 +147,7 @@
       max-width: 100%;
     }
 
-    /* Simple marquee band (Igloo-ish vibe, lightweight) */
+    /* Simple marquee band */
     .marquee {
       position: relative;
       overflow: hidden;
@@ -180,75 +180,59 @@
       to   { transform: translateX(-50%); }
     }
 
-    /* Gallery */
-    .gallery-grid{
-      display:grid;
-      grid-template-columns: 1fr;
-      gap: 12px;
-    }
-    @media (min-width: 640px){
-      .gallery-grid{ grid-template-columns: repeat(2, 1fr); }
-    }
-    @media (min-width: 1024px){
-      .gallery-grid{ grid-template-columns: repeat(12, 1fr); }
-    }
-    .g-card{
-      position: relative;
-      border-radius: 28px;
+    /* === TICKER GALLERY (PURE CSS) === */
+    .ticker-wrap{
+      width: 100%;
       overflow: hidden;
-      border: 1px solid rgba(255,255,255,0.08);
-      background: rgba(255,255,255,0.03);
-      transform: translateZ(0);
     }
-    .g-card img{
-      width:100%;
-      height:100%;
+    .ticker-track{
+      display: flex;
+      gap: 14px;
+      width: max-content;
+      animation: tickerMove 40s linear infinite;
+      will-change: transform;
+      padding: 6px 0 2px;
+    }
+    .ticker-card{
+      position: relative;
+      width: 300px;
+      height: 350px;
+      flex: 0 0 auto;
+      overflow: hidden;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(255,255,255,0.03);
+    }
+    @media (min-width: 768px){
+      .ticker-card{ width: 400px; height: 500px; }
+    }
+    .ticker-card img{
+      width: 100%;
+      height: 100%;
       object-fit: cover;
-      filter: contrast(1.05) saturate(1.05);
-      transform: scale(1.02);
-      transition: transform .5s cubic-bezier(.2,1,.25,1), filter .4s ease;
+      filter: grayscale(1);
+      transition: transform .5s cubic-bezier(.2,1,.25,1), filter .35s ease;
+      transform: scale(1);
       display:block;
     }
-    .g-card:hover img{
-      transform: scale(1.08);
-      filter: contrast(1.08) saturate(1.12);
+    .ticker-card:hover img{
+      filter: grayscale(0);
+      transform: scale(1.10);
     }
-    .g-glow{
+    .ticker-card::after{
+      content:"";
       position:absolute; inset:0;
-      background:
-        radial-gradient(600px 260px at 20% 20%, rgba(255,159,0,.22), transparent 60%),
-        radial-gradient(500px 320px at 80% 80%, rgba(255,95,0,.16), transparent 65%);
-      opacity:.85;
-      mix-blend-mode: screen;
+      background: rgba(255,159,0,0.45);
+      opacity: 0;
+      transition: opacity .3s ease;
+      mix-blend-mode: multiply;
       pointer-events:none;
     }
-    .g-label{
-      position:absolute;
-      left: 14px; bottom: 14px;
-      padding: 10px 12px;
-      border-radius: 16px;
-      background: rgba(0,0,0,0.42);
-      border: 1px solid rgba(255,255,255,0.10);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      display:flex; align-items:center; gap:10px;
-      max-width: calc(100% - 28px);
-    }
-    .g-label .dot{
-      width: 8px; height: 8px; border-radius: 99px;
-      background: var(--brand);
-      box-shadow: 0 0 16px rgba(255,159,0,.55);
-      flex: 0 0 auto;
-    }
-    .g-label .txt{
-      font-size: 10px;
-      letter-spacing: .22em;
-      text-transform: uppercase;
-      font-weight: 900;
-      opacity: .86;
-      white-space: nowrap;
-      overflow:hidden;
-      text-overflow: ellipsis;
+    .ticker-card:hover::after{ opacity: .65; }
+
+    @keyframes tickerMove{
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
     }
 
     /* Lightbox */
@@ -297,7 +281,8 @@
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto !important; }
       .marquee-track{ animation: none !important; }
-      .g-card img{ transition: none !important; }
+      .ticker-track{ animation: none !important; }
+      .ticker-card img{ transition: none !important; }
     }
   </style>
 
@@ -329,7 +314,7 @@
   <!-- NAV -->
   <nav class="fixed w-full z-50 px-4 py-4">
     <div class="max-w-6xl mx-auto flex justify-between items-center glass rounded-2xl px-5 py-2">
-      <a href="#home" showing="false" class="flex items-center gap-3 group">
+      <a href="#home" class="flex items-center gap-3 group">
         <img src="tosbik-logo-2025.png" alt="Tosbik's Kitchen Logo" class="w-9 h-9 object-contain" />
         <div class="leading-none">
           <span class="block font-black uppercase text-base italic group-hover:text-[#FF9F00] transition-colors">Tosbik's</span>
@@ -385,7 +370,6 @@
 
     <!-- Mobile video background -->
     <div class="hero-video-wrap">
-      <!-- Benenne dein Video in hero.mp4 um (sauber & sicher für GitHub Pages) -->
       <video class="hero-video" autoplay muted playsinline loop preload="metadata" src="hero.mp4"></video>
       <div class="hero-video-overlay"></div>
     </div>
@@ -397,7 +381,7 @@
         Smash Burger · Halal · frisch zubereitet
       </div>
 
-      <!-- HERO CARD (single, desktop-focused) -->
+      <!-- HERO CARD -->
       <div class="relative mb-6">
         <div class="absolute -inset-5 rounded-[2.5rem] blur-2xl opacity-35"
              style="background: radial-gradient(circle at 30% 30%, rgba(255,159,0,.45), transparent 55%), radial-gradient(circle at 70% 60%, rgba(255,95,0,.35), transparent 55%);">
@@ -406,13 +390,11 @@
         <div class="glass-bright rounded-[2.5rem] relative overflow-hidden">
           <div class="p-6 sm:p-8 md:p-10">
 
-            <!-- Desktop: centered bigger logo -->
             <div class="flex justify-center mb-5">
               <img src="tosbik-logo-2025.png" alt="Tosbik's Kitchen Logo"
                    class="w-[170px] sm:w-[190px] md:w-[260px] lg:w-[340px] object-contain opacity-95" />
             </div>
 
-            <!-- Headline: mobile stacks, desktop inline -->
             <h1 class="font-black uppercase italic tracking-tighter leading-[0.95] break-any text-center lg:text-left">
               <span class="block lg:inline text-4xl sm:text-5xl md:text-6xl lg:text-6xl text-white">GUTE ZUTATEN.</span>
               <span class="block lg:inline lg:ml-4 text-4xl sm:text-5xl md:text-6xl lg:text-6xl text-gradient">GUTER BURGER.</span>
@@ -428,63 +410,39 @@
         </div>
       </div>
 
-        <!-- GALLERY (NEU, nur Zusatz – Texte oben bleiben unangetastet) -->
-  <section id="gallery" class="sec-pad px-6 bg-[#030303]">
-    <div class="max-w-6xl mx-auto">
-      <div class="mb-10">
-        <p class="text-[#FF9F00] font-bold uppercase text-[10px] tracking-widest mb-2">Bilder</p>
-        <h2 class="text-4xl md:text-6xl font-black uppercase italic tracking-tight">
-          Close-ups.<br><span class="text-gradient">Real Kitchen Vibes.</span>
-        </h2>
-        <p class="text-white/60 mt-4 max-w-2xl">
-          (Nur Ergänzung: die bestehenden Texte auf der Seite wurden nicht verändert.)
-        </p>
-      </div>
+      <!-- GALLERY TICKER (pure HTML/CSS) -->
+      <section id="gallery" class="relative z-10 mt-3 overflow-hidden border-t border-white/10 pt-8">
+        <div class="max-w-6xl mx-auto px-0 sm:px-0 flex justify-between items-end mb-5">
+          <h2 class="text-white text-2xl sm:text-3xl md:text-5xl font-black uppercase tracking-tight">Vibe Check</h2>
+          <span class="text-[#FF9F00] animate-pulse uppercase tracking-widest hidden md:block text-[10px] font-bold">Live from the pit</span>
+        </div>
 
-      <div class="gallery-grid safe-wrap">
-        <!-- Desktop layout: 12-col feel via responsive col-spans -->
-        <a class="g-card md:col-span-7 lg:col-span-7" href="gallery-1.jpg" data-lightbox>
-          <img src="gallery-1.jpg" alt="Tosbik's Kitchen Foto 1" loading="lazy">
-          <div class="g-glow"></div>
-          <div class="g-label"><span class="dot"></span><span class="txt">Heart of Fries</span></div>
-        </a>
+        <div class="ticker-wrap">
+          <div class="ticker-track">
+            <!-- set 1 -->
+            <a class="ticker-card" href="gallery-1.jpg" data-lightbox><img src="gallery-1.jpg" alt="Gallery 1" loading="lazy"></a>
+            <a class="ticker-card" href="gallery-2.jpg" data-lightbox><img src="gallery-2.jpg" alt="Gallery 2" loading="lazy"></a>
+            <a class="ticker-card" href="gallery-3.jpg" data-lightbox><img src="gallery-3.jpg" alt="Gallery 3" loading="lazy"></a>
+            <a class="ticker-card" href="gallery-4.jpg" data-lightbox><img src="gallery-4.jpg" alt="Gallery 4" loading="lazy"></a>
+            <a class="ticker-card" href="gallery-5.jpg" data-lightbox><img src="gallery-5.jpg" alt="Gallery 5" loading="lazy"></a>
 
-        <a class="g-card md:col-span-5 lg:col-span-5" href="gallery-2.jpg" data-lightbox>
-          <img src="gallery-2.jpg" alt="Tosbik's Kitchen Foto 2" loading="lazy">
-          <div class="g-glow"></div>
-          <div class="g-label"><span class="dot"></span><span class="txt">Burger Love</span></div>
-        </a>
+            <!-- set 2 (duplicate for seamless loop) -->
+            <a class="ticker-card" href="gallery-1.jpg" data-lightbox><img src="gallery-1.jpg" alt="Gallery 1 duplicate" loading="lazy"></a>
+            <a class="ticker-card" href="gallery-2.jpg" data-lightbox><img src="gallery-2.jpg" alt="Gallery 2 duplicate" loading="lazy"></a>
+            <a class="ticker-card" href="gallery-3.jpg" data-lightbox><img src="gallery-3.jpg" alt="Gallery 3 duplicate" loading="lazy"></a>
+            <a class="ticker-card" href="gallery-4.jpg" data-lightbox><img src="gallery-4.jpg" alt="Gallery 4 duplicate" loading="lazy"></a>
+            <a class="ticker-card" href="gallery-5.jpg" data-lightbox><img src="gallery-5.jpg" alt="Gallery 5 duplicate" loading="lazy"></a>
+          </div>
+        </div>
+      </section>
 
-        <a class="g-card md:col-span-4 lg:col-span-4" href="gallery-3.jpg" data-lightbox>
-          <img src="gallery-3.jpg" alt="Tosbik's Kitchen Foto 3" loading="lazy">
-          <div class="g-glow"></div>
-          <div class="g-label"><span class="dot"></span><span class="txt">100% Fresh</span></div>
-        </a>
-
-        <a class="g-card md:col-span-4 lg:col-span-4" href="gallery-4.jpg" data-lightbox>
-          <img src="gallery-4.jpg" alt="Tosbik's Kitchen Foto 4" loading="lazy">
-          <div class="g-glow"></div>
-          <div class="g-label"><span class="dot"></span><span class="txt">Cheese Lover</span></div>
-        </a>
-
-        <a class="g-card md:col-span-4 lg:col-span-4" href="gallery-5.jpg" data-lightbox>
-          <img src="gallery-5.jpg" alt="Tosbik's Kitchen Foto 5" loading="lazy">
-          <div class="g-glow"></div>
-          <div class="g-label"><span class="dot"></span><span class="txt">Unser Double</span></div>
-        </a>
-
-        </a>
-      </div>
-    </div>
-  </section>
-
-      <!-- Copy (NICHT verändert) -->
-      <p class="text-gray-200/90 text-base md:text-lg max-w-2xl mb-6 leading-snug">
+      <!-- Copy -->
+      <p class="text-gray-200/90 text-base md:text-lg max-w-2xl mb-6 leading-snug mt-6">
         Frisches Rind, hohe Hitze und eine richtig gute Kruste. Bei Tosbik’s Kitchen bekommst du Smash Burger,
         wie wir ihn selbst am liebsten essen – direkt in Rheine.
       </p>
 
-      <!-- Buttons (safe on mobile) -->
+      <!-- Buttons -->
       <div class="flex flex-col sm:flex-row gap-3 mb-7 safe-wrap">
         <a href="#menu"
            class="bg-[#FF9F00] text-black px-7 py-4 rounded-xl font-black uppercase text-xs flex items-center justify-center gap-3 hover:scale-[1.02] transition-transform w-full sm:w-auto cta-btn">
@@ -516,7 +474,7 @@
     </div>
   </header>
 
-  <!-- Marquee Band (NEU, nur Zusatz) -->
+  <!-- Marquee Band -->
   <div class="marquee">
     <div class="marquee-track">
       <span><b>SMASH BURGER</b> · HALAL · FRISCH ZUBEREITET · <b>LOADED FRIES</b> · RHEINE ·</span>
@@ -526,7 +484,7 @@
     </div>
   </div>
 
-  <!-- STORY (Text bleibt) -->
+  <!-- STORY -->
   <section id="story" class="sec-pad px-6 bg-[#050505]">
     <div class="max-w-6xl mx-auto">
       <div class="mb-10">
@@ -590,57 +548,7 @@
     </div>
   </section>
 
-  <!-- GALLERY (NEU, nur Zusatz – Texte oben bleiben unangetastet) -->
-  <section id="gallery" class="sec-pad px-6 bg-[#030303]">
-    <div class="max-w-6xl mx-auto">
-      <div class="mb-10">
-        <p class="text-[#FF9F00] font-bold uppercase text-[10px] tracking-widest mb-2">Bilder</p>
-        <h2 class="text-4xl md:text-6xl font-black uppercase italic tracking-tight">
-          Close-ups.<br><span class="text-gradient">Real Kitchen Vibes.</span>
-        </h2>
-        <p class="text-white/60 mt-4 max-w-2xl">
-          (Nur Ergänzung: die bestehenden Texte auf der Seite wurden nicht verändert.)
-        </p>
-      </div>
-
-      <div class="gallery-grid safe-wrap">
-        <!-- Desktop layout: 12-col feel via responsive col-spans -->
-        <a class="g-card md:col-span-7 lg:col-span-7" href="gallery-1.jpg" data-lightbox>
-          <img src="gallery-1.jpg" alt="Tosbik's Kitchen Foto 1" loading="lazy">
-          <div class="g-glow"></div>
-          <div class="g-label"><span class="dot"></span><span class="txt">Heart of Fries</span></div>
-        </a>
-
-        <a class="g-card md:col-span-5 lg:col-span-5" href="gallery-2.jpg" data-lightbox>
-          <img src="gallery-2.jpg" alt="Tosbik's Kitchen Foto 2" loading="lazy">
-          <div class="g-glow"></div>
-          <div class="g-label"><span class="dot"></span><span class="txt">Burger Love</span></div>
-        </a>
-
-        <a class="g-card md:col-span-4 lg:col-span-4" href="gallery-3.jpg" data-lightbox>
-          <img src="gallery-3.jpg" alt="Tosbik's Kitchen Foto 3" loading="lazy">
-          <div class="g-glow"></div>
-          <div class="g-label"><span class="dot"></span><span class="txt">100% Fresh</span></div>
-        </a>
-
-        <a class="g-card md:col-span-4 lg:col-span-4" href="gallery-4.jpg" data-lightbox>
-          <img src="gallery-4.jpg" alt="Tosbik's Kitchen Foto 4" loading="lazy">
-          <div class="g-glow"></div>
-          <div class="g-label"><span class="dot"></span><span class="txt">Cheese Lover</span></div>
-        </a>
-
-        <a class="g-card md:col-span-4 lg:col-span-4" href="gallery-5.jpg" data-lightbox>
-          <img src="gallery-5.jpg" alt="Tosbik's Kitchen Foto 5" loading="lazy">
-          <div class="g-glow"></div>
-          <div class="g-label"><span class="dot"></span><span class="txt">Unser Double</span></div>
-        </a>
-
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- MENU (Text bleibt) -->
+  <!-- MENU -->
   <section id="menu" class="sec-pad px-6 bg-[#030303]">
     <div class="max-w-6xl mx-auto">
       <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10 safe-wrap">
@@ -743,7 +651,7 @@
     </div>
   </section>
 
-  <!-- REVIEWS (Text bleibt) -->
+  <!-- REVIEWS -->
   <section id="reviews" class="sec-pad px-6 bg-[#050505]">
     <div class="max-w-6xl mx-auto">
       <div class="mb-10">
@@ -797,7 +705,7 @@
     </div>
   </section>
 
-  <!-- VISIT / CTA (Text bleibt, nur Mobile-Fix & safe widths) -->
+  <!-- VISIT / CTA -->
   <section id="visit" class="sec-pad px-6 bg-[#030303]">
     <div class="max-w-6xl mx-auto">
       <div class="bento-card glass-bright rounded-[2.5rem] p-7 md:p-12 overflow-hidden relative safe-wrap">
@@ -863,7 +771,7 @@
     </div>
   </section>
 
-  <!-- FOOTER (Text bleibt) -->
+  <!-- FOOTER -->
   <footer class="py-12 px-6 border-t border-white/5 bg-[#030303]">
     <div class="max-w-4xl mx-auto text-center">
       <h2 class="text-3xl md:text-4xl font-black uppercase italic mb-8 text-white opacity-90">
@@ -941,7 +849,7 @@
       lb.addEventListener('click', (e) => {
         if (e.target === lb) closeLB();
       });
-      lbClose.addEventListener('click', closeLB);
+      if (lbClose) lbClose.addEventListener('click', closeLB);
       window.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && lb.classList.contains('open')) closeLB();
       });
@@ -952,18 +860,18 @@
       if (window.gsap && window.ScrollTrigger && !reduceMotion) {
         gsap.registerPlugin(ScrollTrigger);
 
-        gsap.from("header .glass-bright, header p, header a, header .inline-flex, header .flex", {
+        gsap.from("header .glass-bright, header p, header a, header .inline-flex, header .flex, header section", {
           y: 14, opacity: 0, duration: 0.65, stagger: 0.06, ease: "power3.out"
         });
 
-        gsap.utils.toArray(".bento-card, .g-card").forEach((card) => {
+        gsap.utils.toArray(".bento-card").forEach((card) => {
           gsap.from(card, {
             scrollTrigger: { trigger: card, start: "top 88%" },
             y: 18, opacity: 0, duration: 0.6, ease: "power3.out"
           });
         });
 
-        // Active nav highlighting (simple)
+        // Active nav highlighting
         const navLinks = document.querySelectorAll('[data-nav]');
         const sections = ["#home","#story","#menu","#reviews","#visit"].map(id => document.querySelector(id)).filter(Boolean);
 
