@@ -22,6 +22,9 @@
         .bento-card { transition: all 0.5s cubic-bezier(0.2, 1, 0.3, 1); cursor: none; position: relative; overflow: hidden; }
         .bento-card:hover { transform: scale(1.01) translateY(-5px); border-color: var(--brand); box-shadow: 0 20px 40px -20px rgba(255, 159, 0, 0.3); }
         
+        .gallery-img { transition: transform 0.8s cubic-bezier(0.2, 1, 0.3, 1); }
+        .gallery-card:hover .gallery-img { transform: scale(1.1); }
+
         .glow-orb { position: absolute; width: 600px; height: 600px; background: radial-gradient(circle, rgba(255, 159, 0, 0.12) 0%, transparent 70%); border-radius: 50%; pointer-events: none; z-index: 0; filter: blur(80px); }
 
         .logo-float { animation: floating 6s ease-in-out infinite; filter: drop-shadow(0 0 30px rgba(255, 159, 0, 0.2)); }
@@ -41,163 +44,137 @@
     <div id="cursor" class="fixed w-6 h-6 border-2 border-[#FF9F00] rounded-full pointer-events-none z-[9999] transition-transform duration-100 ease-out hidden md:block"></div>
     <div id="cursor-dot" class="fixed w-1.5 h-1.5 bg-[#FF9F00] rounded-full pointer-events-none z-[9999] hidden md:block"></div>
 
-    <div class="glow-orb top-[-10%] left-[-10%]"></div>
-    <div class="glow-orb bottom-[5%] right-[-5%] opacity-60"></div>
-
     <nav class="fixed w-full z-50 px-6 py-6">
         <div class="max-w-6xl mx-auto flex justify-between items-center glass rounded-2xl px-8 py-3 border-white/10">
             <div class="flex items-center gap-4 group">
-                <img src="tosbik-logo-2025.png" alt="Logo" class="w-12 h-12 object-contain group-hover:rotate-12 transition-transform">
+                <img src="tosbik-logo-2025.png" alt="Logo" class="w-10 h-10 object-contain group-hover:rotate-12 transition-transform">
                 <div class="leading-none">
-                    <span class="block font-black uppercase tracking-tighter text-xl italic">Tosbik's</span>
-                    <span class="text-[10px] font-bold tracking-[0.3em] uppercase opacity-60 text-white">Kitchen</span>
+                    <span class="block font-black uppercase tracking-tighter text-lg italic text-white">Tosbik's</span>
+                    <span class="text-[9px] font-bold tracking-[0.3em] uppercase opacity-60 text-white">Kitchen</span>
                 </div>
             </div>
-            <div class="hidden md:flex gap-10 text-[11px] font-bold uppercase tracking-[0.2em]">
-                <a href="#home" class="text-white/70 hover:text-[#FF9F00] transition-colors">Home</a>
-                <a href="#story" class="text-white/70 hover:text-[#FF9F00] transition-colors">Unsere Story</a>
-                <a href="#menu" class="text-white/70 hover:text-[#FF9F00] transition-colors">Menü</a>
-                <a href="#location" class="text-white/70 hover:text-[#FF9F00] transition-colors">Kontakt</a>
+            <div class="hidden md:flex gap-8 text-[10px] font-bold uppercase tracking-[0.2em]">
+                <a href="#home" class="text-white hover:text-[#FF9F00] transition-colors">Home</a>
+                <a href="#gallery" class="text-white hover:text-[#FF9F00] transition-colors">Galerie</a>
+                <a href="#menu" class="text-white hover:text-[#FF9F00] transition-colors">Menü</a>
+                <a href="#story" class="text-white hover:text-[#FF9F00] transition-colors">Story</a>
             </div>
-            <a href="https://www.instagram.com/tosbiks_kitchen/" target="_blank" class="bg-white text-black px-6 py-2.5 rounded-xl font-black text-xs hover:bg-[#FF9F00] transition-all hover:scale-105 uppercase">
+            <a href="https://www.instagram.com/tosbiks_kitchen/" target="_blank" class="bg-white text-black px-5 py-2 rounded-lg font-black text-[10px] hover:bg-[#FF9F00] transition-all uppercase">
                 Bestellen
             </a>
         </div>
     </nav>
 
-    <section id="home" class="relative min-h-screen flex items-center px-6 pt-20">
+    <section id="home" class="relative min-h-screen flex items-center px-6">
+        <div class="glow-orb top-[-10%] left-[-10%]"></div>
         <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center z-10">
-            <div id="hero-content">
-                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-[#FF9F00] text-[10px] font-bold uppercase tracking-widest mb-8">
-                    <span class="relative flex h-2 w-2">
-                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#FF9F00] opacity-75"></span>
-                        <span class="relative inline-flex rounded-full h-2 w-2 bg-[#FF9F00]"></span>
-                    </span>
-                    Rheine's Finest Smash Burger
-                </div>
-                <h1 class="text-7xl md:text-8xl lg:text-[110px] font-black uppercase italic leading-[0.85] mb-8 tracking-tighter text-white">
-                    HANDGE- <br> MACHT. <span class="text-gradient">ECHT.</span>
+            <div>
+                <h1 class="text-7xl md:text-9xl font-black uppercase italic leading-[0.8] mb-8 tracking-tighter">
+                    THE ART OF <br> <span class="text-gradient">SMASH.</span>
                 </h1>
-                <p class="text-gray-300 text-lg md:text-xl max-w-lg mb-12 leading-relaxed opacity-90">
-                    Wir bringen das echte Smash-Handwerk nach Rheine. Kein Standard, kein Schnickschnack – nur 100% frisches Beef, Hitze und Perfektion.
-                </p>
-                <div class="flex flex-wrap gap-6">
-                    <a href="#menu" class="group bg-[#FF9F00] text-black px-10 py-5 rounded-2xl font-black uppercase flex items-center gap-4 hover:shadow-[0_0_30px_rgba(255,159,0,0.4)] transition-all">
-                        Speisekarte <i data-lucide="arrow-right" class="group-hover:translate-x-2 transition-transform"></i>
-                    </a>
-                </div>
+                <p class="text-gray-300 text-lg max-w-md mb-10 opacity-80">Frisch gewolftes Beef, auf der heißen Platte gesmasht für die ultimative Kruste. Willkommen in Rheine's Burger-Elite.</p>
+                <a href="#menu" class="inline-flex items-center gap-4 bg-[#FF9F00] text-black px-8 py-4 rounded-xl font-black uppercase text-sm hover:scale-105 transition-transform">
+                    Jetzt Menü ansehen <i data-lucide="chevron-right"></i>
+                </a>
             </div>
-            <div class="relative flex justify-center items-center">
-                <img src="tosbik-logo-2025.png" alt="Hero Logo" class="logo-float w-full max-w-lg object-contain z-10">
+            <div class="flex justify-center">
+                <img src="tosbik-logo-2025.png" alt="Burger" class="logo-float w-full max-w-md">
             </div>
         </div>
     </section>
 
-    <section id="story" class="py-40 px-6 bg-[#050505]">
+    <section id="gallery" class="py-32 px-6">
         <div class="max-w-7xl mx-auto">
-            <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-end mb-20">
-                <div class="md:col-span-8">
-                    <h2 class="text-xs font-bold text-[#FF9F00] uppercase tracking-[0.5em] mb-4">Hinter den Kulissen</h2>
-                    <h3 class="text-6xl md:text-8xl font-black uppercase italic tracking-tighter leading-none text-white">DIE STORY VOM <br> <span class="text-gradient">PERFEKTEN SMASH.</span></h3>
+            <h2 class="text-4xl md:text-6xl font-black uppercase italic mb-16 text-center">Visual <span class="text-gradient">Cravings</span></h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="gallery-card h-[400px] rounded-[2rem] overflow-hidden relative group">
+                    <img src="burger-1.jpg" alt="Smash 1" class="gallery-img w-full h-full object-cover grayscale group-hover:grayscale-0">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity p-8 flex items-end">
+                        <p class="font-bold italic uppercase tracking-widest text-[#FF9F00]">Der Klassiker</p>
+                    </div>
                 </div>
-                <div class="md:col-span-4 text-gray-300 text-lg pb-2 opacity-80">
-                    Jeder Burger erzählt eine Geschichte von Leidenschaft, Qualität und dem Mut, Dinge anders zu machen.
+                <div class="gallery-card h-[400px] rounded-[2rem] overflow-hidden relative group">
+                    <img src="burger-2.jpg" alt="Smash 2" class="gallery-img w-full h-full object-cover grayscale group-hover:grayscale-0">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity p-8 flex items-end">
+                        <p class="font-bold italic uppercase tracking-widest text-[#FF9F00]">Cheesy Dynamite</p>
+                    </div>
+                </div>
+                <div class="gallery-card h-[400px] rounded-[2rem] overflow-hidden relative group">
+                    <img src="burger-3.jpg" alt="Smash 3" class="gallery-img w-full h-full object-cover grayscale group-hover:grayscale-0">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity p-8 flex items-end">
+                        <p class="font-bold italic uppercase tracking-widest text-[#FF9F00]">Crispy Onions</p>
+                    </div>
                 </div>
             </div>
+        </div>
+    </section>
 
-            <div class="grid grid-cols-1 md:grid-cols-12 gap-6 auto-rows-[250px]">
-                <div class="md:col-span-8 md:row-span-2 bento-card glass-bright rounded-[3rem] p-12 flex flex-col justify-between">
-                    <div class="flex justify-between items-start">
-                        <div class="w-16 h-16 rounded-2xl bg-[#FF9F00]/10 flex items-center justify-center text-[#FF9F00]">
-                            <i data-lucide="award" size="32"></i>
-                        </div>
-                        <span class="text-[10px] font-bold uppercase tracking-widest text-white/40 italic">Gegründet 2024</span>
-                    </div>
+    <section id="menu" class="py-32 px-6 bg-[#050505]">
+        <div class="max-w-5xl mx-auto">
+            <div class="text-center mb-20">
+                <p class="text-[#FF9F00] font-bold uppercase tracking-[0.4em] text-xs mb-4">The Lineup</p>
+                <h2 class="text-5xl md:text-7xl font-black uppercase italic italic">Unsere <span class="text-gradient">Meisterstücke</span></h2>
+            </div>
+
+            <div class="grid gap-4">
+                <div class="glass-bright p-8 rounded-3xl flex flex-col md:flex-row justify-between items-center hover:border-[#FF9F00]/50 transition-colors group">
                     <div>
-                        <h4 class="text-3xl font-black uppercase italic mb-6 text-white">Mehr als nur ein Burger</h4>
-                        <p class="text-gray-300 text-xl max-w-2xl leading-relaxed">
-                            Tosbik's Kitchen entstand aus der Vision, das authentische amerikanische Smash-Burger-Erlebnis nach Rheine zu bringen. Technik, Temperatur und bestes Fleisch.
-                        </p>
+                        <h4 class="text-2xl font-black uppercase italic mb-2 group-hover:text-[#FF9F00] transition-colors">Classic Smash</h4>
+                        <p class="text-gray-400 text-sm">2x Frisches Beef, Cheddar, Tosbik's Secret Sauce, Pickles, Zwiebeln</p>
                     </div>
+                    <div class="text-2xl font-black italic mt-4 md:mt-0 text-white">9.50€</div>
                 </div>
-
-                <div class="md:col-span-4 md:row-span-1 bento-card bg-white text-black rounded-[3rem] p-10 flex flex-col justify-between">
-                    <div class="flex gap-1 text-[#FF9F00]">
-                        <i data-lucide="star" class="fill-current" size="16"></i>
-                        <i data-lucide="star" class="fill-current" size="16"></i>
-                        <i data-lucide="star" class="fill-current" size="16"></i>
-                        <i data-lucide="star" class="fill-current" size="16"></i>
-                        <i data-lucide="star" class="fill-current" size="16"></i>
-                    </div>
+                <div class="glass-bright p-8 rounded-3xl flex flex-col md:flex-row justify-between items-center hover:border-[#FF9F00]/50 transition-colors group">
                     <div>
-                        <div class="text-5xl font-black italic tracking-tighter">100%</div>
-                        <p class="text-[10px] font-bold uppercase tracking-widest opacity-60">Frisches Rindfleisch</p>
+                        <h4 class="text-2xl font-black uppercase italic mb-2 group-hover:text-[#FF9F00] transition-colors">Bacon Grill</h4>
+                        <p class="text-gray-400 text-sm">2x Beef, Crispy Bacon, BBQ Sauce, Cheddar, Röstzwiebeln</p>
                     </div>
+                    <div class="text-2xl font-black italic mt-4 md:mt-0 text-white">11.50€</div>
                 </div>
-
-                <a href="https://www.instagram.com/tosbiks_kitchen/" target="_blank" class="md:col-span-4 md:row-span-1 bento-card glass rounded-[3rem] p-10 flex items-center justify-center group">
-                    <div class="text-center group-hover:scale-110 transition-transform">
-                        <i data-lucide="instagram" class="w-8 h-8 mx-auto mb-4 text-[#FF9F00]"></i>
-                        <p class="font-black uppercase tracking-tighter italic text-white">Werde Teil der <br> Community</p>
-                    </div>
-                </a>
-
-                <div class="md:col-span-4 md:row-span-2 bento-card glass-bright rounded-[3rem] p-10 flex flex-col justify-between overflow-hidden">
-                    <div class="absolute -right-10 -top-10 w-40 h-40 bg-[#FF9F00]/20 blur-[60px]"></div>
-                    <i data-lucide="flame" class="text-[#FF9F00]" size="40"></i>
+                <div class="glass-bright p-8 rounded-3xl flex flex-col md:flex-row justify-between items-center hover:border-[#FF9F00]/50 transition-colors group">
                     <div>
-                        <h4 class="text-2xl font-black uppercase italic mb-4 text-[#FF9F00]">Das Geheimnis</h4>
-                        <p class="text-gray-300 text-sm leading-relaxed">
-                            Durch den extremen Druck auf der Platte karamellisieren die Proteine. Das Ergebnis? Die perfekte Kruste.
-                        </p>
+                        <h4 class="text-2xl font-black uppercase italic mb-2 group-hover:text-[#FF9F00] transition-colors">Veggie Smash</h4>
+                        <p class="text-gray-400 text-sm">Plant-Based Patty, Avocado-Cream, Salat, Tomate, Spezial-Sauce</p>
                     </div>
+                    <div class="text-2xl font-black italic mt-4 md:mt-0 text-white">10.00€</div>
                 </div>
+            </div>
+        </div>
+    </section>
 
-                <div class="md:col-span-8 md:row-span-2 bento-card glass rounded-[3rem] p-12 flex flex-col justify-between border-l-4 border-l-[#FF9F00]">
-                    <div class="flex flex-col md:flex-row justify-between gap-8">
-                        <div>
-                            <p class="text-xs font-bold text-[#FF9F00] uppercase tracking-widest mb-2">Location</p>
-                            <h4 class="text-4xl font-black italic uppercase mb-2 text-white">Bonifatiusstraße 48</h4>
-                            <p class="text-gray-300">48429 Rheine, Deutschland</p>
-                        </div>
-                        <div class="text-right">
-                            <p class="text-xs font-bold text-[#FF9F00] uppercase tracking-widest mb-2">Öffnungszeiten</p>
-                            <p class="font-bold text-xl italic uppercase text-white">Di - So: 17:00 - 22:00</p>
-                            <p class="text-white/40 text-xs">Montag: Ruhetag</p>
-                        </div>
-                    </div>
-                    <div class="flex items-center gap-4 mt-8">
-                        <div class="flex -space-x-3">
-                            <div class="w-10 h-10 rounded-full border-2 border-black bg-zinc-800"></div>
-                            <div class="w-10 h-10 rounded-full border-2 border-black bg-zinc-700"></div>
-                            <div class="w-10 h-10 rounded-full border-2 border-black bg-zinc-600"></div>
-                        </div>
-                        <p class="text-[10px] font-bold uppercase tracking-widest text-white/50">Tausende zufriedene Gäste in Rheine</p>
-                    </div>
+    <section id="story" class="py-32 px-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+                <div class="md:col-span-8 bento-card glass-bright p-12 rounded-[3rem]">
+                    <i data-lucide="flame" class="text-[#FF9F00] mb-8" size="40"></i>
+                    <h3 class="text-4xl font-black uppercase italic mb-6">Die Tosbik Philosophie</h3>
+                    <p class="text-gray-300 text-lg leading-relaxed">Wir glauben nicht an Tiefkühlkost. Jeden Morgen wird unser Fleisch frisch vorbereitet. Die Maillard-Reaktion beim Smashen sorgt für den Geschmack, den du in Rheine kein zweites Mal findest.</p>
+                </div>
+                <div class="md:col-span-4 bento-card bg-white text-black p-12 rounded-[3rem] flex flex-col justify-between">
+                    <h3 class="text-5xl font-black italic leading-none">100%<br>REAL.</h3>
+                    <p class="font-bold uppercase tracking-widest text-xs opacity-60 text-black">No Bullshit Policy</p>
                 </div>
             </div>
         </div>
     </section>
 
     <footer class="py-24 px-6 border-t border-white/10 relative bg-[#030303]">
-        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-[#FF9F00]/10 blur-[120px] pointer-events-none"></div>
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-[#FF9F00]/5 blur-[120px] pointer-events-none"></div>
 
         <div class="max-w-7xl mx-auto flex flex-col items-center relative z-10">
-            <img src="tosbik-logo-2025.png" alt="Logo" class="w-24 mb-12 opacity-40 hover:opacity-100 transition-all duration-700 grayscale hover:grayscale-0">
-            
-            <h2 class="text-6xl md:text-[110px] font-black uppercase italic tracking-tighter mb-16 text-center leading-[0.85] text-white">
+            <h2 class="text-5xl md:text-[100px] font-black uppercase italic tracking-tighter mb-16 text-center leading-[0.85] text-white">
                 HUNGER AUF <br> <span class="text-gradient">ECHTES?</span>
             </h2>
             
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-12 w-full max-w-3xl mb-24 text-[11px] font-black uppercase tracking-[0.3em] text-center">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-12 w-full max-w-2xl mb-20 text-[11px] font-black uppercase tracking-[0.3em] text-center">
                 <a href="#home" class="text-white hover:text-[#FF9F00] transition-colors">Home</a>
-                <a href="#story" class="text-white hover:text-[#FF9F00] transition-colors">Story</a>
+                <a href="#gallery" class="text-white hover:text-[#FF9F00] transition-colors">Galerie</a>
+                <a href="#menu" class="text-white hover:text-[#FF9F00] transition-colors">Menü</a>
                 <a href="https://www.instagram.com/tosbiks_kitchen/" class="text-white hover:text-[#FF9F00] transition-colors">Instagram</a>
-                <a href="#" class="text-white hover:text-[#FF9F00] transition-colors">Impressum</a>
             </div>
 
-            <p class="text-white/40 text-[10px] font-bold uppercase tracking-[0.5em] border-t border-white/5 pt-12 w-full text-center">
-                &copy; 2025 Tosbik's Kitchen &mdash; Crafted for Excellence
+            <p class="text-white/50 text-[10px] font-bold uppercase tracking-[0.5em] pt-12 border-t border-white/5 w-full text-center">
+                &copy; 2025 Tosbik's Kitchen Rheine &mdash; Bonifatiusstraße 48
             </p>
         </div>
     </footer>
@@ -206,27 +183,19 @@
         lucide.createIcons();
         gsap.registerPlugin(ScrollTrigger);
 
+        // Cursor
         const cursor = document.getElementById('cursor');
         const dot = document.getElementById('cursor-dot');
-        
         document.addEventListener('mousemove', (e) => {
-            gsap.to(cursor, { x: e.clientX - 12, y: e.clientY - 12, duration: 0.6, ease: "power2.out" });
+            gsap.to(cursor, { x: e.clientX - 12, y: e.clientY - 12, duration: 0.6 });
             gsap.to(dot, { x: e.clientX - 3, y: e.clientY - 3, duration: 0.1 });
         });
 
-        document.querySelectorAll('a, button, .bento-card').forEach(el => {
-            el.addEventListener('mouseenter', () => {
-                cursor.style.transform = 'scale(2)';
-                cursor.style.backgroundColor = 'rgba(255,159,0,0.1)';
-            });
-            el.addEventListener('mouseleave', () => {
-                cursor.style.transform = 'scale(1)';
-                cursor.style.backgroundColor = 'transparent';
-            });
+        // Animations
+        gsap.from(".gallery-card", {
+            scrollTrigger: { trigger: "#gallery", start: "top 80%" },
+            y: 50, opacity: 0, stagger: 0.2, duration: 1
         });
-
-        gsap.from("#hero-content > *", { y: 60, opacity: 0, duration: 1, stagger: 0.15, ease: "power4.out", delay: 0.3 });
-        gsap.from(".bento-card", { scrollTrigger: { trigger: "#story", start: "top 70%" }, y: 80, opacity: 0, duration: 1.2, stagger: 0.1, ease: "expo.out" });
     </script>
 </body>
 </html>
