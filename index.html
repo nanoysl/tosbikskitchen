@@ -12,19 +12,15 @@
   <meta property="og:type" content="website" />
   <meta name="theme-color" content="#FF9F00" />
 
-  <!-- Perf: preconnect fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet" />
 
-  <!-- Tailwind -->
   <script src="https://cdn.tailwindcss.com"></script>
 
-  <!-- GSAP -->
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
-  <!-- Icons -->
   <script defer src="https://unpkg.com/lucide@latest"></script>
 
   <style>
@@ -36,7 +32,6 @@
       overflow-x: hidden;
     }
 
-    /* Igloo-ish cinematic background: glow + grain + vignette */
     .bg-cinema {
       position: relative;
       isolation: isolate;
@@ -99,20 +94,15 @@
     .logo-float { animation: floating 6s ease-in-out infinite; filter: drop-shadow(0 0 22px rgba(255,159,0,.22)); }
     @keyframes floating { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
 
-    /* Cursor (desktop only) */
     #cursor { transition: transform 0.2s ease-out; }
-
-    /* Subtle separators */
     .hairline { border-top: 1px solid rgba(255,255,255,0.06); }
 
-    /* Focus */
     a:focus-visible, button:focus-visible {
       outline: 2px solid rgba(255,159,0,.9);
       outline-offset: 3px;
       border-radius: 12px;
     }
 
-    /* Reduced motion */
     @media (prefers-reduced-motion: reduce) {
       .logo-float { animation: none !important; }
       #cursor { display:none !important; }
@@ -120,7 +110,6 @@
     }
   </style>
 
-  <!-- Restaurant structured data -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -144,8 +133,6 @@
 </head>
 
 <body>
-
-  <!-- Custom cursor -->
   <div id="cursor" class="fixed w-6 h-6 border-2 border-[#FF9F00] rounded-full pointer-events-none z-[9999] hidden md:block"></div>
 
   <!-- NAV -->
@@ -203,8 +190,9 @@
   </nav>
 
   <!-- HERO -->
-  <header id="home" class="bg-cinema relative min-h-[92vh] flex items-center px-6 pt-20 pb-10">
-    <div class="max-w-6xl mx-auto grid lg:grid-cols-2 gap-10 items-center w-full relative z-10">
+  <header id="home" class="bg-cinema relative min-h-[92vh] flex items-center px-6 pt-20 pb-12">
+    <!-- Gap kleiner + items-start reduziert “leere Luft” -->
+    <div class="max-w-6xl mx-auto grid lg:grid-cols-2 gap-8 lg:gap-8 items-start w-full relative z-10">
 
       <!-- LEFT -->
       <div>
@@ -213,45 +201,44 @@
           Smash Burger · Halal · frisch zubereitet
         </div>
 
-        <!-- HERO BRAND CARD (moved up, replaces big headline) -->
+        <!-- HERO BRAND CARD (Logo groß, Text darunter kleiner) -->
         <div class="relative mb-6">
           <div class="absolute -inset-5 rounded-[2.5rem] blur-2xl opacity-35"
                style="background: radial-gradient(circle at 30% 30%, rgba(255,159,0,.45), transparent 55%), radial-gradient(circle at 70% 60%, rgba(255,95,0,.35), transparent 55%);">
           </div>
 
           <div class="glass-bright rounded-[2.5rem] relative overflow-hidden">
-            <!-- tighter padding on mobile so nothing falls out -->
             <div class="p-7 sm:p-8 md:p-10">
-              <h1 class="text-5xl sm:text-6xl md:text-7xl font-black uppercase italic leading-[0.9] tracking-tighter">
-                GUTE<br>
-                <span class="text-white">ZUTATEN.</span><br>
-                <span class="text-gradient">GUTER</span><br>
-                <span class="text-gradient">BURGER.</span>
-              </h1>
+              <!-- SEO H1 vorhanden, aber visuell übernimmt das Logo -->
+              <h1 class="sr-only">Tosbik's Kitchen – Smash Burger Rheine</h1>
 
-              <div class="mt-5 flex items-center justify-center">
-                <!-- smaller logo so headline stays king -->
-                <img src="tosbik-logo-2025.png" alt="Tosbik's Kitchen Logo"
-                     class="w-[160px] sm:w-[175px] md:w-[190px] object-contain opacity-95" />
+              <div class="flex justify-center">
+                <img src="tosbik-logo-2025.png" alt="Tosbik's Kitchen"
+                     class="logo-float w-[260px] sm:w-[320px] md:w-[360px] object-contain opacity-95" />
               </div>
 
-              <!-- refined spacing so meta row stays inside the card -->
-              <div class="mt-6 hairline pt-4 flex items-center justify-between text-[10px] uppercase tracking-widest text-white/60">
-                <span>Rheine</span>
-                <span class="text-[#FF9F00] font-black">Smash Burger</span>
-                <span>Since 2024+</span>
+              <div class="mt-6">
+                <p class="text-4xl sm:text-5xl md:text-6xl font-black uppercase italic leading-[0.95] tracking-tighter text-center">
+                  GUTE ZUTATEN.<br>
+                  <span class="text-gradient">GUTER BURGER.</span>
+                </p>
+              </div>
+
+              <!-- FIX: Meta-Zeile als Grid, damit nix “rausrutscht” -->
+              <div class="mt-7 hairline pt-4 grid grid-cols-3 text-center text-[9px] sm:text-[10px] uppercase tracking-[0.25em] text-white/60">
+                <span class="truncate">Rheine</span>
+                <span class="text-[#FF9F00] font-black truncate tracking-[0.15em]">Smash Burger</span>
+                <span class="truncate">Since 2024+</span>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- Friendly copy -->
         <p class="text-gray-300 text-base md:text-lg max-w-xl mb-7 leading-snug">
           Frisches Rind, hohe Hitze und eine richtig gute Kruste. Bei Tosbik’s Kitchen bekommst du Smash Burger,
           wie wir ihn selbst am liebsten essen – direkt in Rheine.
         </p>
 
-        <!-- Buttons -->
         <div class="flex flex-col sm:flex-row gap-3 mb-8">
           <a href="#menu" class="bg-[#FF9F00] text-black px-7 py-4 rounded-xl font-black uppercase text-xs flex items-center justify-center gap-3 hover:scale-[1.03] transition-transform">
             Menü ansehen <i data-lucide="arrow-right" class="w-4 h-4"></i>
@@ -261,7 +248,6 @@
           </a>
         </div>
 
-        <!-- Feature mini-row -->
         <div class="flex items-center gap-8 text-[10px] font-bold uppercase tracking-widest text-white/60">
           <div class="flex items-center gap-2">
             <i data-lucide="flame" class="w-4 h-4 text-[#FF9F00]"></i>
@@ -274,14 +260,50 @@
         </div>
       </div>
 
-      <!-- RIGHT (kept for desktop balance, but simpler so no duplicate card) -->
+      <!-- RIGHT (Desktop-Füller ohne Logo → kein Doppel-Logo mehr) -->
       <div class="hidden lg:flex justify-end">
-        <div class="glass-bright rounded-[2.5rem] p-10 relative">
-          <img src="tosbik-logo-2025.png" alt="Tosbik's Kitchen" class="logo-float w-[320px] object-contain" />
-          <div class="mt-6 hairline pt-5 flex items-center justify-between text-[10px] uppercase tracking-widest text-white/60">
-            <span>Rheine</span>
-            <span class="text-[#FF9F00] font-black">Smash Burger</span>
-            <span>Since 2024+</span>
+        <div class="bento-card glass-bright rounded-[2.5rem] p-8 w-[420px] relative overflow-hidden">
+          <div class="absolute inset-0 opacity-25"
+               style="background: radial-gradient(circle at 20% 20%, rgba(255,159,0,.35), transparent 55%), radial-gradient(circle at 80% 70%, rgba(255,95,0,.20), transparent 55%);">
+          </div>
+
+          <div class="relative">
+            <p class="text-[#FF9F00] font-bold uppercase text-[10px] tracking-widest mb-2">Schnell bestellen</p>
+            <h3 class="text-3xl font-black uppercase italic leading-[0.95]">Lieferando<br><span class="text-gradient">oder Uber Eats</span></h3>
+            <p class="text-white/65 text-sm mt-3">
+              Kein Instagram-Checkout – hier direkt zur Plattform:
+            </p>
+
+            <div class="mt-6 grid gap-3">
+              <a href="https://www.lieferando.de/speisekarte/tosbiks-kitchen" target="_blank" rel="noopener"
+                 class="bg-white text-black px-6 py-4 rounded-xl font-black uppercase text-xs hover:bg-[#FF9F00] transition flex items-center justify-center gap-2">
+                Lieferando öffnen <i data-lucide="external-link" class="w-4 h-4"></i>
+              </a>
+              <a href="https://www.ubereats.com/store/tosbiks-kitchen/pBVRcipkUmGLkzAqVCP4Wg" target="_blank" rel="noopener"
+                 class="glass px-6 py-4 rounded-xl font-black uppercase text-xs hover:border-white/20 transition flex items-center justify-center gap-2">
+                Uber Eats öffnen <i data-lucide="external-link" class="w-4 h-4 text-[#FF9F00]"></i>
+              </a>
+            </div>
+
+            <div class="mt-7 hairline pt-5 grid grid-cols-2 gap-4 text-white/60 text-xs">
+              <div class="flex items-start gap-2">
+                <i data-lucide="map-pin" class="w-4 h-4 text-[#FF9F00] mt-0.5"></i>
+                <div>
+                  <p class="uppercase tracking-widest text-[10px] text-white/45">Adresse</p>
+                  <p class="font-black italic uppercase">Bonifatiusstraße 48a</p>
+                  <p class="text-white/55">48429 Rheine</p>
+                </div>
+              </div>
+              <div class="flex items-start gap-2">
+                <i data-lucide="clock" class="w-4 h-4 text-[#FF9F00] mt-0.5"></i>
+                <div>
+                  <p class="uppercase tracking-widest text-[10px] text-white/45">Öffnungszeiten</p>
+                  <p class="font-black italic uppercase">Di – So</p>
+                  <p class="text-white/55">17:00 – 22:00</p>
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
       </div>
@@ -464,7 +486,7 @@
     <div class="max-w-6xl mx-auto">
       <div class="mb-10">
         <p class="text-[#FF9F00] font-bold uppercase text-[10px] tracking-widest mb-2">Bewertungen</p>
-        <h2 class="text-4xl md:text-6xl font-black uppercase italic tracking-tight">Was Gäste sagen.<br><span class="text-gradient"></span></h2>
+        <h2 class="text-4xl md:text-6xl font-black uppercase italic tracking-tight">Was Gäste sagen.</h2>
       </div>
 
       <div class="grid md:grid-cols-3 gap-4">
@@ -602,7 +624,6 @@
     window.addEventListener("DOMContentLoaded", () => {
       if (window.lucide) lucide.createIcons();
 
-      // Mobile menu
       const btn = document.getElementById('mobileBtn');
       const menu = document.getElementById('mobileMenu');
       if (btn && menu) {
@@ -617,7 +638,6 @@
         }));
       }
 
-      // Cursor (desktop only)
       const cursor = document.getElementById('cursor');
       const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       if (cursor && !reduceMotion) {
@@ -627,7 +647,6 @@
         });
       }
 
-      // GSAP animations
       if (window.gsap && window.ScrollTrigger && !reduceMotion) {
         gsap.registerPlugin(ScrollTrigger);
 
@@ -642,7 +661,6 @@
           });
         });
 
-        // Active nav highlighting (simple)
         const navLinks = document.querySelectorAll('[data-nav]');
         const sections = ["#home","#story","#menu","#reviews","#visit"].map(id => document.querySelector(id)).filter(Boolean);
 
