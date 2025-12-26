@@ -56,7 +56,7 @@
       background-image:
         url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E");
       mix-blend-mode: overlay;
-      opacity: .18;
+      opacity: .16;
       z-index: 0;
     }
 
@@ -83,6 +83,7 @@
       transition: transform .45s cubic-bezier(.2,1,.25,1), border-color .45s ease, background .45s ease;
       border: 1px solid rgba(255,255,255,0.06);
       will-change: transform;
+      overflow: hidden; /* wichtig: verhindert "rutschen raus" bei inneren Elementen */
     }
     .bento-card:hover {
       border-color: rgba(255,159,0,0.85);
@@ -104,6 +105,12 @@
     .safe-wrap * { min-width: 0; }
     .break-any { overflow-wrap: anywhere; word-break: break-word; }
 
+    /* Reduce huge vertical "black gaps" on mobile */
+    .sec-pad { padding-top: 3.25rem; padding-bottom: 3.25rem; }
+    @media (min-width: 768px){
+      .sec-pad { padding-top: 5rem; padding-bottom: 5rem; }
+    }
+
     /* HERO video (mobile only) */
     .hero-video-wrap {
       position: absolute;
@@ -116,16 +123,16 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      filter: blur(10px) brightness(.65) saturate(1.05);
+      filter: blur(7px) brightness(.70) saturate(1.08); /* weniger blur als vorher */
       transform: scale(1.08); /* avoid edges after blur */
     }
     .hero-video-overlay {
       position: absolute;
       inset: 0;
       background:
-        radial-gradient(900px 600px at 20% 20%, rgba(255,159,0,.18), transparent 55%),
-        radial-gradient(900px 700px at 80% 30%, rgba(255,95,0,.14), transparent 55%),
-        linear-gradient(180deg, rgba(0,0,0,.55) 0%, rgba(0,0,0,.72) 65%, rgba(0,0,0,.86) 100%);
+        radial-gradient(900px 600px at 20% 20%, rgba(255,159,0,.20), transparent 55%),
+        radial-gradient(900px 700px at 80% 30%, rgba(255,95,0,.16), transparent 55%),
+        linear-gradient(180deg, rgba(0,0,0,.46) 0%, rgba(0,0,0,.66) 62%, rgba(0,0,0,.82) 100%);
     }
 
     /* Only show the video on mobile/tablet */
@@ -133,9 +140,164 @@
       .hero-video-wrap { display:none; }
     }
 
+    /* CTA buttons: full-width and safe */
+    .cta-btn {
+      width: 100%;
+      box-sizing: border-box;
+      max-width: 100%;
+    }
+
+    /* Simple marquee band (Igloo-ish vibe, lightweight) */
+    .marquee {
+      position: relative;
+      overflow: hidden;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      background: rgba(255,255,255,0.02);
+    }
+    .marquee-track{
+      display:flex;
+      gap: 2.5rem;
+      width: max-content;
+      animation: marquee 18s linear infinite;
+      padding: .9rem 0;
+      will-change: transform;
+    }
+    .marquee span{
+      font-size: 10px;
+      letter-spacing: .32em;
+      text-transform: uppercase;
+      font-weight: 900;
+      opacity: .55;
+      white-space: nowrap;
+    }
+    .marquee b{
+      color: var(--brand);
+      opacity: 1;
+    }
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    /* Gallery */
+    .gallery-grid{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+    @media (min-width: 640px){
+      .gallery-grid{ grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (min-width: 1024px){
+      .gallery-grid{ grid-template-columns: repeat(12, 1fr); }
+    }
+    .g-card{
+      position: relative;
+      border-radius: 28px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.03);
+      transform: translateZ(0);
+    }
+    .g-card img{
+      width:100%;
+      height:100%;
+      object-fit: cover;
+      filter: contrast(1.05) saturate(1.05);
+      transform: scale(1.02);
+      transition: transform .5s cubic-bezier(.2,1,.25,1), filter .4s ease;
+      display:block;
+    }
+    .g-card:hover img{
+      transform: scale(1.08);
+      filter: contrast(1.08) saturate(1.12);
+    }
+    .g-glow{
+      position:absolute; inset:0;
+      background:
+        radial-gradient(600px 260px at 20% 20%, rgba(255,159,0,.22), transparent 60%),
+        radial-gradient(500px 320px at 80% 80%, rgba(255,95,0,.16), transparent 65%);
+      opacity:.85;
+      mix-blend-mode: screen;
+      pointer-events:none;
+    }
+    .g-label{
+      position:absolute;
+      left: 14px; bottom: 14px;
+      padding: 10px 12px;
+      border-radius: 16px;
+      background: rgba(0,0,0,0.42);
+      border: 1px solid rgba(255,255,255,0.10);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      display:flex; align-items:center; gap:10px;
+      max-width: calc(100% - 28px);
+    }
+    .g-label .dot{
+      width: 8px; height: 8px; border-radius: 99px;
+      background: var(--brand);
+      box-shadow: 0 0 16px rgba(255,159,0,.55);
+      flex: 0 0 auto;
+    }
+    .g-label .txt{
+      font-size: 10px;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      font-weight: 900;
+      opacity: .86;
+      white-space: nowrap;
+      overflow:hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* Lightbox */
+    .lb {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.78);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      padding: 18px;
+    }
+    .lb.open { display:flex; }
+    .lb-inner{
+      width: min(980px, 100%);
+      border-radius: 26px;
+      overflow:hidden;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.03);
+      position: relative;
+    }
+    .lb-inner img{
+      width: 100%;
+      height: auto;
+      display:block;
+    }
+    .lb-close{
+      position:absolute;
+      top: 12px;
+      right: 12px;
+      width: 44px;
+      height: 44px;
+      border-radius: 16px;
+      background: rgba(0,0,0,0.45);
+      border: 1px solid rgba(255,255,255,0.12);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      cursor:pointer;
+    }
+
     /* Reduced motion */
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto !important; }
+      .marquee-track{ animation: none !important; }
+      .g-card img{ transition: none !important; }
     }
   </style>
 
@@ -167,7 +329,7 @@
   <!-- NAV -->
   <nav class="fixed w-full z-50 px-4 py-4">
     <div class="max-w-6xl mx-auto flex justify-between items-center glass rounded-2xl px-5 py-2">
-      <a href="#home" class="flex items-center gap-3 group">
+      <a href="#home" showing="false" class="flex items-center gap-3 group">
         <img src="tosbik-logo-2025.png" alt="Tosbik's Kitchen Logo" class="w-9 h-9 object-contain" />
         <div class="leading-none">
           <span class="block font-black uppercase text-base italic group-hover:text-[#FF9F00] transition-colors">Tosbik's</span>
@@ -223,14 +385,8 @@
 
     <!-- Mobile video background -->
     <div class="hero-video-wrap">
-      <!-- OPTION A (sauber): Datei umbenennen in hero.mp4 und dann diese Zeile nehmen:
-           <video class="hero-video" autoplay muted playsinline loop preload="metadata" src="hero.mp4"></video>
-      -->
-
-      <!-- OPTION B (dein EXAKTER Dateiname, URL-encoded) -->
-      <video class="hero-video" autoplay muted playsinline loop preload="metadata"
-        src="Saftig.%20Knusprig.%20Perfekt.%20%23tosbikskitchen%20%23teamtosbik%20%23smashburger%20%23loadedfries%20%23food.mp4"></video>
-
+      <!-- Benenne dein Video in hero.mp4 um (sauber & sicher für GitHub Pages) -->
+      <video class="hero-video" autoplay muted playsinline loop preload="metadata" src="hero.mp4"></video>
       <div class="hero-video-overlay"></div>
     </div>
 
@@ -253,7 +409,7 @@
             <!-- Desktop: centered bigger logo -->
             <div class="flex justify-center mb-5">
               <img src="tosbik-logo-2025.png" alt="Tosbik's Kitchen Logo"
-                   class="w-[170px] sm:w-[190px] md:w-[260px] lg:w-[320px] object-contain opacity-95" />
+                   class="w-[170px] sm:w-[190px] md:w-[260px] lg:w-[340px] object-contain opacity-95" />
             </div>
 
             <!-- Headline: mobile stacks, desktop inline -->
@@ -272,7 +428,7 @@
         </div>
       </div>
 
-      <!-- Copy -->
+      <!-- Copy (NICHT verändert) -->
       <p class="text-gray-200/90 text-base md:text-lg max-w-2xl mb-6 leading-snug">
         Frisches Rind, hohe Hitze und eine richtig gute Kruste. Bei Tosbik’s Kitchen bekommst du Smash Burger,
         wie wir ihn selbst am liebsten essen – direkt in Rheine.
@@ -281,11 +437,11 @@
       <!-- Buttons (safe on mobile) -->
       <div class="flex flex-col sm:flex-row gap-3 mb-7 safe-wrap">
         <a href="#menu"
-           class="bg-[#FF9F00] text-black px-7 py-4 rounded-xl font-black uppercase text-xs flex items-center justify-center gap-3 hover:scale-[1.02] transition-transform w-full sm:w-auto">
+           class="bg-[#FF9F00] text-black px-7 py-4 rounded-xl font-black uppercase text-xs flex items-center justify-center gap-3 hover:scale-[1.02] transition-transform w-full sm:w-auto cta-btn">
           Menü ansehen <i data-lucide="arrow-right" class="w-4 h-4"></i>
         </a>
         <a href="#visit"
-           class="glass px-7 py-4 rounded-xl font-black uppercase text-xs flex items-center justify-center gap-3 hover:border-white/20 transition w-full sm:w-auto">
+           class="glass px-7 py-4 rounded-xl font-black uppercase text-xs flex items-center justify-center gap-3 hover:border-white/20 transition w-full sm:w-auto cta-btn">
           Bestellen & Zeiten <i data-lucide="map-pin" class="w-4 h-4 text-[#FF9F00]"></i>
         </a>
       </div>
@@ -310,8 +466,18 @@
     </div>
   </header>
 
-  <!-- STORY -->
-  <section id="story" class="py-14 md:py-20 px-6 bg-[#050505]">
+  <!-- Marquee Band (NEU, nur Zusatz) -->
+  <div class="marquee">
+    <div class="marquee-track">
+      <span><b>SMASH BURGER</b> · HALAL · FRISCH ZUBEREITET · <b>LOADED FRIES</b> · RHEINE ·</span>
+      <span><b>SMASH BURGER</b> · HALAL · FRISCH ZUBEREITET · <b>LOADED FRIES</b> · RHEINE ·</span>
+      <span><b>SMASH BURGER</b> · HALAL · FRISCH ZUBEREITET · <b>LOADED FRIES</b> · RHEINE ·</span>
+      <span><b>SMASH BURGER</b> · HALAL · FRISCH ZUBEREITET · <b>LOADED FRIES</b> · RHEINE ·</span>
+    </div>
+  </div>
+
+  <!-- STORY (Text bleibt) -->
+  <section id="story" class="sec-pad px-6 bg-[#050505]">
     <div class="max-w-6xl mx-auto">
       <div class="mb-10">
         <p class="text-[#FF9F00] font-bold uppercase text-[10px] tracking-widest mb-2">Warum Tosbik’s</p>
@@ -374,8 +540,75 @@
     </div>
   </section>
 
-  <!-- MENU -->
-  <section id="menu" class="py-14 md:py-20 px-6 bg-[#030303]">
+  <!-- GALLERY (NEU, nur Zusatz – Texte oben bleiben unangetastet) -->
+  <section id="gallery" class="sec-pad px-6 bg-[#030303]">
+    <div class="max-w-6xl mx-auto">
+      <div class="mb-10">
+        <p class="text-[#FF9F00] font-bold uppercase text-[10px] tracking-widest mb-2">Bilder</p>
+        <h2 class="text-4xl md:text-6xl font-black uppercase italic tracking-tight">
+          Close-ups.<br><span class="text-gradient">Real Kitchen Vibes.</span>
+        </h2>
+        <p class="text-white/60 mt-4 max-w-2xl">
+          (Nur Ergänzung: die bestehenden Texte auf der Seite wurden nicht verändert.)
+        </p>
+      </div>
+
+      <div class="gallery-grid safe-wrap">
+        <!-- Desktop layout: 12-col feel via responsive col-spans -->
+        <a class="g-card md:col-span-7 lg:col-span-7" href="gallery-1.jpg" data-lightbox>
+          <img src="gallery-1.jpg" alt="Tosbik's Kitchen Foto 1" loading="lazy">
+          <div class="g-glow"></div>
+          <div class="g-label"><span class="dot"></span><span class="txt">Smash Moment</span></div>
+        </a>
+
+        <a class="g-card md:col-span-5 lg:col-span-5" href="gallery-2.jpg" data-lightbox>
+          <img src="gallery-2.jpg" alt="Tosbik's Kitchen Foto 2" loading="lazy">
+          <div class="g-glow"></div>
+          <div class="g-label"><span class="dot"></span><span class="txt">Loaded & Crunchy</span></div>
+        </a>
+
+        <a class="g-card md:col-span-4 lg:col-span-4" href="gallery-3.jpg" data-lightbox>
+          <img src="gallery-3.jpg" alt="Tosbik's Kitchen Foto 3" loading="lazy">
+          <div class="g-glow"></div>
+          <div class="g-label"><span class="dot"></span><span class="txt">Burger Tray</span></div>
+        </a>
+
+        <a class="g-card md:col-span-4 lg:col-span-4" href="gallery-4.jpg" data-lightbox>
+          <img src="gallery-4.jpg" alt="Tosbik's Kitchen Foto 4" loading="lazy">
+          <div class="g-glow"></div>
+          <div class="g-label"><span class="dot"></span><span class="txt">Doubles</span></div>
+        </a>
+
+        <a class="g-card md:col-span-4 lg:col-span-4" href="gallery-5.jpg" data-lightbox>
+          <img src="gallery-5.jpg" alt="Tosbik's Kitchen Foto 5" loading="lazy">
+          <div class="g-glow"></div>
+          <div class="g-label"><span class="dot"></span><span class="txt">Bites & Sides</span></div>
+        </a>
+
+        <a class="g-card md:col-span-6 lg:col-span-6" href="gallery-6.jpg" data-lightbox>
+          <img src="gallery-6.jpg" alt="Tosbik's Kitchen Foto 6" loading="lazy">
+          <div class="g-glow"></div>
+          <div class="g-label"><span class="dot"></span><span class="txt">Cheese Melt</span></div>
+        </a>
+
+        <a class="g-card md:col-span-6 lg:col-span-6" href="gallery-7.jpg" data-lightbox>
+          <img src="gallery-7.jpg" alt="Tosbik's Kitchen Foto 7" loading="lazy">
+          <div class="g-glow"></div>
+          <div class="g-label"><span class="dot"></span><span class="txt">Kitchen Table</span></div>
+        </a>
+
+        <!-- Easter egg: Herz-Kartoffel (kleiner, bewusst als "hidden gem") -->
+        <a class="g-card md:col-span-12 lg:col-span-12" href="potato-heart.jpg" data-lightbox>
+          <img src="potato-heart.jpg" alt="Herz-Kartoffel" loading="lazy">
+          <div class="g-glow"></div>
+          <div class="g-label"><span class="dot"></span><span class="txt">Heart of Fries</span></div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- MENU (Text bleibt) -->
+  <section id="menu" class="sec-pad px-6 bg-[#030303]">
     <div class="max-w-6xl mx-auto">
       <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10 safe-wrap">
         <div>
@@ -477,8 +710,8 @@
     </div>
   </section>
 
-  <!-- REVIEWS -->
-  <section id="reviews" class="py-14 md:py-20 px-6 bg-[#050505]">
+  <!-- REVIEWS (Text bleibt) -->
+  <section id="reviews" class="sec-pad px-6 bg-[#050505]">
     <div class="max-w-6xl mx-auto">
       <div class="mb-10">
         <p class="text-[#FF9F00] font-bold uppercase text-[10px] tracking-widest mb-2">Bewertungen</p>
@@ -531,8 +764,8 @@
     </div>
   </section>
 
-  <!-- VISIT / CTA -->
-  <section id="visit" class="py-14 md:py-20 px-6 bg-[#030303]">
+  <!-- VISIT / CTA (Text bleibt, nur Mobile-Fix & safe widths) -->
+  <section id="visit" class="sec-pad px-6 bg-[#030303]">
     <div class="max-w-6xl mx-auto">
       <div class="bento-card glass-bright rounded-[2.5rem] p-7 md:p-12 overflow-hidden relative safe-wrap">
         <div class="absolute inset-0 opacity-35"
@@ -551,12 +784,12 @@
 
             <div class="mt-7 flex flex-col gap-3 safe-wrap">
               <a href="https://www.lieferando.de/speisekarte/tosbiks-kitchen" target="_blank" rel="noopener"
-                 class="bg-white text-black px-7 py-4 rounded-xl font-black uppercase text-xs hover:bg-[#FF9F00] transition flex items-center justify-center gap-2 w-full">
+                 class="bg-white text-black px-7 py-4 rounded-xl font-black uppercase text-xs hover:bg-[#FF9F00] transition flex items-center justify-center gap-2 cta-btn">
                 Lieferando öffnen <i data-lucide="external-link" class="w-4 h-4"></i>
               </a>
 
               <a href="https://www.ubereats.com/store/tosbiks-kitchen/pBVRcipkUmGLkzAqVCP4Wg" target="_blank" rel="noopener"
-                 class="glass px-7 py-4 rounded-xl font-black uppercase text-xs hover:border-white/20 transition flex items-center justify-center gap-2 w-full">
+                 class="glass px-7 py-4 rounded-xl font-black uppercase text-xs hover:border-white/20 transition flex items-center justify-center gap-2 cta-btn">
                 Uber Eats öffnen <i data-lucide="external-link" class="w-4 h-4 text-[#FF9F00]"></i>
               </a>
             </div>
@@ -586,7 +819,7 @@
             <div class="mt-6 safe-wrap">
               <a href="https://www.google.com/maps/search/?api=1&query=Bonifatiusstra%C3%9Fe%2048a%2048429%20Rheine%20Tosbik's%20Kitchen"
                  target="_blank" rel="noopener"
-                 class="w-full inline-flex items-center justify-center gap-2 bg-[#FF9F00] text-black px-6 py-4 rounded-xl font-black uppercase text-xs hover:scale-[1.01] transition-transform">
+                 class="w-full inline-flex items-center justify-center gap-2 bg-[#FF9F00] text-black px-6 py-4 rounded-xl font-black uppercase text-xs hover:scale-[1.01] transition-transform cta-btn">
                 In Google Maps öffnen <i data-lucide="navigation" class="w-4 h-4"></i>
               </a>
             </div>
@@ -597,8 +830,8 @@
     </div>
   </section>
 
-  <!-- FOOTER -->
-  <footer class="py-14 px-6 border-t border-white/5 bg-[#030303]">
+  <!-- FOOTER (Text bleibt) -->
+  <footer class="py-12 px-6 border-t border-white/5 bg-[#030303]">
     <div class="max-w-4xl mx-auto text-center">
       <h2 class="text-3xl md:text-4xl font-black uppercase italic mb-8 text-white opacity-90">
         Danke fürs Vorbeischauen.
@@ -615,6 +848,16 @@
       </p>
     </div>
   </footer>
+
+  <!-- LIGHTBOX -->
+  <div id="lightbox" class="lb" aria-hidden="true">
+    <div class="lb-inner">
+      <button class="lb-close" id="lbClose" aria-label="Schließen">
+        <i data-lucide="x" class="w-5 h-5 text-white"></i>
+      </button>
+      <img id="lbImg" src="" alt="Bildvorschau">
+    </div>
+  </div>
 
   <script>
     window.addEventListener("DOMContentLoaded", () => {
@@ -635,6 +878,41 @@
         }));
       }
 
+      // Lightbox
+      const lb = document.getElementById('lightbox');
+      const lbImg = document.getElementById('lbImg');
+      const lbClose = document.getElementById('lbClose');
+
+      function openLB(src){
+        lbImg.src = src;
+        lb.classList.add('open');
+        lb.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+        if (window.lucide) lucide.createIcons();
+      }
+      function closeLB(){
+        lb.classList.remove('open');
+        lb.setAttribute('aria-hidden', 'true');
+        lbImg.src = '';
+        document.body.style.overflow = '';
+      }
+
+      document.querySelectorAll('[data-lightbox]').forEach(a => {
+        a.addEventListener('click', (e) => {
+          e.preventDefault();
+          const href = a.getAttribute('href');
+          if (href) openLB(href);
+        });
+      });
+
+      lb.addEventListener('click', (e) => {
+        if (e.target === lb) closeLB();
+      });
+      lbClose.addEventListener('click', closeLB);
+      window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && lb.classList.contains('open')) closeLB();
+      });
+
       const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
       // GSAP animations
@@ -645,10 +923,10 @@
           y: 14, opacity: 0, duration: 0.65, stagger: 0.06, ease: "power3.out"
         });
 
-        gsap.utils.toArray(".bento-card").forEach((card) => {
+        gsap.utils.toArray(".bento-card, .g-card").forEach((card) => {
           gsap.from(card, {
             scrollTrigger: { trigger: card, start: "top 88%" },
-            y: 22, opacity: 0, duration: 0.6, ease: "power3.out"
+            y: 18, opacity: 0, duration: 0.6, ease: "power3.out"
           });
         });
 
