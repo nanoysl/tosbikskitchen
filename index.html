@@ -17,6 +17,7 @@
         .bento-card { transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1); }
         .bento-card:hover { transform: translateY(-5px); border-color: #FF9F00; box-shadow: 0 10px 30px -10px rgba(255, 159, 0, 0.2); }
         
+        /* Sanfte Schwebe-Animation für das Logo */
         .logo-float { animation: floating 6s ease-in-out infinite; }
         @keyframes floating {
             0% { transform: translateY(0px) rotate(0deg); }
@@ -32,7 +33,7 @@
     <nav class="fixed w-full z-50 px-6 py-4">
         <div class="max-w-7xl mx-auto flex justify-between items-center glass rounded-full px-8 py-2">
             <div class="flex items-center gap-3">
-                <img src="Projekt Bildgröße ändern-2.png" alt="Logo" class="w-10 h-10 object-contain">
+                <img src="tosbik-logo-2025.png" alt="Tosbik Logo" class="w-10 h-10 object-contain">
                 <span class="font-black uppercase tracking-tighter text-xl italic hidden sm:inline-block">Tosbiks Kitchen</span>
             </div>
             <div class="hidden md:flex gap-8 text-xs font-bold uppercase tracking-widest">
@@ -59,20 +60,30 @@
                 <p class="text-gray-400 text-lg max-w-md mb-10 leading-relaxed">
                     Wir bringen die amerikanische Burger-Kultur direkt nach Rheine. 100% frisches Rindfleisch, perfekt karamellisiert auf dem Grill.
                 </p>
+                <div class="flex flex-wrap gap-4">
+                    <a href="#menu" class="bg-white text-black px-8 py-4 rounded-2xl font-black uppercase flex items-center gap-3 hover:bg-[#FF9F00] transition group">
+                        Speisekarte <i data-lucide="arrow-right" class="group-hover:translate-x-2 transition"></i>
+                    </a>
+                    <a href="#location" class="glass px-8 py-4 rounded-2xl font-black uppercase flex items-center gap-3">
+                        Standort <i data-lucide="map-pin"></i>
+                    </a>
+                </div>
             </div>
             
             <div class="relative flex justify-center">
-                <img src="Projekt Bildgröße ändern-2.png" 
+                <img src="tosbik-logo-2025.png" 
                      alt="Tosbik's Kitchen Logo" 
                      class="logo-float w-full max-w-md object-contain z-10 drop-shadow-[0_0_50px_rgba(255,159,0,0.2)]">
+                
+                <div class="absolute -bottom-10 -left-10 glass p-8 rounded-3xl z-20 hidden lg:block border-[#FF9F00]/20">
+                    <p class="text-4xl font-black text-[#FF9F00]">100%</p>
+                    <p class="text-xs font-bold uppercase tracking-widest">Frisches Beef</p>
+                </div>
             </div>
         </div>
     </section>
 
     <section id="about" class="py-32 px-6">
-        <div class="max-w-7xl mx-auto mb-12">
-            <h2 class="text-5xl font-black uppercase italic tracking-tighter">Unsere <span class="text-[#FF9F00]">Story</span></h2>
-        </div>
         <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-4 md:h-[600px]">
             <div class="md:col-span-2 bento-card glass p-10 rounded-[2.5rem] flex flex-col justify-between group">
                 <div class="w-16 h-16 rounded-2xl bg-[#FF9F00]/10 flex items-center justify-center text-[#FF9F00]">
@@ -80,35 +91,175 @@
                 </div>
                 <div>
                     <h3 class="text-3xl font-black mb-2 uppercase italic">Besuch uns</h3>
-                    <p class="text-gray-400">Bonifatiusstraße 48, 48429 Rheine.</p>
+                    <p class="text-gray-400">Bonifatiusstraße 48, 48429 Rheine. Mitten im Herzen der Stadt, bereit für deinen Hunger.</p>
                 </div>
             </div>
 
+            <div class="bento-card bg-[#FF9F00] text-black p-10 rounded-[2.5rem] flex flex-col justify-between">
+                <i data-lucide="clock" size="32"></i>
+                <div>
+                    <h3 class="text-2xl font-bold mb-4 uppercase">Öffnungszeiten</h3>
+                    <p class="text-sm font-bold opacity-80 uppercase leading-loose">
+                        Di - So: 17:00 - 22:00<br>
+                        Mo: Ruhetag
+                    </p>
+                </div>
+            </div>
+
+            <a href="https://www.instagram.com/tosbiks_kitchen/" target="_blank" class="bento-card glass p-10 rounded-[2.5rem] flex flex-col items-center justify-center text-center gap-4 group border-gradient">
+                <div class="w-16 h-16 rounded-full bg-gradient-to-tr from-yellow-400 to-purple-600 flex items-center justify-center text-white scale-110 group-hover:rotate-12 transition">
+                    <i data-lucide="instagram"></i>
+                </div>
+                <p class="font-black uppercase italic tracking-tighter">@tosbiks_kitchen</p>
+            </a>
+
             <div class="md:col-span-3 bento-card glass p-10 rounded-[2.5rem] flex items-center gap-8 border-l-4 border-l-[#FF9F00]">
                 <div class="hidden md:flex w-32 h-32 bg-white/5 rounded-full items-center justify-center overflow-hidden shrink-0">
-                    <img src="Projekt Bildgröße ändern-2.png" alt="Logo" class="w-24 h-24 object-contain opacity-80">
+                    <img src="tosbik-logo-2025.png" alt="Logo" class="w-24 h-24 object-contain opacity-100">
                 </div>
                 <div>
                     <h3 class="text-3xl font-black uppercase italic">Das Geheimnis?</h3>
-                    <p class="text-gray-400 max-w-xl">Unser "Smash" Prozess erzeugt eine knusprige Kruste durch die Maillard-Reaktion, während das Fleisch innen saftig bleibt.</p>
+                    <p class="text-gray-400 max-w-xl">Unser "Smash" Prozess erzeugt eine knusprige Kruste durch die Maillard-Reaktion, während das Fleisch innen saftig bleibt. Handwerk, das man schmeckt.</p>
+                </div>
+            </div>
+
+            <div class="bento-card glass p-10 rounded-[2.5rem] flex flex-col items-center justify-center bg-white text-black">
+                <div class="flex gap-1 text-[#FF9F00] mb-2">
+                    <i data-lucide="star" class="fill-current" size="16"></i>
+                    <i data-lucide="star" class="fill-current" size="16"></i>
+                    <i data-lucide="star" class="fill-current" size="16"></i>
+                    <i data-lucide="star" class="fill-current" size="16"></i>
+                    <i data-lucide="star" class="fill-current" size="16"></i>
+                </div>
+                <h4 class="text-4xl font-black tracking-tighter italic">4.8 / 5</h4>
+                <p class="text-[10px] uppercase font-bold tracking-widest text-gray-400">Google Reviews</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="menu" class="py-32 px-6 bg-[#080808]">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-20">
+                <div>
+                    <h2 class="text-6xl font-black uppercase italic tracking-tighter mb-4 leading-none">The <span class="text-[#FF9F00]">Selection.</span></h2>
+                    <p class="text-gray-500">Klassiker, perfektioniert für deinen Gaumen.</p>
+                </div>
+                <div class="flex gap-4 mt-8 md:mt-0">
+                    <button class="px-6 py-2 rounded-full border border-white/10 font-bold hover:bg-white hover:text-black transition uppercase text-xs">Burger</button>
+                    <button class="px-6 py-2 rounded-full border border-white/10 font-bold hover:bg-white hover:text-black transition uppercase text-xs">Sides</button>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="group">
+                    <div class="aspect-[4/5] rounded-[2rem] overflow-hidden mb-6 glass p-2">
+                        <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=600&q=80" 
+                             class="w-full h-full object-cover rounded-[1.5rem] group-hover:scale-105 transition duration-700" alt="Burger">
+                    </div>
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h4 class="text-2xl font-black uppercase italic">Classic Smash</h4>
+                            <p class="text-gray-500 text-sm mt-1">Smashed Beef, Cheddar, Haus-Sauce.</p>
+                        </div>
+                        <span class="text-[#FF9F00] font-black text-xl">10.90€</span>
+                    </div>
+                </div>
+                <div class="group">
+                    <div class="aspect-[4/5] rounded-[2rem] overflow-hidden mb-6 glass p-2">
+                        <img src="https://images.unsplash.com/photo-1553979459-d2229ba7433b?auto=format&fit=crop&w=600&q=80" 
+                             class="w-full h-full object-cover rounded-[1.5rem] group-hover:scale-105 transition duration-700" alt="Burger">
+                    </div>
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h4 class="text-2xl font-black uppercase italic">Bacon Deluxe</h4>
+                            <p class="text-gray-500 text-sm mt-1">Rinderbacon, Röstzwiebeln, BBQ Sauce.</p>
+                        </div>
+                        <span class="text-[#FF9F00] font-black text-xl">12.50€</span>
+                    </div>
+                </div>
+                <div class="group">
+                    <div class="aspect-[4/5] rounded-[2rem] overflow-hidden mb-6 glass p-2">
+                        <img src="https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&fit=crop&w=600&q=80" 
+                             class="w-full h-full object-cover rounded-[1.5rem] group-hover:scale-105 transition duration-700" alt="Sides">
+                    </div>
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h4 class="text-2xl font-black uppercase italic">Loaded Fries</h4>
+                            <p class="text-gray-500 text-sm mt-1">Hand-Cut, mit Käsesauce & Jalapeños.</p>
+                        </div>
+                        <span class="text-[#FF9F00] font-black text-xl">6.90€</span>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <footer id="location" class="py-20 px-6 border-t border-white/5">
+    <footer class="py-20 px-6 border-t border-white/5">
         <div class="max-w-7xl mx-auto flex flex-col items-center text-center">
-            <img src="Projekt Bildgröße ändern-2.png" alt="Logo" class="w-32 mb-10 opacity-80">
+            <img src="tosbik-logo-2025.png" alt="Logo" class="w-32 mb-10 opacity-80">
+            <h2 class="text-5xl md:text-7xl font-black uppercase italic tracking-tighter mb-12">Hunger auf Echtes?</h2>
+            
+            <div class="flex gap-8 mb-16">
+                <a href="https://www.instagram.com/tosbiks_kitchen/" class="w-12 h-12 rounded-full glass flex items-center justify-center hover:bg-[#FF9F00] hover:text-black transition">
+                    <i data-lucide="instagram"></i>
+                </a>
+                <a href="#" class="w-12 h-12 rounded-full glass flex items-center justify-center hover:bg-[#FF9F00] hover:text-black transition">
+                    <i data-lucide="phone"></i>
+                </a>
+            </div>
+
             <p class="text-gray-600 text-xs font-bold uppercase tracking-widest">
-                © 2025 Tosbiks Kitchen Rheine | Crafted for Excellence
+                © 2024 Tosbiks Kitchen Rheine | Crafted for Excellence
             </p>
         </div>
     </footer>
 
     <script>
         lucide.createIcons();
+
+        // Custom Cursor Logic
+        const cursor = document.getElementById('cursor');
+        document.addEventListener('mousemove', (e) => {
+            gsap.to(cursor, {
+                x: e.clientX,
+                y: e.clientY,
+                duration: 0.2,
+                ease: "power2.out"
+            });
+        });
+
+        // Animation Entrance
         gsap.registerPlugin(ScrollTrigger);
-        // GSAP Animationen...
+
+        gsap.from("#hero-text h1", {
+            duration: 1.2,
+            y: 100,
+            opacity: 0,
+            ease: "power4.out",
+            delay: 0.5
+        });
+
+        gsap.from(".bento-card", {
+            scrollTrigger: {
+                trigger: "#about",
+                start: "top 80%"
+            },
+            duration: 0.8,
+            y: 50,
+            opacity: 0,
+            stagger: 0.1,
+            ease: "power3.out"
+        });
+
+        // Smooth Scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
     </script>
 </body>
 </html>
