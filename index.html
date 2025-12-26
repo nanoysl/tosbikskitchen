@@ -1,672 +1,312 @@
 <!DOCTYPE html>
 <html lang="de" class="scroll-smooth">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Tosbik's Kitchen | Smash Burger Rheine</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tosbik's Kitchen | The Art of Smash</title>
 
-  <!-- SEO / Social -->
-  <meta name="description" content="Tosbik's Kitchen in Rheine: Smash Burger, Loaded Fries, Halal – frisch zubereitet und richtig lecker. Knusprige Kruste, saftig im Kern." />
-  <meta property="og:title" content="Tosbik's Kitchen | Smash Burger Rheine" />
-  <meta property="og:description" content="Smash Burger & Loaded Fries in Rheine. Frisch zubereitet. Vorbeikommen oder online bestellen." />
-  <meta property="og:type" content="website" />
-  <meta name="theme-color" content="#FF9F00" />
+    <meta name="description" content="Tosbik's Kitchen Rheine - High-End Smash Burger & Loaded Fries. Handgemacht. Echt. Halal." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;400;600;800&family=Inter:wght@900&display=swap" rel="stylesheet" />
 
-  <!-- Perf: preconnect fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script defer src="https://unpkg.com/lucide@latest"></script>
 
-  <!-- Tailwind -->
-  <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root { 
+            --brand: #FF9F00; 
+            --brand-glow: rgba(255, 159, 0, 0.15);
+            --bg-dark: #020202;
+        }
 
-  <!-- GSAP -->
-  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-dark);
+            color: #fff;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
 
-  <!-- Icons -->
-  <script defer src="https://unpkg.com/lucide@latest"></script>
+        /* Cinematic Background with Noise & Glow */
+        .cinema-bg {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            background: 
+                radial-gradient(circle at 10% 10%, rgba(255, 159, 0, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 90% 90%, rgba(255, 95, 0, 0.03) 0%, transparent 50%),
+                #020202;
+        }
 
-  <style>
-    :root { --brand: #FF9F00; --brand2: #FF5F00; }
-    body {
-      font-family: 'Inter', sans-serif;
-      background: #030303;
-      color: #fff;
-      overflow-x: hidden;
-    }
+        .cinema-bg::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+            pointer-events: none;
+        }
 
-    /* Igloo-ish cinematic background: glow + grain + vignette */
-    .bg-cinema {
-      position: relative;
-      isolation: isolate;
-      background:
-        radial-gradient(1200px 600px at 20% 20%, rgba(255,159,0,.18), transparent 55%),
-        radial-gradient(900px 700px at 80% 30%, rgba(255,95,0,.16), transparent 55%),
-        radial-gradient(700px 700px at 50% 80%, rgba(255,159,0,.10), transparent 55%),
-        linear-gradient(180deg, #050505 0%, #030303 60%, #030303 100%);
-    }
-    .bg-cinema:before{
-      content:"";
-      position:absolute; inset:-2px;
-      background:
-        radial-gradient(60% 60% at 50% 20%, rgba(255,255,255,.06), transparent 60%),
-        radial-gradient(80% 80% at 50% 120%, rgba(0,0,0,.9), transparent 55%);
-      pointer-events:none;
-      z-index:-1;
-      opacity:.8;
-    }
-    .bg-cinema:after{
-      content:"";
-      position:absolute; inset:0;
-      pointer-events:none;
-      background-image:
-        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E");
-      mix-blend-mode: overlay;
-      opacity: .18;
-      z-index: 0;
-    }
+        /* Bento Grid 2.0 - Adaptive & Compact */
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 1rem;
+        }
 
-    .glass {
-      background: rgba(255,255,255,0.04);
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
-      border: 1px solid rgba(255,255,255,0.10);
-    }
-    .glass-bright {
-      background: rgba(255,255,255,0.07);
-      border: 1px solid rgba(255,255,255,0.14);
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
-    }
+        .bento-item {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 1.5rem;
+            backdrop-filter: blur(20px);
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+        }
 
-    .text-gradient {
-      background: linear-gradient(135deg, var(--brand), var(--brand2));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
+        .bento-item:hover {
+            border-color: rgba(255, 159, 0, 0.3);
+            background: rgba(255, 255, 255, 0.04);
+            transform: scale(1.01);
+        }
 
-    .bento-card {
-      transition: transform .45s cubic-bezier(.2,1,.25,1), border-color .45s ease, background .45s ease;
-      border: 1px solid rgba(255,255,255,0.06);
-      will-change: transform;
-    }
-    .bento-card:hover {
-      border-color: rgba(255,159,0,0.85);
-      transform: translateY(-4px);
-    }
+        /* Spotlight Effect (ReactBits Style) */
+        .spotlight::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(600px circle at var(--x, 50%) var(--y, 50%), rgba(255, 159, 0, 0.08), transparent 40%);
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+        .spotlight:hover::before { opacity: 1; }
 
-    .logo-float { animation: floating 6s ease-in-out infinite; filter: drop-shadow(0 0 22px rgba(255,159,0,.22)); }
-    @keyframes floating { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+        .text-header { font-family: 'Inter', sans-serif; letter-spacing: -0.04em; }
+        .text-gradient {
+            background: linear-gradient(135deg, #fff 30%, var(--brand) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
 
-    /* Cursor (desktop only) */
-    #cursor { transition: transform 0.2s ease-out; }
+        /* Interactive Menu List */
+        .menu-row {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .menu-row:hover {
+            background: rgba(255, 159, 0, 0.03);
+            padding-left: 1rem;
+            border-bottom-color: var(--brand);
+        }
 
-    /* Subtle separators */
-    .hairline { border-top: 1px solid rgba(255,255,255,0.06); }
+        .nav-glass {
+            background: rgba(5, 5, 5, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+        }
 
-    /* Focus */
-    a:focus-visible, button:focus-visible {
-      outline: 2px solid rgba(255,159,0,.9);
-      outline-offset: 3px;
-      border-radius: 12px;
-    }
-
-    /* Reduced motion */
-    @media (prefers-reduced-motion: reduce) {
-      .logo-float { animation: none !important; }
-      #cursor { display:none !important; }
-      html { scroll-behavior: auto !important; }
-    }
-  </style>
-
-  <!-- Restaurant structured data -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Restaurant",
-    "name": "Tosbik's Kitchen",
-    "servesCuisine": ["Burger","American"],
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": "Bonifatiusstraße 48a",
-      "addressLocality": "Rheine",
-      "postalCode": "48429",
-      "addressCountry": "DE"
-    },
-    "sameAs": [
-      "https://www.instagram.com/tosbiks_kitchen/",
-      "https://www.lieferando.de/speisekarte/tosbiks-kitchen",
-      "https://www.ubereats.com/store/tosbiks-kitchen/pBVRcipkUmGLkzAqVCP4Wg"
-    ]
-  }
-  </script>
+        /* Responsive Fixes */
+        @media (max-width: 768px) {
+            .bento-grid { grid-template-columns: 1fr; }
+            .hero-title { font-size: 3.5rem; }
+        }
+    </style>
 </head>
-
 <body>
 
-  <!-- Custom cursor -->
-  <div id="cursor" class="fixed w-6 h-6 border-2 border-[#FF9F00] rounded-full pointer-events-none z-[9999] hidden md:block"></div>
+    <div class="cinema-bg"></div>
 
-  <!-- NAV -->
-  <nav class="fixed w-full z-50 px-4 py-4">
-    <div class="max-w-6xl mx-auto flex justify-between items-center glass rounded-2xl px-5 py-2">
-      <a href="#home" class="flex items-center gap-3 group">
-        <img src="tosbik-logo-2025.png" alt="Tosbik's Kitchen Logo" class="w-9 h-9 object-contain" />
-        <div class="leading-none">
-          <span class="block font-black uppercase text-base italic group-hover:text-[#FF9F00] transition-colors">Tosbik's</span>
-          <span class="text-[8px] font-bold tracking-[0.22em] uppercase opacity-70">Kitchen</span>
-        </div>
-      </a>
-
-      <div class="hidden md:flex gap-8 text-[10px] font-black uppercase tracking-widest">
-        <a data-nav href="#home" class="opacity-80 hover:opacity-100 hover:text-[#FF9F00] transition-colors">Home</a>
-        <a data-nav href="#story" class="opacity-80 hover:opacity-100 hover:text-[#FF9F00] transition-colors">Story</a>
-        <a data-nav href="#menu" class="opacity-80 hover:opacity-100 hover:text-[#FF9F00] transition-colors">Menü</a>
-        <a data-nav href="#reviews" class="opacity-80 hover:opacity-100 hover:text-[#FF9F00] transition-colors">Reviews</a>
-        <a data-nav href="#visit" class="opacity-80 hover:opacity-100 hover:text-[#FF9F00] transition-colors">Besuch</a>
-      </div>
-
-      <div class="flex items-center gap-2">
-        <a href="https://www.lieferando.de/speisekarte/tosbiks-kitchen" target="_blank" rel="noopener"
-           class="hidden sm:inline-flex bg-white text-black px-4 py-1.5 rounded-lg font-black text-[10px] uppercase hover:bg-[#FF9F00] transition-all">
-          Bestellen
-        </a>
-
-        <button id="mobileBtn" class="md:hidden inline-flex items-center justify-center w-10 h-10 rounded-xl glass hover:border-white/20 transition"
-                aria-label="Menü öffnen" aria-expanded="false">
-          <i data-lucide="menu" class="w-5 h-5"></i>
-        </button>
-      </div>
-    </div>
-
-    <!-- Mobile menu -->
-    <div id="mobileMenu" class="max-w-6xl mx-auto mt-3 hidden">
-      <div class="glass rounded-2xl p-4 flex flex-col gap-3 text-[11px] font-black uppercase tracking-widest">
-        <a class="opacity-80 hover:opacity-100 hover:text-[#FF9F00] transition-colors" href="#home">Home</a>
-        <a class="opacity-80 hover:opacity-100 hover:text-[#FF9F00] transition-colors" href="#story">Story</a>
-        <a class="opacity-80 hover:opacity-100 hover:text-[#FF9F00] transition-colors" href="#menu">Menü</a>
-        <a class="opacity-80 hover:opacity-100 hover:text-[#FF9F00] transition-colors" href="#reviews">Reviews</a>
-        <a class="opacity-80 hover:opacity-100 hover:text-[#FF9F00] transition-colors" href="#visit">Besuch</a>
-
-        <a href="https://www.lieferando.de/speisekarte/tosbiks-kitchen" target="_blank" rel="noopener"
-           class="mt-2 bg-white text-black px-4 py-3 rounded-xl font-black text-[11px] uppercase hover:bg-[#FF9F00] transition-all text-center">
-          Bestellen (Lieferando)
-        </a>
-
-        <a href="https://www.ubereats.com/store/tosbiks-kitchen/pBVRcipkUmGLkzAqVCP4Wg" target="_blank" rel="noopener"
-           class="bg-white/10 border border-white/15 text-white px-4 py-3 rounded-xl font-black text-[11px] uppercase hover:border-white/25 transition-all text-center">
-          Bestellen (Uber Eats)
-        </a>
-      </div>
-    </div>
-  </nav>
-
-  <!-- HERO -->
-  <header id="home" class="bg-cinema relative min-h-[92vh] flex items-center px-6 pt-20 pb-10">
-    <div class="max-w-6xl mx-auto grid lg:grid-cols-2 gap-10 items-center w-full relative z-10">
-
-      <!-- LEFT -->
-      <div>
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[#FF9F00] text-[9px] font-bold uppercase tracking-widest mb-5">
-          <span class="flex h-1.5 w-1.5 rounded-full bg-[#FF9F00] animate-pulse"></span>
-          Smash Burger · Halal · frisch zubereitet
-        </div>
-
-        <!-- HERO BRAND CARD (moved up, replaces big headline) -->
-        <div class="relative mb-6">
-          <div class="absolute -inset-5 rounded-[2.5rem] blur-2xl opacity-35"
-               style="background: radial-gradient(circle at 30% 30%, rgba(255,159,0,.45), transparent 55%), radial-gradient(circle at 70% 60%, rgba(255,95,0,.35), transparent 55%);">
-          </div>
-
-          <div class="glass-bright rounded-[2.5rem] relative overflow-hidden">
-            <!-- tighter padding on mobile so nothing falls out -->
-            <div class="p-7 sm:p-8 md:p-10">
-              <h1 class="text-5xl sm:text-6xl md:text-7xl font-black uppercase italic leading-[0.9] tracking-tighter">
-                GUTE<br>
-                <span class="text-white">ZUTATEN.</span><br>
-                <span class="text-gradient">GUTER</span><br>
-                <span class="text-gradient">BURGER.</span>
-              </h1>
-
-              <div class="mt-5 flex items-center justify-center">
-                <!-- smaller logo so headline stays king -->
-                <img src="tosbik-logo-2025.png" alt="Tosbik's Kitchen Logo"
-                     class="w-[160px] sm:w-[175px] md:w-[190px] object-contain opacity-95" />
-              </div>
-
-              <!-- refined spacing so meta row stays inside the card -->
-              <div class="mt-6 hairline pt-4 flex items-center justify-between text-[10px] uppercase tracking-widest text-white/60">
-                <span>Rheine</span>
-                <span class="text-[#FF9F00] font-black">Smash Burger</span>
-                <span>Since 2024+</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Friendly copy -->
-        <p class="text-gray-300 text-base md:text-lg max-w-xl mb-7 leading-snug">
-          Frisches Rind, hohe Hitze und eine richtig gute Kruste. Bei Tosbik’s Kitchen bekommst du Smash Burger,
-          wie wir ihn selbst am liebsten essen – direkt in Rheine.
-        </p>
-
-        <!-- Buttons -->
-        <div class="flex flex-col sm:flex-row gap-3 mb-8">
-          <a href="#menu" class="bg-[#FF9F00] text-black px-7 py-4 rounded-xl font-black uppercase text-xs flex items-center justify-center gap-3 hover:scale-[1.03] transition-transform">
-            Menü ansehen <i data-lucide="arrow-right" class="w-4 h-4"></i>
-          </a>
-          <a href="#visit" class="glass px-7 py-4 rounded-xl font-black uppercase text-xs flex items-center justify-center gap-3 hover:border-white/20 transition">
-            Bestellen & Zeiten <i data-lucide="map-pin" class="w-4 h-4 text-[#FF9F00]"></i>
-          </a>
-        </div>
-
-        <!-- Feature mini-row -->
-        <div class="flex items-center gap-8 text-[10px] font-bold uppercase tracking-widest text-white/60">
-          <div class="flex items-center gap-2">
-            <i data-lucide="flame" class="w-4 h-4 text-[#FF9F00]"></i>
-            <span>Smash auf Platte</span>
-          </div>
-          <div class="flex items-center gap-2">
-            <i data-lucide="badge-check" class="w-4 h-4 text-[#FF9F00]"></i>
-            <span>Frisch · nicht gefroren</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- RIGHT (kept for desktop balance, but simpler so no duplicate card) -->
-      <div class="hidden lg:flex justify-end">
-        <div class="glass-bright rounded-[2.5rem] p-10 relative">
-          <img src="tosbik-logo-2025.png" alt="Tosbik's Kitchen" class="logo-float w-[320px] object-contain" />
-          <div class="mt-6 hairline pt-5 flex items-center justify-between text-[10px] uppercase tracking-widest text-white/60">
-            <span>Rheine</span>
-            <span class="text-[#FF9F00] font-black">Smash Burger</span>
-            <span>Since 2024+</span>
-          </div>
-        </div>
-      </div>
-
-    </div>
-
-    <div class="absolute bottom-6 left-1/2 -translate-x-1/2 text-white/40 text-[10px] uppercase tracking-[0.35em] flex items-center gap-3">
-      <span>Scroll</span>
-      <span class="w-10 h-px bg-white/20"></span>
-    </div>
-  </header>
-
-  <!-- STORY -->
-  <section id="story" class="py-20 px-6 bg-[#050505]">
-    <div class="max-w-6xl mx-auto">
-      <div class="mb-10">
-        <p class="text-[#FF9F00] font-bold uppercase text-[10px] tracking-widest mb-2">Warum Tosbik’s</p>
-        <h2 class="text-4xl md:text-6xl font-black uppercase italic tracking-tight">
-          Wenig Schnickschnack.<br><span class="text-gradient">Einfach guter Smash.</span>
-        </h2>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-12 gap-4">
-        <div class="md:col-span-8 bento-card glass-bright rounded-[2.5rem] p-8 md:p-10 flex flex-col justify-center min-h-[320px]">
-          <div class="w-12 h-12 rounded-xl bg-[#FF9F00]/20 flex items-center justify-center text-[#FF9F00] mb-6">
-            <i data-lucide="award" class="w-6 h-6"></i>
-          </div>
-          <h3 class="text-2xl md:text-3xl font-black uppercase italic mb-4">So entsteht die Kruste</h3>
-          <p class="text-gray-300 text-lg leading-relaxed max-w-2xl">
-            Wir smashen das Patty direkt auf der heißen Platte. Dadurch entsteht die typische Kruste –
-            außen knusprig, innen saftig. Gute Zutaten, saubere Abläufe – fertig.
-          </p>
-        </div>
-
-        <div class="md:col-span-4 grid gap-4">
-          <div class="bento-card bg-white text-black rounded-[2.5rem] p-8 flex flex-col justify-between">
-            <div class="flex gap-1 text-[#FF9F00]">
-              <i data-lucide="star" class="fill-current w-4 h-4"></i>
-              <i data-lucide="star" class="fill-current w-4 h-4"></i>
-              <i data-lucide="star" class="fill-current w-4 h-4"></i>
-              <i data-lucide="star" class="fill-current w-4 h-4"></i>
-              <i data-lucide="star" class="fill-current w-4 h-4"></i>
-            </div>
-            <div>
-              <div class="text-4xl font-black italic tracking-tighter">4.8★</div>
-              <p class="text-[10px] font-bold uppercase opacity-60">Bewertungen (öffentlich)</p>
-            </div>
-          </div>
-
-          <div class="bento-card glass rounded-[2.5rem] p-8 flex items-center gap-4">
-            <div class="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center">
-              <i data-lucide="flame" class="text-[#FF9F00] w-6 h-6"></i>
-            </div>
-            <div>
-              <p class="font-black uppercase italic text-sm">Frisch statt gefroren</p>
-              <p class="text-white/50 text-xs mt-1">Für besseren Geschmack und bessere Qualität.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="md:col-span-12 bento-card glass-bright rounded-[2.5rem] p-8 flex flex-col md:flex-row justify-between items-center border-l-4 border-l-[#FF9F00]">
-          <div class="mb-4 md:mb-0">
-            <p class="text-[#FF9F00] font-bold uppercase text-[10px] tracking-widest mb-1">Location</p>
-            <h4 class="text-2xl font-black italic uppercase">Bonifatiusstraße 48a, 48429 Rheine</h4>
-          </div>
-          <div class="text-center md:text-right">
-            <p class="text-[#FF9F00] font-bold uppercase text-[10px] tracking-widest mb-1">Öffnungszeiten</p>
-            <p class="text-xl font-black italic uppercase">Di – So · 17:00 – 22:00</p>
-            <p class="text-white/40 text-xs mt-1">Zeiten ggf. an Feiertagen abweichend.</p>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- MENU -->
-  <section id="menu" class="py-20 px-6 bg-[#030303]">
-    <div class="max-w-6xl mx-auto">
-      <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10">
-        <div>
-          <p class="text-[#FF9F00] font-bold uppercase text-[10px] tracking-widest mb-2">Menü Highlights</p>
-          <h2 class="text-4xl md:text-6xl font-black uppercase italic tracking-tight">Unsere Favoriten.<br><span class="text-gradient">Einfach richtig gut.</span></h2>
-        </div>
-        <div class="flex gap-3">
-          <a href="https://www.instagram.com/tosbiks_kitchen/" target="_blank" rel="noopener"
-             class="glass px-5 py-3 rounded-xl font-black uppercase text-xs hover:border-white/20 transition flex items-center gap-2">
-            Instagram <i data-lucide="instagram" class="w-4 h-4 text-[#FF9F00]"></i>
-          </a>
-          <a href="#visit"
-             class="bg-white text-black px-5 py-3 rounded-xl font-black uppercase text-xs hover:bg-[#FF9F00] transition flex items-center gap-2">
-            Jetzt bestellen <i data-lucide="shopping-bag" class="w-4 h-4"></i>
-          </a>
-        </div>
-      </div>
-
-      <div class="grid md:grid-cols-12 gap-4">
-        <div class="md:col-span-7 bento-card glass-bright rounded-[2.5rem] p-8 md:p-10 relative overflow-hidden">
-          <div class="absolute inset-0 opacity-30"
-               style="background: radial-gradient(circle at 20% 20%, rgba(255,159,0,.35), transparent 55%), radial-gradient(circle at 80% 70%, rgba(255,95,0,.25), transparent 55%);">
-          </div>
-          <div class="relative">
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[#FF9F00] text-[9px] font-bold uppercase tracking-widest mb-5">
-              Signature
-            </div>
-            <h3 class="text-3xl md:text-4xl font-black uppercase italic tracking-tight">Smashies Signature</h3>
-            <p class="text-white/70 mt-3 max-w-xl">
-              Unser Klassiker: saftig, knusprig und genau richtig abgestimmt.
-              (Details/Varianten bitte final nach eurer Karte.)
-            </p>
-
-            <div class="mt-8 grid sm:grid-cols-3 gap-3">
-              <div class="glass rounded-2xl p-4">
-                <p class="text-[10px] uppercase tracking-widest text-white/50">Patty</p>
-                <p class="font-black italic mt-1">Smash</p>
-              </div>
-              <div class="glass rounded-2xl p-4">
-                <p class="text-[10px] uppercase tracking-widest text-white/50">Cheese</p>
-                <p class="font-black italic mt-1">Melt</p>
-              </div>
-              <div class="glass rounded-2xl p-4">
-                <p class="text-[10px] uppercase tracking-widest text-white/50">Finish</p>
-                <p class="font-black italic mt-1">Crunch</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="md:col-span-5 grid gap-4">
-          <div class="bento-card glass rounded-[2.5rem] p-7">
-            <div class="flex items-start justify-between gap-4">
-              <div>
-                <p class="text-[#FF9F00] font-bold uppercase text-[10px] tracking-widest">Burger</p>
-                <h4 class="text-2xl font-black italic uppercase mt-1">Mc Smash</h4>
-                <p class="text-white/60 text-sm mt-2 leading-snug">
-                  Smashed Rindfleischpatty, Ketchup, Senfmayo, Essiggurken, Zwiebeln. Halal.
-                </p>
-              </div>
-              <div class="bg-white text-black rounded-2xl px-4 py-3 font-black italic text-lg shrink-0">€9,90</div>
-            </div>
-            <div class="mt-5 flex gap-2 flex-wrap">
-              <span class="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[10px] uppercase tracking-widest text-white/70">Halal</span>
-              <span class="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[10px] uppercase tracking-widest text-white/70">Classic</span>
-              <span class="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[10px] uppercase tracking-widest text-white/70">Smash</span>
-            </div>
-          </div>
-
-          <div class="bento-card glass-bright rounded-[2.5rem] p-7">
+    <nav class="fixed top-0 left-0 right-0 z-[100] p-4 md:p-6">
+        <div class="max-w-6xl mx-auto nav-glass rounded-2xl px-6 py-3 flex justify-between items-center">
             <div class="flex items-center gap-3">
-              <div class="w-12 h-12 rounded-2xl bg-[#FF9F00]/15 border border-[#FF9F00]/30 flex items-center justify-center">
-                <i data-lucide="pizza" class="w-6 h-6 text-[#FF9F00]"></i>
-              </div>
-              <div>
-                <p class="text-[#FF9F00] font-bold uppercase text-[10px] tracking-widest">Loaded Fries</p>
-                <h4 class="text-xl font-black italic uppercase">Passt immer</h4>
-              </div>
+                <img src="tosbik-logo-2025.png" alt="Tosbik" class="h-7 w-auto">
+                <span class="text-header font-black text-xs uppercase italic tracking-widest">Tosbik's Kitchen</span>
             </div>
-            <p class="text-white/70 text-sm mt-3">Knusprig, voll belegt und super als Side. (Varianten bitte final ergänzen.)</p>
-          </div>
-
-          <div class="bento-card glass rounded-[2.5rem] p-7 flex items-center justify-between">
-            <div>
-              <p class="text-[#FF9F00] font-bold uppercase text-[10px] tracking-widest">Tipp</p>
-              <h4 class="text-xl font-black italic uppercase mt-1">Abholung lohnt sich</h4>
-              <p class="text-white/60 text-sm mt-1">Kurz vorbei, warm mitnehmen, voller Crunch.</p>
+            <div class="hidden md:flex gap-8 text-[9px] font-bold uppercase tracking-[0.3em] text-white/50">
+                <a href="#home" class="hover:text-white transition-colors">Home</a>
+                <a href="#story" class="hover:text-white transition-colors">Philosophy</a>
+                <a href="#menu" class="hover:text-white transition-colors">Menu</a>
             </div>
-            <i data-lucide="timer" class="w-6 h-6 text-[#FF9F00]"></i>
-          </div>
+            <a href="https://www.lieferando.de" class="bg-white text-black px-5 py-2 rounded-xl font-bold text-[9px] uppercase tracking-wider hover:bg-[#FF9F00] transition-all">
+                Order Now
+            </a>
         </div>
-      </div>
+    </nav>
 
-      <div class="mt-10 text-white/40 text-xs">
-        Hinweis: Menü/Preise sind Beispielwerte für das Layout. Bitte final mit eurer Karte abgleichen.
-      </div>
-    </div>
-  </section>
-
-  <!-- REVIEWS -->
-  <section id="reviews" class="py-20 px-6 bg-[#050505]">
-    <div class="max-w-6xl mx-auto">
-      <div class="mb-10">
-        <p class="text-[#FF9F00] font-bold uppercase text-[10px] tracking-widest mb-2">Bewertungen</p>
-        <h2 class="text-4xl md:text-6xl font-black uppercase italic tracking-tight">Was Gäste sagen.<br><span class="text-gradient"></span></h2>
-      </div>
-
-      <div class="grid md:grid-cols-3 gap-4">
-        <div class="bento-card glass-bright rounded-[2.5rem] p-7">
-          <div class="flex gap-1 text-[#FF9F00] mb-4">
-            <i data-lucide="star" class="fill-current w-4 h-4"></i><i data-lucide="star" class="fill-current w-4 h-4"></i>
-            <i data-lucide="star" class="fill-current w-4 h-4"></i><i data-lucide="star" class="fill-current w-4 h-4"></i>
-            <i data-lucide="star" class="fill-current w-4 h-4"></i>
-          </div>
-          <p class="text-white/80 leading-relaxed">
-            „Mit großem Abstand der beste Burgerladen in Rheine… alles wirkt super frisch…“
-          </p>
-          <p class="text-white/40 text-xs mt-4 uppercase tracking-widest">Öffentliche Bewertung</p>
-        </div>
-
-        <div class="bento-card glass rounded-[2.5rem] p-7">
-          <div class="flex items-center justify-between">
-            <div class="flex gap-1 text-[#FF9F00]">
-              <i data-lucide="star" class="fill-current w-4 h-4"></i><i data-lucide="star" class="fill-current w-4 h-4"></i>
-              <i data-lucide="star" class="fill-current w-4 h-4"></i><i data-lucide="star" class="fill-current w-4 h-4"></i>
-              <i data-lucide="star" class="fill-current w-4 h-4"></i>
+    <header id="home" class="min-h-screen flex flex-col justify-center px-6 max-w-7xl mx-auto">
+        <div class="space-y-4">
+            <div class="inline-block px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[#FF9F00] text-[9px] font-bold uppercase tracking-[0.4em] mb-4">
+                Handmade in Rheine
             </div>
-            <i data-lucide="quote" class="w-5 h-5 text-white/30"></i>
-          </div>
-          <p class="text-white/80 leading-relaxed mt-4">
-            „Sie bekommen es sogar hin, die Pommes bei der Lieferung knusprig zu behalten.“
-          </p>
-          <p class="text-white/40 text-xs mt-4 uppercase tracking-widest">Öffentliche Bewertung</p>
-        </div>
-
-        <div class="bento-card glass-bright rounded-[2.5rem] p-7">
-          <div class="flex items-center gap-3">
-            <div class="w-12 h-12 rounded-2xl bg-[#FF9F00]/15 border border-[#FF9F00]/30 flex items-center justify-center">
-              <i data-lucide="badge-check" class="w-6 h-6 text-[#FF9F00]"></i>
-            </div>
-            <div>
-              <p class="text-[#FF9F00] font-bold uppercase text-[10px] tracking-widest">Score</p>
-              <h4 class="text-2xl font-black italic uppercase">4.8 ★</h4>
-            </div>
-          </div>
-          <p class="text-white/70 text-sm mt-4">
-            Danke für das Feedback – wir freuen uns über jede Bewertung.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- VISIT / CTA -->
-  <section id="visit" class="py-20 px-6 bg-[#030303]">
-    <div class="max-w-6xl mx-auto">
-      <div class="bento-card glass-bright rounded-[2.5rem] p-8 md:p-12 overflow-hidden relative">
-        <div class="absolute inset-0 opacity-35"
-             style="background: radial-gradient(circle at 15% 20%, rgba(255,159,0,.35), transparent 60%), radial-gradient(circle at 85% 70%, rgba(255,95,0,.30), transparent 60%);">
-        </div>
-
-        <div class="relative grid md:grid-cols-2 gap-10 items-center">
-          <div>
-            <p class="text-[#FF9F00] font-bold uppercase text-[10px] tracking-widest mb-2">Bestellen</p>
-            <h2 class="text-4xl md:text-6xl font-black uppercase italic leading-[0.9]">
-              Vorbeikommen oder<br><span class="text-gradient">online bestellen.</span>
-            </h2>
-            <p class="text-white/70 mt-5 max-w-xl">
-              Wähle einfach deine Plattform – und wir kümmern uns um den Rest.
+            <h1 class="hero-title text-6xl md:text-[120px] text-header font-black leading-[0.85] uppercase italic">
+                HANDGEMACHT.<br>
+                <span class="text-gradient">UNGEFILTERT.</span>
+            </h1>
+            <p class="max-w-xl text-white/40 text-lg md:text-xl font-light leading-relaxed pt-6">
+                Wir smashen nicht nur Burger. Wir definieren den Standard neu. 
+                Frisches Beef trifft auf 200°C Stahl. Keine Kompromisse, keine Tiefkühlkost.
             </p>
-
-            <div class="mt-7 flex flex-col sm:flex-row gap-3">
-              <a href="https://www.lieferando.de/speisekarte/tosbiks-kitchen" target="_blank" rel="noopener"
-                 class="bg-white text-black px-7 py-4 rounded-xl font-black uppercase text-xs hover:bg-[#FF9F00] transition flex items-center justify-center gap-2">
-                Lieferando öffnen <i data-lucide="external-link" class="w-4 h-4"></i>
-              </a>
-
-              <a href="https://www.ubereats.com/store/tosbiks-kitchen/pBVRcipkUmGLkzAqVCP4Wg" target="_blank" rel="noopener"
-                 class="glass px-7 py-4 rounded-xl font-black uppercase text-xs hover:border-white/20 transition flex items-center justify-center gap-2">
-                Uber Eats öffnen <i data-lucide="external-link" class="w-4 h-4 text-[#FF9F00]"></i>
-              </a>
+            <div class="flex gap-4 pt-10">
+                <a href="#menu" class="bg-[#FF9F00] text-black px-8 py-4 rounded-xl font-black uppercase text-[10px] tracking-widest hover:scale-105 transition-transform">
+                    Menu Highlights
+                </a>
             </div>
-          </div>
-
-          <div class="glass rounded-[2rem] p-6 md:p-8">
-            <div class="flex items-start justify-between gap-6">
-              <div>
-                <p class="text-[#FF9F00] font-bold uppercase text-[10px] tracking-widest mb-1">Adresse</p>
-                <p class="text-xl font-black italic uppercase">Bonifatiusstraße 48a</p>
-                <p class="text-white/60 text-sm mt-1">48429 Rheine</p>
-              </div>
-              <i data-lucide="map-pin" class="w-6 h-6 text-[#FF9F00]"></i>
-            </div>
-
-            <div class="hairline my-6"></div>
-
-            <div class="flex items-start justify-between gap-6">
-              <div>
-                <p class="text-[#FF9F00] font-bold uppercase text-[10px] tracking-widest mb-1">Öffnungszeiten</p>
-                <p class="text-xl font-black italic uppercase">Di – So · 17:00 – 22:00</p>
-                <p class="text-white/50 text-xs mt-1">Feiertage/Events ggf. abweichend.</p>
-              </div>
-              <i data-lucide="clock" class="w-6 h-6 text-[#FF9F00]"></i>
-            </div>
-
-            <div class="mt-6">
-              <a href="https://www.google.com/maps/search/?api=1&query=Bonifatiusstra%C3%9Fe%2048a%2048429%20Rheine%20Tosbik's%20Kitchen"
-                 target="_blank" rel="noopener"
-                 class="w-full inline-flex items-center justify-center gap-2 bg-[#FF9F00] text-black px-6 py-4 rounded-xl font-black uppercase text-xs hover:scale-[1.02] transition-transform">
-                In Google Maps öffnen <i data-lucide="navigation" class="w-4 h-4"></i>
-              </a>
-            </div>
-          </div>
         </div>
+    </header>
 
-      </div>
-    </div>
-  </section>
+    <section id="story" class="py-20 px-4 md:px-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="bento-grid">
+                
+                <div class="bento-item spotlight col-span-12 lg:col-span-7 p-8 md:p-12 flex flex-col justify-end min-h-[400px]">
+                    <i data-lucide="zap" class="absolute top-10 right-10 text-white/5" size="120"></i>
+                    <h2 class="text-3xl md:text-5xl text-header font-black uppercase italic mb-4">The Smash<br>Secret</h2>
+                    <p class="text-white/50 text-base md:text-lg max-w-md">
+                        Der "Smash" ist mehr als Technik. Es ist die Wissenschaft der Kruste. 
+                        Maximale Oberfläche bedeutet maximaler Geschmack.
+                    </p>
+                </div>
 
-  <!-- FOOTER -->
-  <footer class="py-14 px-6 border-t border-white/5 bg-[#030303]">
-    <div class="max-w-4xl mx-auto text-center">
-      <h2 class="text-3xl md:text-4xl font-black uppercase italic mb-8 text-white opacity-90">
-        Danke fürs Vorbeischauen.
-      </h2>
-      <div class="flex justify-center flex-wrap gap-6 text-[10px] font-bold uppercase tracking-widest text-white/40 mb-8">
-        <a href="https://www.instagram.com/tosbiks_kitchen/" target="_blank" rel="noopener" class="hover:text-white">Instagram</a>
-        <a href="https://www.lieferando.de/speisekarte/tosbiks-kitchen" target="_blank" rel="noopener" class="hover:text-white">Lieferando</a>
-        <a href="https://www.ubereats.com/store/tosbiks-kitchen/pBVRcipkUmGLkzAqVCP4Wg" target="_blank" rel="noopener" class="hover:text-white">Uber Eats</a>
-        <a href="#" class="hover:text-white">Impressum</a>
-        <a href="#" class="hover:text-white">Datenschutz</a>
-      </div>
-      <p class="text-[8px] font-bold uppercase tracking-[0.4em] opacity-20 text-white">
-        &copy; 2025 Tosbik's Kitchen
-      </p>
-    </div>
-  </footer>
+                <div class="bento-item col-span-12 md:col-span-6 lg:col-span-5 p-8 flex flex-col justify-between">
+                    <div class="flex justify-between items-start">
+                        <div class="w-12 h-12 rounded-xl bg-[#FF9F00]/10 flex items-center justify-center border border-[#FF9F00]/20">
+                            <i data-lucide="flame" class="text-[#FF9F00]"></i>
+                        </div>
+                        <span class="text-[10px] font-bold uppercase tracking-widest text-white/20">Quality Score</span>
+                    </div>
+                    <div>
+                        <div class="text-6xl font-black italic text-gradient">100%</div>
+                        <p class="text-white/40 text-xs uppercase tracking-widest mt-2">Frisches Rindfleisch Täglich</p>
+                    </div>
+                </div>
 
-  <script>
-    window.addEventListener("DOMContentLoaded", () => {
-      if (window.lucide) lucide.createIcons();
+                <div id="menu" class="bento-item col-span-12 p-8 md:p-12">
+                    <div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
+                        <div>
+                            <span class="text-[#FF9F00] font-bold uppercase text-[9px] tracking-[0.3em]">Selected Menu</span>
+                            <h2 class="text-3xl md:text-5xl text-header font-black uppercase italic">Signature Picks</h2>
+                        </div>
+                        <p class="text-white/30 text-xs uppercase tracking-widest">Scroll to explore</p>
+                    </div>
 
-      // Mobile menu
-      const btn = document.getElementById('mobileBtn');
-      const menu = document.getElementById('mobileMenu');
-      if (btn && menu) {
-        btn.addEventListener('click', () => {
-          const isOpen = !menu.classList.contains('hidden');
-          menu.classList.toggle('hidden');
-          btn.setAttribute('aria-expanded', String(!isOpen));
-        });
-        menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
-          menu.classList.add('hidden');
-          btn.setAttribute('aria-expanded', 'false');
-        }));
-      }
+                    <div class="space-y-2">
+                        <div class="menu-row py-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
+                            <div class="flex items-center gap-6">
+                                <span class="text-white/20 font-black italic">01</span>
+                                <div>
+                                    <h4 class="text-xl font-bold uppercase italic">Classic Smash</h4>
+                                    <p class="text-white/40 text-xs">Beef, Cheddar, Homemade Sauce, Pickles</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <span class="text-xl font-black italic">9.90€</span>
+                                <i data-lucide="chevron-right" class="text-[#FF9F00] w-4 h-4"></i>
+                            </div>
+                        </div>
 
-      // Cursor (desktop only)
-      const cursor = document.getElementById('cursor');
-      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      if (cursor && !reduceMotion) {
-        document.addEventListener('mousemove', (e) => {
-          if (!window.gsap) return;
-          gsap.to(cursor, { x: e.clientX - 12, y: e.clientY - 12, duration: 0.35, ease: "power3.out" });
-        });
-      }
+                        <div class="menu-row py-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
+                            <div class="flex items-center gap-6">
+                                <span class="text-white/20 font-black italic">02</span>
+                                <div>
+                                    <h4 class="text-xl font-bold uppercase italic">Onion Melt Smash</h4>
+                                    <p class="text-white/40 text-xs">Smashed Onions, Extra Cheese, Mustard Mayo</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <span class="text-xl font-black italic">10.50€</span>
+                                <i data-lucide="chevron-right" class="text-[#FF9F00] w-4 h-4"></i>
+                            </div>
+                        </div>
 
-      // GSAP animations
-      if (window.gsap && window.ScrollTrigger && !reduceMotion) {
+                        <div class="menu-row py-6 flex flex-col md:flex-row md:items-center justify-between gap-4 border-none">
+                            <div class="flex items-center gap-6">
+                                <span class="text-white/20 font-black italic">03</span>
+                                <div>
+                                    <h4 class="text-xl font-bold uppercase italic">Loaded Chili Fries</h4>
+                                    <p class="text-white/40 text-xs">Fresh Cut Fries, Beef Topping, Jalapeños</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <span class="text-xl font-black italic">7.50€</span>
+                                <i data-lucide="chevron-right" class="text-[#FF9F00] w-4 h-4"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bento-item spotlight col-span-12 md:col-span-12 p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-10">
+                    <div class="flex items-center gap-8">
+                        <div class="hidden md:block">
+                            <img src="tosbik-logo-2025.png" class="h-24 w-auto opacity-20">
+                        </div>
+                        <div>
+                            <span class="text-[#FF9F00] font-bold uppercase text-[9px] tracking-[0.3em]">Location</span>
+                            <h3 class="text-2xl md:text-3xl font-black uppercase italic">Bonifatiusstraße 48a</h3>
+                            <p class="text-white/40">48429 Rheine · Germany</p>
+                        </div>
+                    </div>
+                    <div class="flex flex-col items-center md:items-end">
+                        <span class="text-[#FF9F00] font-bold uppercase text-[9px] tracking-[0.3em] mb-2">Social Hub</span>
+                        <a href="https://instagram.com" class="text-xl font-black italic hover:text-[#FF9F00] transition-colors uppercase">@tosbiks_kitchen</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-20 px-6 text-center border-t border-white/5">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-2xl font-black uppercase italic mb-8 tracking-tighter opacity-50">Tosbik's Kitchen Rheine</h2>
+            <div class="flex justify-center gap-10 text-[9px] font-bold uppercase tracking-[0.4em] text-white/20">
+                <a href="#" class="hover:text-white transition-colors">Instagram</a>
+                <a href="#" class="hover:text-white transition-colors">Legal</a>
+                <a href="#" class="hover:text-white transition-colors">Privacy</a>
+            </div>
+            <p class="mt-12 text-[7px] font-bold uppercase tracking-[0.6em] text-white/10">Built for the future of food.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Init Lucide
+        lucide.createIcons();
+
+        // GSAP Animations
         gsap.registerPlugin(ScrollTrigger);
 
-        gsap.from("header .glass-bright, header p, header a, header .flex", {
-          y: 14, opacity: 0, duration: 0.65, stagger: 0.06, ease: "power3.out"
+        // Spotlight Effect Logic
+        document.querySelectorAll('.spotlight').forEach(item => {
+            item.addEventListener('mousemove', e => {
+                const rect = item.getBoundingClientRect();
+                item.style.setProperty('--x', `${e.clientX - rect.left}px`);
+                item.style.setProperty('--y', `${e.clientY - rect.top}px`);
+            });
         });
 
-        gsap.utils.toArray(".bento-card").forEach((card) => {
-          gsap.from(card, {
-            scrollTrigger: { trigger: card, start: "top 88%" },
-            y: 22, opacity: 0, duration: 0.6, ease: "power3.out"
-          });
+        // Entrance Animations
+        gsap.from(".hero-title", {
+            y: 100, opacity: 0, duration: 1.5, ease: "expo.out"
         });
 
-        // Active nav highlighting (simple)
-        const navLinks = document.querySelectorAll('[data-nav]');
-        const sections = ["#home","#story","#menu","#reviews","#visit"].map(id => document.querySelector(id)).filter(Boolean);
-
-        sections.forEach(sec => {
-          ScrollTrigger.create({
-            trigger: sec,
-            start: "top 35%",
-            end: "bottom 35%",
-            onEnter: () => setActive(sec.id),
-            onEnterBack: () => setActive(sec.id),
-          });
+        gsap.from(".bento-item", {
+            scrollTrigger: {
+                trigger: ".bento-grid",
+                start: "top 80%",
+            },
+            y: 50,
+            opacity: 0,
+            duration: 1,
+            stagger: 0.15,
+            ease: "power4.out"
         });
 
-        function setActive(id){
-          navLinks.forEach(a => {
-            const href = (a.getAttribute('href') || '').replace('#','');
-            const active = href === id;
-            a.classList.toggle('text-[#FF9F00]', active);
-            a.classList.toggle('opacity-100', active);
-            a.classList.toggle('opacity-80', !active);
-          });
-        }
-      }
-    });
-  </script>
+        // Smooth Nav Reveal
+        gsap.from("nav", {
+            y: -50, opacity: 0, duration: 1, delay: 0.5, ease: "power3.out"
+        });
+    </script>
 </body>
 </html>
