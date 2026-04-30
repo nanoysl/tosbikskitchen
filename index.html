@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SEC_RESTAURANT_TERROIR_CRAFTSMANSHIP - Prototype</title>
+  <title>SEC_RESTAURANT_SPATIAL_VIBE_TRANSITION - Prototype</title>
   
   <script src="https://cdn.tailwindcss.com"></script>
   
@@ -11,169 +11,161 @@
 
   <style type="text/tailwindcss">
     @layer utilities {
-      .hide-scrollbar {
-        -ms-overflow-style: none;  /* IE and Edge */
-        scrollbar-width: none;  /* Firefox */
-      }
-      .hide-scrollbar::-webkit-scrollbar {
-        display: none; /* Chrome, Safari and Opera */
-      }
-      .text-clamp-h2 {
-        font-size: clamp(2.5rem, 5vw + 1rem, 4.5rem);
+      .text-clamp-display {
+        font-size: clamp(3rem, 8vw + 1rem, 8rem);
       }
     }
-    
-    /* Basis-Setup für den Body, um das Scrollen zu ermöglichen */
-    body {
-      background-color: #0c0a09; /* stone-950 */
-      color: #fafaf9; /* stone-50 */
-      min-height: 200vh; /* Extra Platz oben und unten zum Testen des ScrollTriggers */
+
+    /* CSS Noise/Grain Overlay (Performant) */
+    .bg-noise {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 50;
+      opacity: 0.04;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    }
+
+    /* Initiale Maske für Desktop */
+    @media (min-width: 1024px) {
+      .mask-layer {
+        clip-path: inset(25% 35% 25% 35% round 24px);
+        will-change: clip-path;
+      }
+    }
+    /* Mobile Fallback: Keine Maske, normales Stacking */
+    @media (max-width: 1023px) {
+      .mask-layer {
+        clip-path: inset(0% 0% 0% 0% round 0px);
+      }
     }
   </style>
 </head>
-<body class="antialiased font-sans">
+<body class="antialiased font-sans transition-colors duration-700 ease-in-out" id="vibe-body" style="background-color: #f5f5f4;">
 
-  <div class="h-screen flex items-center justify-center border-b border-stone-800 text-stone-500 uppercase tracking-widest">
-    Scroll down to see the section
+  <div class="h-screen flex items-center justify-center border-b border-stone-300/30 text-stone-500 uppercase tracking-widest transition-colors duration-700">
+    Scroll down to experience the transition
   </div>
 
-  <section 
-    x-data 
-    class="sec-terroir relative w-full bg-stone-950 text-stone-50 overflow-hidden py-16 lg:py-32"
-  >
-    <div class="mx-auto max-w-[100rem] px-4 md:px-8 lg:flex lg:items-start lg:gap-16">
-      
-      <div class="lg:sticky lg:top-[120px] lg:w-2/5 flex flex-col justify-center mb-12 lg:mb-0 z-10">
-        <span class="text-xs tracking-[0.2em] uppercase text-stone-400 mb-4 block">
-          Die Herkunft
-        </span>
-        <h2 class="text-4xl md:text-5xl lg:text-clamp-h2 font-light leading-[1.1] mb-6">
-          Aus dem Wald<br>auf den Teller.
-        </h2>
-        <p class="text-lg text-stone-300 mb-10 max-w-md font-light leading-relaxed">
-          Wir arbeiten eng mit lokalen Sammlern und Landwirten zusammen, um sicherzustellen, dass jede Zutat die Geschichte ihres Terroirs erzählt. Kompromisslose Qualität braucht keine Abkürzungen.
-        </p>
-        
-        <div>
-          <a href="#" class="inline-flex items-center gap-3 text-sm uppercase tracking-wider group">
-            <span class="border-b border-stone-50/30 group-hover:border-stone-50 transition-colors duration-300 pb-1">
-              Unser Netzwerk
-            </span>
-            <svg class="w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
-          </a>
-        </div>
+  <div class="vibe-transition-wrapper relative w-full lg:h-screen">
+    
+    <section class="vibe-state-1 relative w-full h-[70vh] lg:h-screen flex items-center justify-center overflow-hidden">
+      <img 
+        src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?q=80&w=2000&auto=format&fit=crop" 
+        alt="Bright Cafe Interior"
+        class="absolute inset-0 w-full h-full object-cover opacity-60"
+      >
+      <div class="state-1-text relative z-10 text-center text-stone-900 px-4">
+        <span class="text-sm tracking-[0.3em] uppercase font-semibold mb-4 block">14:00 — The Lounge</span>
+        <h2 class="text-clamp-display font-light leading-none tracking-tight">Afternoon<br>Light.</h2>
       </div>
+    </section>
 
-      <div class="lg:w-3/5 relative z-0">
-        <div class="flex lg:flex-col gap-4 lg:gap-32 overflow-x-auto lg:overflow-x-visible snap-x snap-mandatory hide-scrollbar">
-          
-          <div class="terroir-item relative w-[85vw] md:w-[60vw] lg:w-full flex-shrink-0 snap-center rounded-sm overflow-hidden aspect-[4/5] lg:aspect-[3/4] lg:min-h-[80vh] bg-stone-900">
-            <img 
-              src="https://images.unsplash.com/photo-1542826438-bd32f43d626f?q=80&w=1200&auto=format&fit=crop" 
-              alt="Wild foraged mushrooms"
-              class="terroir-img absolute inset-0 w-full h-full object-cover origin-center transform scale-110 will-change-transform"
-            >
-            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none"></div>
-            <div class="absolute bottom-0 left-0 w-full p-6 lg:p-8 flex justify-between items-end">
-              <h3 class="text-xl md:text-2xl font-light text-stone-50">Wilde Pilze</h3>
-              <span class="text-xs uppercase tracking-widest text-stone-400">Schwarzwald, GER</span>
-            </div>
-          </div>
-
-          <div class="terroir-item relative w-[85vw] md:w-[60vw] lg:w-full flex-shrink-0 snap-center rounded-sm overflow-hidden aspect-[4/5] lg:aspect-[3/4] lg:min-h-[80vh] bg-stone-900">
-            <img 
-              src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=1200&auto=format&fit=crop" 
-              alt="Open fire cooking"
-              class="terroir-img absolute inset-0 w-full h-full object-cover origin-center transform scale-110 will-change-transform"
-            >
-            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none"></div>
-            <div class="absolute bottom-0 left-0 w-full p-6 lg:p-8 flex justify-between items-end">
-              <h3 class="text-xl md:text-2xl font-light text-stone-50">Offenes Feuer</h3>
-              <span class="text-xs uppercase tracking-widest text-stone-400">Küche, In-House</span>
-            </div>
-          </div>
-
-          <div class="terroir-item relative w-[85vw] md:w-[60vw] lg:w-full flex-shrink-0 snap-center rounded-sm overflow-hidden aspect-[4/5] lg:aspect-[3/4] lg:min-h-[80vh] bg-stone-900">
-            <img 
-              src="https://images.unsplash.com/photo-1598511757337-fe2cafc31ba0?q=80&w=1200&auto=format&fit=crop" 
-              alt="Fresh soil and hands"
-              class="terroir-img absolute inset-0 w-full h-full object-cover origin-center transform scale-110 will-change-transform"
-            >
-            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none"></div>
-            <div class="absolute bottom-0 left-0 w-full p-6 lg:p-8 flex justify-between items-end">
-              <h3 class="text-xl md:text-2xl font-light text-stone-50">Handwerk</h3>
-              <span class="text-xs uppercase tracking-widest text-stone-400">Studio Erde, Berlin</span>
-            </div>
-          </div>
-
-        </div>
-      </div>
+    <section 
+      class="mask-layer vibe-state-2 relative lg:absolute lg:inset-0 w-full h-[70vh] lg:h-screen flex items-center justify-center overflow-hidden bg-stone-950 mt-4 lg:mt-0"
+      data-mobile-bg="#0c0a09" 
+    >
+      <img 
+        src="https://images.unsplash.com/photo-1514933651103-005eec06c04b?q=80&w=2000&auto=format&fit=crop" 
+        alt="Dark Bar Interior"
+        class="absolute inset-0 w-full h-full object-cover opacity-40 mix-blend-overlay"
+      >
+      <div class="bg-noise"></div>
       
-    </div>
-  </section>
-  <div class="h-screen flex items-center justify-center text-stone-500 uppercase tracking-widest border-t border-stone-800">
-    End of page
+      <div class="state-2-text relative z-10 text-center text-stone-50 px-4">
+        <span class="text-sm tracking-[0.3em] uppercase text-stone-400 mb-4 block">21:00 — Main Bar</span>
+        <h2 class="text-clamp-display font-light leading-none tracking-tight">Midnight<br>Rhythm.</h2>
+      </div>
+    </section>
+
+  </div>
+  <div class="h-screen flex items-center justify-center text-stone-500 uppercase tracking-widest border-t border-stone-800/30 transition-colors duration-700">
+    End of transition
   </div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
   <script>
-    document.addEventListener("DOMContentLoaded", (event) => {
+    document.addEventListener("DOMContentLoaded", () => {
       gsap.registerPlugin(ScrollTrigger);
 
-      const sections = document.querySelectorAll('.sec-terroir');
+      const wrapper = document.querySelector('.vibe-transition-wrapper');
+      if (!wrapper) return;
 
-      if (sections.length === 0) return;
+      const body = document.getElementById('vibe-body');
+      const maskLayer = document.querySelector('.mask-layer');
+      const state1Text = document.querySelector('.state-1-text');
+      const state2Text = document.querySelector('.state-2-text');
 
-      sections.forEach((section) => {
-        const items = section.querySelectorAll('.terroir-item');
-        let mm = gsap.matchMedia();
+      let mm = gsap.matchMedia();
 
-        // Desktop Animation Logic (min-width: 1024px)
-        mm.add("(min-width: 1024px)", () => {
-          items.forEach((item) => {
-            const img = item.querySelector('.terroir-img');
+      // Desktop Animation Logic (min-width: 1024px)
+      mm.add("(min-width: 1024px)", () => {
+        
+        // Verstecke State 2 Text initial
+        gsap.set(state2Text, { opacity: 0, scale: 0.9, y: 50 });
 
-            // Reveal Animation: Fade In and Move Up
-            gsap.fromTo(item, 
-              { opacity: 0, y: 50 },
-              {
-                opacity: 1,
-                y: 0,
-                duration: 1.2,
-                ease: "power2.out",
-                scrollTrigger: {
-                  trigger: item,
-                  start: "top 85%", 
-                  toggleActions: "play none none reverse",
-                }
-              }
-            );
-
-            // Subtler Image Parallax / Scale Effect
-            gsap.fromTo(img,
-              { scale: 1.15, yPercent: -5 },
-              {
-                scale: 1,
-                yPercent: 5,
-                ease: "none",
-                scrollTrigger: {
-                  trigger: item,
-                  start: "top bottom",
-                  end: "bottom top",
-                  scrub: true,
-                }
-              }
-            );
-          });
+        // Erstelle eine Timeline, die an den Scroll gebunden ist
+        let tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: wrapper,
+            start: "top top",
+            end: "+=200%", // Die Section bleibt für 2 Viewport-Höhen "gepinnt"
+            scrub: 1, // Leichtes Smoothing (1 Sekunde) für den Übergang
+            pin: true,
+            onUpdate: (self) => {
+              // Interpoliere die Hintergrundfarbe des Bodys (außerhalb der Pinned Section) 
+              // von hell (#f5f5f4) zu dunkel (#0c0a09)
+              const progress = self.progress;
+              const color = gsap.utils.interpolate("#f5f5f4", "#0c0a09", progress);
+              body.style.backgroundColor = color;
+            }
+          }
         });
 
-        // Mobile Logic (max-width: 1023px)
-        mm.add("(max-width: 1023px)", () => {
-          // Reset inline styles if resizing from Desktop to Mobile
-          gsap.set(section.querySelectorAll('.terroir-item'), { opacity: 1, y: 0 });
-          gsap.set(section.querySelectorAll('.terroir-img'), { scale: 1, yPercent: 0 });
+        // 1. Text von State 1 ausblenden
+        tl.to(state1Text, {
+          opacity: 0,
+          y: -50,
+          duration: 0.3
+        }, 0);
+
+        // 2. Die Maske (State 2) auf den vollen Viewport aufziehen
+        tl.to(maskLayer, {
+          clipPath: "inset(0% 0% 0% 0% round 0px)",
+          ease: "power2.inOut",
+          duration: 1
+        }, 0.1);
+
+        // 3. Text von State 2 einblenden
+        tl.to(state2Text, {
+          opacity: 1,
+          scale: 1,
+          y: 0,
+          ease: "power3.out",
+          duration: 0.5
+        }, 0.6);
+
+        return () => {
+          // Cleanup
+          gsap.set(maskLayer, { clearProps: "all" });
+          gsap.set([state1Text, state2Text], { clearProps: "all" });
+          body.style.backgroundColor = '';
+        };
+      });
+
+      // Mobile Logic (max-width: 1023px)
+      mm.add("(max-width: 1023px)", () => {
+        // Auf Mobile verzichten wir auf das Pinning und die komplexe Maske.
+        // Stattdessen triggern wir einen Farbwechsel des Bodys, sobald der zweite State ins Bild kommt.
+        
+        ScrollTrigger.create({
+          trigger: maskLayer,
+          start: "top 60%", // Wenn State 2 60% des Bildschirms erreicht
+          end: "bottom top",
+          onEnter: () => body.style.backgroundColor = "#0c0a09", // Dark mode
+          onLeaveBack: () => body.style.backgroundColor = "#f5f5f4", // Light mode
         });
       });
     });
