@@ -3,102 +3,79 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FLOW: ARCHITECTURAL GENESIS</title>
+  <title>FLOW: SYNESTHETIC DEGUSTATION</title>
   
   <script src="https://cdn.tailwindcss.com"></script>
 
   <style type="text/tailwindcss">
     @layer utilities {
-      /* Technische Monospace Typografie */
-      .text-cad {
-        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-        font-size: 0.65rem;
-        letter-spacing: 0.2em;
-        text-transform: uppercase;
-      }
-      /* Klassische Serif für das Finale */
-      .text-genesis {
+      /* Massive Serif Typografie für den Impact */
+      .text-impact {
         font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
-        font-size: clamp(3rem, 10vw, 10rem);
-        line-height: 0.9;
-        font-weight: 300;
-        letter-spacing: -0.02em;
+        font-size: clamp(4rem, 15vw, 15rem);
+        line-height: 0.8;
+        letter-spacing: -0.05em;
       }
     }
 
     body {
-      background-color: #050505; /* Fast Schwarz für besseren Kontrast */
-      color: #fff;
-      overflow-x: hidden;
+      background-color: #000000;
+      color: #ffffff;
+      /* Verhindert horizontales Scrollen bei extremen Skalierungen */
+      overflow-x: hidden; 
     }
 
-    /* Das Raster im Hintergrund für den CAD-Look */
-    .cad-grid {
-      background-size: 40px 40px;
-      background-image: 
-        linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
-    }
-
-    /* Der leuchtende Scanner */
-    .scanner-beam {
-      box-shadow: 0 0 20px 2px rgba(255, 255, 255, 0.8), 0 0 40px 5px rgba(255, 255, 255, 0.3);
+    /* Der Filter-Klasse weisen wir später via CSS die SVG-Maske zu */
+    .filter-smoke {
+      filter: url(#smoke-dissolve);
+      will-change: filter, transform, opacity;
     }
 
     .will-change-transform {
-      will-change: transform, opacity, clip-path;
+      will-change: transform, opacity;
     }
   </style>
 </head>
 <body class="antialiased">
 
+  <svg class="hidden" xmlns="http://www.w3.org/2000/svg">
+    <filter id="smoke-dissolve" x="-20%" y="-20%" width="140%" height="140%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.015 0.05" numOctaves="3" result="noise" />
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="0" xChannelSelector="R" yChannelSelector="G" id="displacement-map" />
+      <feGaussianBlur stdDeviation="0" id="blur-map" />
+    </filter>
+  </svg>
+
   <div class="h-screen flex items-center justify-center text-stone-600 uppercase tracking-[0.3em] text-xs">
-    Initiating blueprint render...
+    Scroll down to taste
   </div>
 
-  <div id="genesis-flow-container" class="relative w-full h-screen bg-[#050505] overflow-hidden flex cursor-crosshair">
+  <div id="syn-flow-container" class="relative w-full h-screen bg-black overflow-hidden flex items-center justify-center cursor-default">
     
-    <div id="cad-ui" class="absolute inset-0 z-20 pointer-events-none cad-grid">
-      <div class="absolute top-8 left-8 text-cad text-stone-500">
-        <span id="coord-x">X: 0.000</span><br>
-        <span id="coord-y">Y: 0.000</span>
-      </div>
-      <div class="absolute bottom-8 right-8 text-cad text-stone-500 text-right">
-        RENDER: 16-BIT FLOAT<br>
-        MAT: CONCRETE / GLASS
-      </div>
-      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 border border-stone-700 rounded-full flex items-center justify-center opacity-50">
-        <div class="w-1 h-1 bg-stone-500 rounded-full"></div>
-      </div>
+    <div id="syn-dot" class="absolute w-2 h-2 md:w-3 md:h-3 bg-white rounded-full z-50 will-change-transform shadow-[0_0_15px_rgba(255,255,255,0.8)]"></div>
+
+    <div id="syn-media" class="absolute inset-0 w-full h-full z-10 opacity-0 scale-50 will-change-transform">
+      <img src="https://images.unsplash.com/photo-1541701494587-cb58502866ab?q=80&w=2000&auto=format&fit=crop" 
+           alt="Abstract Impact" 
+           class="w-full h-full object-cover">
+      <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,#000_100%)]"></div>
     </div>
 
-    <div id="svg-layer" class="absolute inset-0 z-30 flex items-center justify-center pointer-events-none opacity-100">
-      <svg class="w-full h-full max-w-4xl" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet" fill="none" stroke="rgba(255,255,255,0.8)" stroke-width="0.2">
-        <path class="wireframe-path" d="M50 15 L85 35 L85 75 L50 95 L15 75 L15 35 Z" />
-        <path class="wireframe-path" d="M50 15 L50 55 M15 35 L50 55 M85 35 L50 55" />
-        <path class="wireframe-path" d="M50 55 L50 95" />
-        <path class="wireframe-path" d="M32.5 25 L67.5 45 L67.5 85 L32.5 65 Z" stroke-dasharray="1 1" />
-      </svg>
+    <div id="syn-impact-text" class="absolute z-20 flex flex-col items-center justify-center opacity-0 scale-150 filter-smoke pointer-events-none">
+      <h2 class="text-impact font-bold text-[#ff3333] mix-blend-screen text-center">UMAMI<br>& FIRE.</h2>
     </div>
 
-    <div id="photo-layer" class="absolute inset-0 z-10 will-change-transform" style="clip-path: inset(0% 0% 100% 0%);">
-      <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2000&auto=format&fit=crop" 
-           alt="Materialized Architecture" 
-           class="w-full h-full object-cover grayscale opacity-0 transition-all duration-1000"
-           id="master-photo">
-      <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black opacity-80"></div>
-    </div>
-
-    <div id="scanner" class="absolute top-0 left-0 w-full h-[2px] bg-white z-40 scanner-beam opacity-0 will-change-transform translate-y-0"></div>
-
-    <div id="genesis-text" class="absolute inset-0 z-50 flex flex-col items-center justify-center opacity-0 pointer-events-none">
-      <span class="text-xs tracking-[0.4em] uppercase text-stone-300 mb-6 block">The Space</span>
-      <h2 class="text-genesis text-white text-center">Constructed<br>Silence.</h2>
+    <div id="syn-resonance" class="absolute z-30 flex flex-col items-center justify-center text-center px-6 opacity-0 translate-y-10">
+      <span class="text-[10px] md:text-xs tracking-[0.4em] uppercase text-stone-400 mb-6 block">Course IV</span>
+      <h3 class="text-2xl md:text-4xl font-light text-stone-100 mb-4 tracking-wide">Aged Wagyu Tartare</h3>
+      <p class="text-sm md:text-base text-stone-400 max-w-md font-light leading-relaxed">
+        Geräuchert über 12 Jahre altem Kirschholz. Ein aggressiver, primaler Aufschlag am Gaumen, der weich in absolute Tiefe zerfällt.
+      </p>
     </div>
 
   </div>
-  <div class="h-[150vh] flex items-center justify-center text-stone-600 uppercase tracking-[0.3em] text-xs border-t border-stone-900 bg-[#050505]">
-    End of simulation
+  <div class="h-[150vh] flex items-center justify-center text-stone-600 uppercase tracking-[0.3em] text-xs border-t border-stone-900 bg-stone-950">
+    End of Experience
   </div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
@@ -108,88 +85,65 @@
     document.addEventListener("DOMContentLoaded", () => {
       gsap.registerPlugin(ScrollTrigger);
 
-      // --- SVG Path Setup (Natives DrawSVG Fallback) ---
-      // Berechnet die exakte Länge jedes SVG-Pfades und setzt die CSS-Werte auf "verborgen"
-      const paths = document.querySelectorAll('.wireframe-path');
-      paths.forEach(path => {
-        const length = path.getTotalLength();
-        path.style.strokeDasharray = length;
-        path.style.strokeDashoffset = length;
-      });
+      const container = document.getElementById('syn-flow-container');
+      const dot = document.getElementById('syn-dot');
+      const media = document.getElementById('syn-media');
+      const impactText = document.getElementById('syn-impact-text');
+      const resonance = document.getElementById('syn-resonance');
+      
+      // Greife auf die SVG Filter Elemente im DOM zu
+      const displacementMap = document.querySelector('#displacement-map');
+      const blurMap = document.querySelector('#blur-map');
 
-      // Elemente abgreifen
-      const container = document.getElementById('genesis-flow-container');
-      const cadUI = document.getElementById('cad-ui');
-      const svgLayer = document.getElementById('svg-layer');
-      const photoLayer = document.getElementById('photo-layer');
-      const masterPhoto = document.getElementById('master-photo');
-      const scanner = document.getElementById('scanner');
-      const finalTxt = document.getElementById('genesis-text');
-      const coordX = document.getElementById('coord-x');
-      const coordY = document.getElementById('coord-y');
-
-      // Fake-Koordinaten Updater während des Scrollens
-      const updateCoordinates = (progress) => {
-        const x = (progress * 144.234).toFixed(3);
-        const y = (Math.sin(progress * Math.PI) * 89.102).toFixed(3);
-        coordX.innerText = `X: ${x}`;
-        coordY.innerText = `Y: ${y}`;
-      };
-
-      // Master Timeline (Gepinnt für lange Scroll-Dauer)
+      // Master Timeline, gebunden an den Scroll
+      // +=400% bedeutet, der User muss 4 Viewport-Höhen scrollen, um die ganze Sequenz zu erleben
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: container,
           start: "top top",
-          end: "+=400%", // 4 Viewports scrollen für den gesamten Effekt
-          scrub: 1, // Smoothing von 1 Sekunde für extreme Eleganz
+          end: "+=400%",
+          scrub: 0.5, // Leichtes Smoothing für extrem edles Feel
           pin: true,
-          onUpdate: (self) => updateCoordinates(self.progress)
         }
       });
 
       /* =========================================================
-         DIE CHOREOGRAFIE
+         CHOREOGRAFIE DER ANIMATIONEN (Prozentuale Verteilung)
          ========================================================= */
 
-      // 1. THE WIREFRAME (Zeichnen der Linien)
-      // Wir animieren den strokeDashoffset auf 0
-      paths.forEach(path => {
-        tl.to(path, { strokeDashoffset: 0, duration: 1, ease: "power1.inOut" }, 0);
-      });
+      // 1. Der Punkt pulsiert leicht (Vorbereitung)
+      tl.to(dot, { scale: 1.5, duration: 0.5, ease: "power1.inOut" })
+        // 2. Der Punkt zieht sich zusammen auf 0
+        .to(dot, { scale: 0, opacity: 0, duration: 0.3, ease: "power4.in" })
+        
+        // 3. EXPLOSION: Media ballert rein (Gleichzeitig mit dem Verschwinden des Punkts)
+        .to(media, { opacity: 1, scale: 1, duration: 1, ease: "expo.out" }, "-=0.1")
+        
+        // 4. IMPACT TEXT knallt rein (Scale down von 1.5 auf 1)
+        .to(impactText, { opacity: 1, scale: 1, duration: 0.8, ease: "back.out(1.5)" }, "-=0.8")
+        
+        // 5. HOLD STATE (Wir lassen den User den Impact kurz genießen)
+        .to({}, { duration: 1 }) 
+        
+        // 6. RESONANCE (Die Auflösung)
+        // Media wird abgedunkelt
+        .to(media, { opacity: 0.3, scale: 1.05, duration: 2, ease: "power2.inOut" }, "dissolve")
+        
+        // SVG FILTER MAGIC: Wir animieren die Attribute des SVG Filters, um den Text zu "schmelzen"
+        .to(displacementMap, {
+          attr: { scale: 150 }, // Die Stärke der Verzerrung
+          duration: 2, 
+          ease: "power2.in"
+        }, "dissolve")
+        .to(blurMap, {
+          attr: { stdDeviation: 10 }, // Leichter Blur für den Rauch-Effekt
+          duration: 2, 
+          ease: "power2.in"
+        }, "dissolve")
+        .to(impactText, { opacity: 0, duration: 1.5, ease: "power2.in" }, "dissolve+=0.5")
 
-      // 2. THE SCANNER APPEARS
-      tl.to(scanner, { opacity: 1, duration: 0.2 }, 1);
-      
-      // Das Foto wird sichtbar (damit der Clip-Path greifen kann)
-      tl.set(masterPhoto, { opacity: 1 }, 1);
-
-      // 3. THE MATERIALIZATION (Clip-Path & Scanner bewegen sich synchron nach unten)
-      // Das "inset" zieht die untere Kante (100%) auf 0% auf.
-      tl.to(photoLayer, { 
-        clipPath: "inset(0% 0% 0% 0%)", 
-        ease: "none", 
-        duration: 2 
-      }, 1.2);
-      
-      // Der Scanner fährt parallel von top: 0% auf top: 100%
-      tl.fromTo(scanner, 
-        { top: "0%" }, 
-        { top: "100%", ease: "none", duration: 2 }, 
-        1.2
-      );
-
-      // 4. ATMOSPHERE RISING (Das Foto bekommt Farbe, die CAD-Elemente sterben)
-      tl.to(masterPhoto, { filter: "grayscale(0%) brightness(1.2)", duration: 1.5, ease: "power2.out" }, 2.5);
-      tl.to(cadUI, { opacity: 0, duration: 0.5 }, 2.8);
-      tl.to(svgLayer, { opacity: 0, duration: 0.5 }, 2.8);
-      tl.to(scanner, { opacity: 0, duration: 0.2 }, 3.1);
-
-      // 5. THE REVEAL (Finaler Text schiebt sich majestätisch rein)
-      tl.to(finalTxt, { opacity: 1, duration: 1, ease: "power3.out" }, 3.0);
-      
-      // Feiner Parallax-Zoom auf das fertige Bild im letzten Scroll-Prozent
-      tl.to(masterPhoto, { scale: 1.05, duration: 1, ease: "none" }, 3.0);
+        // 7. FINALER TEXT (Die sanfte Erklärung) taucht auf
+        .to(resonance, { opacity: 1, y: 0, duration: 1.5, ease: "power3.out" }, "dissolve+=1");
 
     });
   </script>
