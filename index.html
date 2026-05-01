@@ -25,9 +25,9 @@
                     colors: {
                         surface: '#F8F9F7',
                         surfaceAlt: '#FFFFFF',
-                        primary: '#1A2E25', // Deep Forest
-                        accent: '#E5EDE5', // Soft Sage
-                        muted: '#7A8C82'
+                        primary: '#0F172A', // Deep Night Blue (replacement for deep forest green)
+                        accent: '#E0F2FE', // Light Sky Blue (replacement for sage green)
+                        muted: '#7393B3' // Muted Slate Blue (replacement for graugrün)
                     },
                     boxShadow: {
                         'glass': '0 8px 32px 0 rgba(0, 0, 0, 0.04)',
@@ -39,7 +39,7 @@
     </script>
 
     <style>
-        body { background-color: #F8F9F7; color: #1A2E25; }
+        body { background-color: #F8F9F7; color: #0F172A; } /* primary color for main text */
         
         /* Modern Fluid Typography */
         .text-huge { font-size: clamp(3rem, 7vw, 6.5rem); line-height: 1.05; letter-spacing: -0.03em; }
@@ -60,7 +60,7 @@
         }
         .bento-card:hover {
             transform: translateY(-4px);
-            box-shadow: 0 12px 32px -8px rgba(26, 46, 37, 0.08);
+            box-shadow: 0 12px 32px -8px rgba(15, 23, 42, 0.08); /* shadow using primaryBlue */
         }
 
         .reveal { opacity: 0; transform: translateY(40px); }
