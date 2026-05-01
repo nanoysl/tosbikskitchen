@@ -3,27 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Curated Tasting Journey | Midpage Block</title>
+    <title>Glut & Gold | Ehrliche Fritten & Craft Grill</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
 
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     fontFamily: {
-                        sans: ['DM Sans', 'sans-serif'],
-                        serif: ['Playfair Display', 'serif'],
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Bebas Neue', 'sans-serif'],
                     },
                     colors: {
-                        surface: '#F7F5F0',     // Editorial warm paper
-                        ink: '#1A1A1A',         // Soft black for typography
-                        accent: '#8B4513',      // Subtle rust/cognac for highlights
-                        borderline: '#D1CFC9'   // Subtle border color
+                        surface: '#111111',     // Asphalt/Grill Black
+                        ink: '#FAFAFA',         // White text
+                        gold: '#FFB800',        // Fries Yellow
+                        heat: '#E63946',        // Ketchup/Fire Red
                     }
                 }
             }
@@ -36,215 +36,217 @@
             color: theme('colors.ink');
             overflow-x: hidden;
         }
-        
         ::-webkit-scrollbar { display: none; }
         * { -ms-overflow-style: none; scrollbar-width: none; }
-        .text-balance { text-wrap: balance; }
         
-        /* Lenis Smooth Scroll */
+        /* Lenis Native Smooth Scroll */
         html.lenis, html.lenis body { height: auto; }
         .lenis.lenis-smooth { scroll-behavior: auto !important; }
-        .lenis.lenis-smooth [data-scroll-container] { will-change: transform; }
 
-        /* Premium Accordion Styling via CSS Grid */
-        details > summary {
-            list-style: none;
-            cursor: pointer;
+        /* Pulsing Status Dot */
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(76, 175, 80, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(76, 175, 80, 0); }
         }
-        details > summary::-webkit-details-marker {
-            display: none;
-        }
-        
-        /* The CSS Grid 0fr to 1fr hack for smooth details transition */
-        .accordion-content-wrapper {
-            display: grid;
-            grid-template-rows: 0fr;
-            transition: grid-template-rows 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .accordion-content-inner {
-            overflow: hidden;
-        }
-        details[open] .accordion-content-wrapper {
-            grid-template-rows: 1fr;
-        }
-        
-        /* Plus/Minus Icon Animation */
-        .accordion-icon {
-            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        details[open] summary .accordion-icon {
-            transform: rotate(45deg);
+        .status-dot {
+            background-color: #4CAF50;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
         }
 
-        /* Outline Button Hover */
-        .btn-outline {
-            position: relative;
-            overflow: hidden;
+        /* Brutalist Hover Effect */
+        .btn-brutal {
+            transition: all 0.2s ease;
+            box-shadow: 4px 4px 0px theme('colors.heat');
         }
-        .btn-outline::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background-color: theme('colors.ink');
-            transform: translateY(100%);
-            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            z-index: 0;
+        .btn-brutal:hover {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0px theme('colors.heat');
         }
-        .btn-outline:hover::before {
-            transform: translateY(0);
-        }
-        .btn-outline span {
-            position: relative;
-            z-index: 1;
-            transition: color 0.4s ease;
-        }
-        .btn-outline:hover span {
-            color: theme('colors.surface');
+        .btn-brutal:active {
+            transform: translate(4px, 4px);
+            box-shadow: 0px 0px 0px theme('colors.heat');
         }
     </style>
 </head>
-<body class="selection:bg-accent selection:text-surface">
+<body class="selection:bg-gold selection:text-surface">
+
+    <header class="fixed top-0 left-0 w-full z-50 p-4 md:p-6 flex justify-between items-center mix-blend-difference pointer-events-none">
+        <div class="text-ink font-display text-2xl md:text-3xl tracking-wide pointer-events-auto">
+            GLUT & GOLD
+        </div>
+        <a href="#location" class="pointer-events-auto bg-ink text-surface font-sans font-bold text-xs uppercase px-4 py-2 rounded-full hover:bg-gold transition-colors">
+            Anfahrt
+        </a>
+    </header>
 
     <main id="smooth-wrapper">
         <div id="smooth-content">
 
-            <div class="h-[50vh] bg-ink text-surface flex items-center justify-center">
-                <span class="font-sans text-xs tracking-widest uppercase opacity-50">Previous Dark Section (Hero)</span>
-            </div>
-
-            <section class="relative w-full px-6 md:px-12 py-20 md:py-32 max-w-[1600px] mx-auto z-10 bg-surface">
+            <section class="relative w-full min-h-[90svh] flex flex-col justify-end bg-surface">
                 
-                <div class="flex flex-col md:flex-row gap-16 md:gap-24 relative">
+                <div class="absolute inset-0 overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1598514982205-f36b96d1e8d4?q=80&w=2070&auto=format&fit=crop" 
+                         alt="Frische Pommes Frites" 
+                         class="w-full h-full object-cover opacity-60 scale-105" id="hero-img" />
+                    <div class="absolute inset-0 bg-gradient-to-t from-surface via-surface/40 to-transparent"></div>
+                </div>
 
-                    <div class="w-full md:w-5/12 flex flex-col justify-between md:sticky md:top-0 md:h-[100svh] md:py-32">
+                <div class="relative z-10 px-4 md:px-8 pb-32 max-w-7xl mx-auto w-full">
+                    <h1 class="font-display text-7xl md:text-[12rem] leading-[0.85] text-ink uppercase tracking-tight mb-4 text-glow reveal-up">
+                        Fritten.<br>
+                        <span class="text-gold">Feuer.</span><br>
+                        Feierabend.
+                    </h1>
+                    <p class="font-sans font-medium text-lg md:text-2xl text-ink/80 max-w-xl reveal-up">
+                        Kein Schnickschnack. Nur doppelt frittierte belgische Pommes, echte Berliner Currywurst und eiskaltes Bier.
+                    </p>
+                </div>
+
+                <div class="absolute bottom-0 left-0 w-full translate-y-1/2 px-4 md:px-8 z-20">
+                    <div class="max-w-7xl mx-auto bg-ink text-surface p-4 md:p-6 rounded-xl shadow-2xl flex flex-col md:flex-row gap-4 md:gap-8 items-start md:items-center justify-between">
                         
-                        <div class="flex flex-col items-start reveal-fade">
-                            <span class="font-sans text-[10px] md:text-xs tracking-[0.2em] uppercase text-accent mb-6 font-medium">
-                                Philosophie & Herkunft
-                            </span>
-                            <h2 class="font-serif text-4xl md:text-6xl leading-[1.1] mb-8 text-balance">
-                                Eine Reise durch <br><span class="italic">die Saison.</span>
-                            </h2>
-                            <p class="font-sans text-base md:text-lg text-ink/70 leading-relaxed max-w-md text-balance">
-                                Wir lassen uns von dem leiten, was die Natur an diesem bestimmten Tag bietet. Jedes Gericht ist ein kuratierter Moment, entworfen, um die reinen Aromen unserer Regionalkultur zu zelebrieren.
-                            </p>
+                        <div class="flex items-center gap-3">
+                            <div class="w-3 h-3 status-dot"></div>
+                            <div>
+                                <p class="font-sans font-bold text-sm uppercase text-surface/50">Live Status</p>
+                                <p class="font-sans font-bold text-lg md:text-xl">Geöffnet bis 23:00</p>
+                            </div>
                         </div>
 
-                        <div class="hidden md:block mt-16 reveal-fade">
-                            <a href="#full-menu" class="btn-outline inline-flex items-center justify-center border border-ink py-4 px-10 rounded-full font-sans text-xs tracking-[0.15em] uppercase font-medium">
-                                <span>Komplette Speisekarte</span>
+                        <div class="hidden md:block w-px h-12 bg-surface/10"></div>
+                        <div>
+                            <p class="font-sans font-bold text-sm uppercase text-surface/50">Standort</p>
+                            <p class="font-sans font-bold text-lg md:text-xl">Kreuzberg, Oranienstraße 42</p>
+                        </div>
+
+                        <div class="w-full md:w-auto mt-2 md:mt-0">
+                            <a href="#menu" class="btn-brutal block w-full text-center bg-gold text-surface font-display text-2xl px-8 py-3 rounded-md">
+                                Speisekarte
                             </a>
                         </div>
                     </div>
+                </div>
+            </section>
 
-                    <div class="w-full md:w-7/12 flex flex-col pt-0 md:py-32">
+            <section id="menu" class="relative w-full bg-surface pt-40 pb-20 md:pt-48 md:pb-32 px-4 md:px-8">
+                <div class="max-w-5xl mx-auto">
+                    
+                    <div class="mb-16 md:mb-24 text-center reveal-up">
+                        <h2 class="font-display text-5xl md:text-8xl text-ink">Das Menü</h2>
+                        <div class="w-24 h-2 bg-heat mx-auto mt-4"></div>
+                    </div>
 
-                        <div class="flex flex-col gap-20 md:gap-40 mb-32">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-24">
+                        
+                        <div class="reveal-up">
+                            <h3 class="font-display text-4xl text-gold mb-8 border-b-2 border-surface/20 pb-2">Die Fritten</h3>
                             
-                            <div class="w-full flex flex-col signature-item">
-                                <div class="w-full aspect-square md:aspect-[4/5] overflow-hidden mb-6 bg-borderline/20 relative">
-                                    <img src="https://images.unsplash.com/photo-1559847844-5315695dadae?q=80&w=2058&auto=format&fit=crop" 
-                                         alt="Geflämmter Saibling" 
-                                         class="parallax-img absolute inset-0 w-full h-[120%] object-cover -top-[10%]" />
+                            <div class="flex flex-col gap-6">
+                                <div class="group cursor-pointer">
+                                    <div class="flex justify-between items-baseline border-b border-ink/10 pb-2 mb-2">
+                                        <h4 class="font-sans font-bold text-xl md:text-2xl text-ink group-hover:text-gold transition-colors">Klassik Fritten</h4>
+                                        <span class="font-sans font-bold text-xl text-ink/80">4.50 €</span>
+                                    </div>
+                                    <p class="font-sans text-sm text-ink/60">Doppelt frittiert, Meersalz. Puristisch gut.</p>
                                 </div>
-                                <div class="flex justify-between items-baseline gap-4">
-                                    <h3 class="font-serif text-2xl md:text-3xl text-ink">Geflämmter Saibling</h3>
-                                    <span class="font-sans text-sm text-ink/50 border-b border-ink/20">32 €</span>
+
+                                <div class="group cursor-pointer">
+                                    <div class="flex justify-between items-baseline border-b border-ink/10 pb-2 mb-2">
+                                        <h4 class="font-sans font-bold text-xl md:text-2xl text-ink group-hover:text-gold transition-colors">Trüffel Parmesan</h4>
+                                        <span class="font-sans font-bold text-xl text-ink/80">7.50 €</span>
+                                    </div>
+                                    <p class="font-sans text-sm text-ink/60">Trüffel-Mayo, frischer Parmesan, Petersilie.</p>
                                 </div>
-                                <p class="font-sans text-sm text-ink/60 mt-2">Kohlrabi / Buttermilch / Dillöl / Kaviar</p>
+
+                                <div class="group cursor-pointer">
+                                    <div class="flex justify-between items-baseline border-b border-ink/10 pb-2 mb-2">
+                                        <h4 class="font-sans font-bold text-xl md:text-2xl text-ink group-hover:text-gold transition-colors">Chili Cheese</h4>
+                                        <span class="font-sans font-bold text-xl text-ink/80">6.80 €</span>
+                                    </div>
+                                    <p class="font-sans text-sm text-ink/60">Hausgemachte Cheddar-Sauce, Jalapeños, Röstzwiebeln.</p>
+                                </div>
                             </div>
+                        </div>
 
-                            <div class="w-full md:w-4/5 md:ml-auto flex flex-col signature-item">
-                                <div class="w-full aspect-square md:aspect-[4/5] overflow-hidden mb-6 bg-borderline/20 relative">
-                                    <img src="https://images.unsplash.com/photo-1544025162-811114215f7f?q=80&w=1974&auto=format&fit=crop" 
-                                         alt="Dry Aged Ente" 
-                                         class="parallax-img absolute inset-0 w-full h-[120%] object-cover -top-[10%]" />
+                        <div class="reveal-up">
+                            <h3 class="font-display text-4xl text-heat mb-8 border-b-2 border-surface/20 pb-2">Vom Grill</h3>
+                            
+                            <div class="flex flex-col gap-6">
+                                <div class="group cursor-pointer">
+                                    <div class="flex justify-between items-baseline border-b border-ink/10 pb-2 mb-2">
+                                        <h4 class="font-sans font-bold text-xl md:text-2xl text-ink group-hover:text-heat transition-colors">Berliner Currywurst</h4>
+                                        <span class="font-sans font-bold text-xl text-ink/80">5.00 €</span>
+                                    </div>
+                                    <p class="font-sans text-sm text-ink/60">Mit oder ohne Darm. Hausgemachte Frucht-Curry-Sauce.</p>
                                 </div>
-                                <div class="flex justify-between items-baseline gap-4">
-                                    <h3 class="font-serif text-2xl md:text-3xl text-ink">Dry Aged Brust</h3>
-                                    <span class="font-sans text-sm text-ink/50 border-b border-ink/20">46 €</span>
+
+                                <div class="group cursor-pointer">
+                                    <div class="flex justify-between items-baseline border-b border-ink/10 pb-2 mb-2">
+                                        <h4 class="font-sans font-bold text-xl md:text-2xl text-ink group-hover:text-heat transition-colors">Manta Platte</h4>
+                                        <span class="font-sans font-bold text-xl text-ink/80">8.90 €</span>
+                                    </div>
+                                    <p class="font-sans text-sm text-ink/60">Currywurst + Klassik Fritten + Mayo. Der Endgegner.</p>
                                 </div>
-                                <p class="font-sans text-sm text-ink/60 mt-2">Schwarze Walnuss / Fermentierte Beeren / Jus</p>
+
+                                <div class="group cursor-pointer">
+                                    <div class="flex justify-between items-baseline border-b border-ink/10 pb-2 mb-2">
+                                        <h4 class="font-sans font-bold text-xl md:text-2xl text-ink group-hover:text-heat transition-colors">Veganer Vulkan</h4>
+                                        <span class="font-sans font-bold text-xl text-ink/80">6.50 €</span>
+                                    </div>
+                                    <p class="font-sans text-sm text-ink/60">Seitan-Wurst, scharfe Salsa, vegane Mayo.</p>
+                                </div>
                             </div>
-
                         </div>
 
-                        <div class="w-full flex flex-col reveal-fade">
-                            <span class="font-sans text-[10px] tracking-[0.2em] uppercase text-ink/50 mb-8 border-b border-borderline pb-4 block">
-                                Auszug aus der Karte
-                            </span>
+                    </div>
+                </div>
+            </section>
 
-                            <details class="w-full border-b border-borderline group" name="menu-accordion">
-                                <summary class="w-full py-6 flex justify-between items-center focus:outline-none min-h-[48px]">
-                                    <h3 class="font-serif text-xl md:text-2xl text-ink group-hover:text-accent transition-colors">Der Auftakt</h3>
-                                    <div class="w-6 h-6 flex items-center justify-center relative accordion-icon text-ink/40">
-                                        <span class="absolute w-full h-[1px] bg-currentColor"></span>
-                                        <span class="absolute h-full w-[1px] bg-currentColor rotate-90"></span>
-                                    </div>
-                                </summary>
-                                <div class="accordion-content-wrapper">
-                                    <div class="accordion-content-inner">
-                                        <div class="pb-8 pt-2 flex flex-col gap-4 font-sans text-sm text-ink/70">
-                                            <div class="flex justify-between"><span>Brot & Hausgemachte Koji-Butter</span> <span>8</span></div>
-                                            <div class="flex justify-between"><span>Austern "Fine de Claire" (3 Stk)</span> <span>16</span></div>
-                                            <div class="flex justify-between"><span>Beef Tatar / Eigelbcreme / Sauerteig</span> <span>22</span></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </details>
-
-                            <details class="w-full border-b border-borderline group" name="menu-accordion">
-                                <summary class="w-full py-6 flex justify-between items-center focus:outline-none min-h-[48px]">
-                                    <h3 class="font-serif text-xl md:text-2xl text-ink group-hover:text-accent transition-colors">Das Hauptwerk</h3>
-                                    <div class="w-6 h-6 flex items-center justify-center relative accordion-icon text-ink/40">
-                                        <span class="absolute w-full h-[1px] bg-currentColor"></span>
-                                        <span class="absolute h-full w-[1px] bg-currentColor rotate-90"></span>
-                                    </div>
-                                </summary>
-                                <div class="accordion-content-wrapper">
-                                    <div class="accordion-content-inner">
-                                        <div class="pb-8 pt-2 flex flex-col gap-4 font-sans text-sm text-ink/70">
-                                            <div class="flex justify-between"><span>Gebrannte Aubergine / Miso / Sesam</span> <span>28</span></div>
-                                            <div class="flex justify-between"><span>Steinbutt / Beurre Blanc / Schnittlauch</span> <span>42</span></div>
-                                            <div class="flex justify-between"><span>Rehrücken / Sellerie / Preiselbeere</span> <span>48</span></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </details>
-
-                            <details class="w-full border-b border-borderline group" name="menu-accordion">
-                                <summary class="w-full py-6 flex justify-between items-center focus:outline-none min-h-[48px]">
-                                    <h3 class="font-serif text-xl md:text-2xl text-ink group-hover:text-accent transition-colors">Ausklang</h3>
-                                    <div class="w-6 h-6 flex items-center justify-center relative accordion-icon text-ink/40">
-                                        <span class="absolute w-full h-[1px] bg-currentColor"></span>
-                                        <span class="absolute h-full w-[1px] bg-currentColor rotate-90"></span>
-                                    </div>
-                                </summary>
-                                <div class="accordion-content-wrapper">
-                                    <div class="accordion-content-inner">
-                                        <div class="pb-8 pt-2 flex flex-col gap-4 font-sans text-sm text-ink/70">
-                                            <div class="flex justify-between"><span>Buchweizen / Heu-Eis / Karamell</span> <span>14</span></div>
-                                            <div class="flex justify-between"><span>Auswahl europäischer Rohmilchkäse</span> <span>21</span></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </details>
-
+            <section id="location" class="relative w-full bg-gold text-surface py-20 md:py-32 px-4 md:px-8 overflow-hidden">
+                <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-12 md:gap-20 relative z-10">
+                    
+                    <div class="w-full md:w-1/2">
+                        <h2 class="font-display text-7xl md:text-[8rem] leading-none text-surface mb-6 uppercase tracking-tight">
+                            Komm <br>Vorbei.
+                        </h2>
+                        <p class="font-sans font-bold text-xl md:text-2xl mb-8 max-w-md">
+                            Keine Reservierung. Einfach rumkommen, bestellen und am Stehtisch glücklich werden.
+                        </p>
+                        
+                        <div class="flex flex-col gap-4 mb-8">
+                            <div>
+                                <p class="font-sans font-bold uppercase text-surface/60 text-sm">Adresse</p>
+                                <p class="font-sans font-bold text-2xl">Oranienstraße 42<br>10999 Berlin</p>
+                            </div>
+                            <div>
+                                <p class="font-sans font-bold uppercase text-surface/60 text-sm mt-4">Öffnungszeiten</p>
+                                <p class="font-sans font-bold text-xl">Mo - Do: 11:30 - 22:00</p>
+                                <p class="font-sans font-bold text-xl">Fr - Sa: 11:30 - 02:00</p>
+                                <p class="font-sans font-bold text-xl">So: Kater-Ruhetag</p>
+                            </div>
                         </div>
 
-                        <div class="block md:hidden mt-12 mb-8 reveal-fade">
-                            <a href="#full-menu" class="w-full btn-outline inline-flex items-center justify-center border border-ink py-5 px-6 rounded-full font-sans text-xs tracking-[0.15em] uppercase font-medium">
-                                <span>Komplette Speisekarte</span>
-                            </a>
-                        </div>
+                        <a href="https://maps.google.com" target="_blank" class="inline-block bg-surface text-ink font-display text-3xl px-10 py-4 rounded-md hover:bg-heat hover:text-ink transition-colors btn-brutal">
+                            Route auf Google Maps
+                        </a>
+                    </div>
 
+                    <div class="w-full md:w-1/2 aspect-square md:aspect-[4/3] rounded-xl overflow-hidden border-8 border-surface shadow-2xl">
+                        <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=1974&auto=format&fit=crop" 
+                             alt="Grill Action" 
+                             class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500" />
                     </div>
 
                 </div>
             </section>
-            <div class="h-[50vh] bg-surface flex items-center justify-center border-t border-borderline">
-                <span class="font-sans text-xs tracking-[0.2em] text-ink/30 uppercase">Next Group: The Concierge Desk (Reservation)</span>
-            </div>
+
+            <footer class="bg-surface py-8 text-center border-t border-ink/10">
+                <p class="font-sans font-bold text-sm text-ink/40 uppercase tracking-widest">
+                    &copy; 2026 Glut & Gold | Impressum | Datenschutz
+                </p>
+            </footer>
 
         </div>
     </main>
@@ -254,7 +256,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
     <script>
-        // 1. Lenis Smooth Scroll Initialization
+        // 1. Lenis Native Smooth Scroll
         const lenis = new Lenis({
             duration: 1.2,
             easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -269,86 +271,39 @@
         }
         requestAnimationFrame(raf);
 
-        // 2. GSAP Setup
+        // 2. GSAP Registrierung
         gsap.registerPlugin(ScrollTrigger);
         lenis.on('scroll', ScrollTrigger.update);
         gsap.ticker.add((time)=>{ lenis.raf(time * 1000); });
         gsap.ticker.lagSmoothing(0);
 
-        // 3. Smooth Details Accordion Logic (Enhancing the native details tag)
-        const detailsElements = document.querySelectorAll('details');
-        detailsElements.forEach(details => {
-            const summary = details.querySelector('summary');
-            
-            summary.addEventListener('click', (e) => {
-                e.preventDefault(); // Prevent instantaneous open/close
-                
-                // If it's closed, we open it
-                if (!details.open) {
-                    details.open = true; // Set open attr so CSS grid starts animating to 1fr
-                    
-                    // Close others (Accordion behavior)
-                    detailsElements.forEach(otherDetails => {
-                        if (otherDetails !== details && otherDetails.open) {
-                            otherDetails.removeAttribute('open');
-                        }
-                    });
-                } else {
-                    // If it's open, we remove the open attr. CSS grid animates to 0fr.
-                    // Note: Removing 'open' instantly hides content natively. 
-                    // To keep the closing animation, we let CSS grid do its 0fr animation, 
-                    // then remove the open attribute via a timeout.
-                    details.classList.add('is-closing');
-                    details.removeAttribute('open');
-                    details.classList.remove('is-closing');
-                }
-            });
-        });
-
-        // 4. Reveal Animations
+        // 3. Hero Parallax
         let mm = gsap.matchMedia();
-
-        // General Fade Ups
-        const reveals = gsap.utils.toArray('.reveal-fade');
-        reveals.forEach(reveal => {
-            gsap.from(reveal, {
-                y: 40,
-                opacity: 0,
-                duration: 1.2,
-                ease: "power2.out",
-                scrollTrigger: {
-                    trigger: reveal,
-                    start: "top 85%",
-                }
-            });
-        });
-
-        // Signature Items Parallax & Reveal
-        const signatureItems = gsap.utils.toArray('.signature-item');
-        signatureItems.forEach(item => {
-            
-            // Container Reveal
-            gsap.from(item, {
-                y: 60,
-                opacity: 0,
-                duration: 1.5,
-                ease: "power2.out",
-                scrollTrigger: {
-                    trigger: item,
-                    start: "top 85%",
-                }
-            });
-
-            // Image Parallax Effect (Masking)
-            const img = item.querySelector('.parallax-img');
-            gsap.to(img, {
-                yPercent: 15, // Move image down slightly within its overflow-hidden container
+        mm.add("(min-width: 768px)", () => {
+            gsap.to("#hero-img", {
+                yPercent: 20,
                 ease: "none",
                 scrollTrigger: {
-                    trigger: item,
-                    start: "top bottom",
+                    trigger: "section",
+                    start: "top top",
                     end: "bottom top",
-                    scrub: true,
+                    scrub: true
+                }
+            });
+        });
+
+        // 4. Reveal Animations (Staggered Fade Up)
+        const revealElements = gsap.utils.toArray('.reveal-up');
+        revealElements.forEach(el => {
+            gsap.from(el, {
+                y: 40,
+                opacity: 0,
+                duration: 0.8,
+                ease: "power3.out",
+                scrollTrigger: {
+                    trigger: el,
+                    start: "top 90%", // Startet, wenn das Element zu 90% im Viewport ist
+                    toggleActions: "play none none reverse"
                 }
             });
         });
