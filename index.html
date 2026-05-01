@@ -1,197 +1,252 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="de" class="antialiased">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FLOW: ARCHITECTURAL GENESIS</title>
-  
-  <script src="https://cdn.tailwindcss.com"></script>
-
-  <style type="text/tailwindcss">
-    @layer utilities {
-      /* Technische Monospace Typografie */
-      .text-cad {
-        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-        font-size: 0.65rem;
-        letter-spacing: 0.2em;
-        text-transform: uppercase;
-      }
-      /* Klassische Serif für das Finale */
-      .text-genesis {
-        font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
-        font-size: clamp(3rem, 10vw, 10rem);
-        line-height: 0.9;
-        font-weight: 300;
-        letter-spacing: -0.02em;
-      }
-    }
-
-    body {
-      background-color: #050505; /* Fast Schwarz für besseren Kontrast */
-      color: #fff;
-      overflow-x: hidden;
-    }
-
-    /* Das Raster im Hintergrund für den CAD-Look */
-    .cad-grid {
-      background-size: 40px 40px;
-      background-image: 
-        linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
-    }
-
-    /* Der leuchtende Scanner */
-    .scanner-beam {
-      box-shadow: 0 0 20px 2px rgba(255, 255, 255, 0.8), 0 0 40px 5px rgba(255, 255, 255, 0.3);
-    }
-
-    .will-change-transform {
-      will-change: transform, opacity, clip-path;
-    }
-  </style>
-</head>
-<body class="antialiased">
-
-  <div class="h-screen flex items-center justify-center text-stone-600 uppercase tracking-[0.3em] text-xs">
-    Initiating blueprint render...
-  </div>
-
-  <div id="genesis-flow-container" class="relative w-full h-screen bg-[#050505] overflow-hidden flex cursor-crosshair">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Cinematic Prologue & Essence | Premium Section Group</title>
     
-    <div id="cad-ui" class="absolute inset-0 z-20 pointer-events-none cad-grid">
-      <div class="absolute top-8 left-8 text-cad text-stone-500">
-        <span id="coord-x">X: 0.000</span><br>
-        <span id="coord-y">Y: 0.000</span>
-      </div>
-      <div class="absolute bottom-8 right-8 text-cad text-stone-500 text-right">
-        RENDER: 16-BIT FLOAT<br>
-        MAT: CONCRETE / GLASS
-      </div>
-      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 border border-stone-700 rounded-full flex items-center justify-center opacity-50">
-        <div class="w-1 h-1 bg-stone-500 rounded-full"></div>
-      </div>
-    </div>
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Inter:wght@300;400&display=swap" rel="stylesheet">
 
-    <div id="svg-layer" class="absolute inset-0 z-30 flex items-center justify-center pointer-events-none opacity-100">
-      <svg class="w-full h-full max-w-4xl" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet" fill="none" stroke="rgba(255,255,255,0.8)" stroke-width="0.2">
-        <path class="wireframe-path" d="M50 15 L85 35 L85 75 L50 95 L15 75 L15 35 Z" />
-        <path class="wireframe-path" d="M50 15 L50 55 M15 35 L50 55 M85 35 L50 55" />
-        <path class="wireframe-path" d="M50 55 L50 95" />
-        <path class="wireframe-path" d="M32.5 25 L67.5 45 L67.5 85 L32.5 65 Z" stroke-dasharray="1 1" />
-      </svg>
-    </div>
-
-    <div id="photo-layer" class="absolute inset-0 z-10 will-change-transform" style="clip-path: inset(0% 0% 100% 0%);">
-      <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2000&auto=format&fit=crop" 
-           alt="Materialized Architecture" 
-           class="w-full h-full object-cover grayscale opacity-0 transition-all duration-1000"
-           id="master-photo">
-      <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black opacity-80"></div>
-    </div>
-
-    <div id="scanner" class="absolute top-0 left-0 w-full h-[2px] bg-white z-40 scanner-beam opacity-0 will-change-transform translate-y-0"></div>
-
-    <div id="genesis-text" class="absolute inset-0 z-50 flex flex-col items-center justify-center opacity-0 pointer-events-none">
-      <span class="text-xs tracking-[0.4em] uppercase text-stone-300 mb-6 block">The Space</span>
-      <h2 class="text-genesis text-white text-center">Constructed<br>Silence.</h2>
-    </div>
-
-  </div>
-  <div class="h-[150vh] flex items-center justify-center text-stone-600 uppercase tracking-[0.3em] text-xs border-t border-stone-900 bg-[#050505]">
-    End of simulation
-  </div>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      gsap.registerPlugin(ScrollTrigger);
-
-      // --- SVG Path Setup (Natives DrawSVG Fallback) ---
-      // Berechnet die exakte Länge jedes SVG-Pfades und setzt die CSS-Werte auf "verborgen"
-      const paths = document.querySelectorAll('.wireframe-path');
-      paths.forEach(path => {
-        const length = path.getTotalLength();
-        path.style.strokeDasharray = length;
-        path.style.strokeDashoffset = length;
-      });
-
-      // Elemente abgreifen
-      const container = document.getElementById('genesis-flow-container');
-      const cadUI = document.getElementById('cad-ui');
-      const svgLayer = document.getElementById('svg-layer');
-      const photoLayer = document.getElementById('photo-layer');
-      const masterPhoto = document.getElementById('master-photo');
-      const scanner = document.getElementById('scanner');
-      const finalTxt = document.getElementById('genesis-text');
-      const coordX = document.getElementById('coord-x');
-      const coordY = document.getElementById('coord-y');
-
-      // Fake-Koordinaten Updater während des Scrollens
-      const updateCoordinates = (progress) => {
-        const x = (progress * 144.234).toFixed(3);
-        const y = (Math.sin(progress * Math.PI) * 89.102).toFixed(3);
-        coordX.innerText = `X: ${x}`;
-        coordY.innerText = `Y: ${y}`;
-      };
-
-      // Master Timeline (Gepinnt für lange Scroll-Dauer)
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: container,
-          start: "top top",
-          end: "+=400%", // 4 Viewports scrollen für den gesamten Effekt
-          scrub: 1, // Smoothing von 1 Sekunde für extreme Eleganz
-          pin: true,
-          onUpdate: (self) => updateCoordinates(self.progress)
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Cormorant Garamond', 'serif'],
+                    },
+                    colors: {
+                        surface: '#0a0a0a', // Deep dark
+                        ink: '#f4f4f5',     // Off-white
+                        brand: '#c2a67f',   // Subdued gold/sand
+                    }
+                }
+            }
         }
-      });
+    </script>
 
-      /* =========================================================
-         DIE CHOREOGRAFIE
-         ========================================================= */
+    <style>
+        /* Base Utilities & Performance Resets */
+        body {
+            background-color: theme('colors.surface');
+            color: theme('colors.ink');
+        }
+        /* Hide scrollbar for cleaner look */
+        ::-webkit-scrollbar { display: none; }
+        * { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        /* Typography Scale Utilities */
+        .text-balance { text-wrap: balance; }
+        
+        /* Lenis Smooth Scroll Setup */
+        html.lenis, html.lenis body {
+            height: auto;
+        }
+        .lenis.lenis-smooth {
+            scroll-behavior: auto !important;
+        }
+        .lenis.lenis-smooth [data-scroll-container] {
+            will-change: transform;
+        }
+    </style>
+</head>
+<body class="relative w-full overflow-x-hidden selection:bg-brand selection:text-surface">
 
-      // 1. THE WIREFRAME (Zeichnen der Linien)
-      // Wir animieren den strokeDashoffset auf 0
-      paths.forEach(path => {
-        tl.to(path, { strokeDashoffset: 0, duration: 1, ease: "power1.inOut" }, 0);
-      });
+    <header class="fixed top-0 left-0 w-full z-50 p-6 md:p-10 flex justify-between items-center mix-blend-difference pointer-events-none">
+        <div class="text-ink font-sans text-sm tracking-widest uppercase pointer-events-auto cursor-pointer">
+            Maison Codex
+        </div>
+        <button class="text-ink font-sans text-sm tracking-widest uppercase pointer-events-auto cursor-pointer hover:text-brand transition-colors">
+            Reserve
+        </button>
+    </header>
 
-      // 2. THE SCANNER APPEARS
-      tl.to(scanner, { opacity: 1, duration: 0.2 }, 1);
-      
-      // Das Foto wird sichtbar (damit der Clip-Path greifen kann)
-      tl.set(masterPhoto, { opacity: 1 }, 1);
+    <main id="smooth-wrapper">
+        <div id="smooth-content">
 
-      // 3. THE MATERIALIZATION (Clip-Path & Scanner bewegen sich synchron nach unten)
-      // Das "inset" zieht die untere Kante (100%) auf 0% auf.
-      tl.to(photoLayer, { 
-        clipPath: "inset(0% 0% 0% 0%)", 
-        ease: "none", 
-        duration: 2 
-      }, 1.2);
-      
-      // Der Scanner fährt parallel von top: 0% auf top: 100%
-      tl.fromTo(scanner, 
-        { top: "0%" }, 
-        { top: "100%", ease: "none", duration: 2 }, 
-        1.2
-      );
+            <div class="relative w-full">
+                
+                <div id="hero-container" class="sticky top-0 left-0 w-full min-h-[100svh] overflow-hidden z-0">
+                    <img id="hero-image" 
+                         src="https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?q=80&w=2070&auto=format&fit=crop" 
+                         alt="Atmospheric Restaurant Interior" 
+                         class="absolute inset-0 w-full h-full object-cover origin-center scale-105 will-change-transform" />
+                    
+                    <div id="hero-overlay" class="absolute inset-0 bg-surface/30"></div>
 
-      // 4. ATMOSPHERE RISING (Das Foto bekommt Farbe, die CAD-Elemente sterben)
-      tl.to(masterPhoto, { filter: "grayscale(0%) brightness(1.2)", duration: 1.5, ease: "power2.out" }, 2.5);
-      tl.to(cadUI, { opacity: 0, duration: 0.5 }, 2.8);
-      tl.to(svgLayer, { opacity: 0, duration: 0.5 }, 2.8);
-      tl.to(scanner, { opacity: 0, duration: 0.2 }, 3.1);
+                    <div class="absolute inset-0 flex flex-col justify-end p-6 md:p-10 pb-20">
+                        <h1 class="font-serif text-5xl md:text-8xl tracking-tight text-ink opacity-90 drop-shadow-lg">
+                            Taste<br><span class="italic">the unseen.</span>
+                        </h1>
+                    </div>
+                </div>
 
-      // 5. THE REVEAL (Finaler Text schiebt sich majestätisch rein)
-      tl.to(finalTxt, { opacity: 1, duration: 1, ease: "power3.out" }, 3.0);
-      
-      // Feiner Parallax-Zoom auf das fertige Bild im letzten Scroll-Prozent
-      tl.to(masterPhoto, { scale: 1.05, duration: 1, ease: "none" }, 3.0);
+                <div class="relative z-10 w-full bg-surface">
+                    
+                    <div class="absolute top-0 left-0 w-full h-32 -translate-y-full bg-gradient-to-t from-surface to-transparent"></div>
 
-    });
-  </script>
+                    <section class="w-full py-32 md:py-56 px-6 md:px-10 flex justify-center items-center">
+                        <div class="max-w-4xl mx-auto text-center">
+                            <p class="font-serif text-3xl md:text-6xl leading-tight text-balance text-ink/90 reveal-text">
+                                We believe that true luxury is not found in excess, but in the relentless pursuit of absolute purity. Every dish is a dialogue with the terroir.
+                            </p>
+                            <span class="block mt-12 font-sans text-xs tracking-[0.2em] uppercase text-brand reveal-text">
+                                — The Chef's Manifesto
+                            </span>
+                        </div>
+                    </section>
+
+                    <section class="w-full pb-32 md:pb-48 px-6 md:px-10">
+                        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-20 items-center">
+                            
+                            <div class="md:col-span-7 aspect-[4/5] md:aspect-square overflow-hidden rounded-sm reveal-image-container">
+                                <img src="https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?q=80&w=2070&auto=format&fit=crop" 
+                                     alt="Tactile Macro Detail of culinary art" 
+                                     class="w-full h-full object-cover hover:scale-105 transition-transform duration-1000 ease-out" />
+                            </div>
+
+                            <div class="md:col-span-5 flex flex-col items-start">
+                                <h2 class="font-serif text-3xl md:text-5xl mb-8 text-ink reveal-text">
+                                    Crafted with <br><span class="italic text-brand">intention.</span>
+                                </h2>
+                                <p class="font-sans text-sm md:text-base leading-relaxed text-ink/60 mb-12 max-w-md reveal-text">
+                                    Feel the rough texture of handmade ceramics, hear the crisp crackle of the crust, and breathe in the scent of open fire. We strip away the unnecessary until only the essence remains.
+                                </p>
+                                
+                                <a href="#menu" class="group relative font-sans text-xs tracking-[0.2em] uppercase text-ink overflow-hidden pb-2 reveal-text inline-block">
+                                    Discover the Menu
+                                    <span class="absolute bottom-0 left-0 w-full h-[1px] bg-brand origin-left scale-x-100 transition-transform duration-500 ease-out group-hover:scale-x-0"></span>
+                                    <span class="absolute bottom-0 left-0 w-full h-[1px] bg-ink origin-right scale-x-0 transition-transform duration-500 ease-out group-hover:scale-x-100 text-brand"></span>
+                                </a>
+                            </div>
+
+                        </div>
+                    </section>
+                </div>
+                </div>
+            <div class="h-[50vh] flex items-center justify-center border-t border-ink/10">
+                <span class="font-sans text-xs tracking-[0.2em] text-ink/40 uppercase">Next Group: The Choreographed Service Arc</span>
+            </div>
+
+        </div>
+    </main>
+
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.33/dist/lenis.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <script>
+        // 1. Initialize Lenis (Smooth Scroll)
+        const lenis = new Lenis({
+            duration: 1.2,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // High-end feeling easing
+            direction: 'vertical',
+            gestureDirection: 'vertical',
+            smooth: true,
+            mouseMultiplier: 1,
+            smoothTouch: false, // native touch is usually better
+        });
+
+        function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+
+        // 2. Initialize GSAP ScrollTrigger
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Sync Lenis with GSAP
+        lenis.on('scroll', ScrollTrigger.update);
+        gsap.ticker.add((time)=>{
+            lenis.raf(time * 1000);
+        });
+        gsap.ticker.lagSmoothing(0);
+
+        // 3. Media Queries für Animations-Logik (MatchMedia)
+        let mm = gsap.matchMedia();
+
+        mm.add("(min-width: 768px)", () => {
+            // DESKTOP ANIMATIONS
+
+            // Hero Parallax & Fade
+            gsap.to("#hero-image", {
+                yPercent: 20, // Moves down slightly while scrolling
+                ease: "none",
+                scrollTrigger: {
+                    trigger: "#hero-container",
+                    start: "top top",
+                    end: "bottom top",
+                    scrub: true,
+                }
+            });
+
+            gsap.to("#hero-overlay", {
+                backgroundColor: "rgba(10, 10, 10, 0.9)", // Darkens further before the next section hits
+                ease: "none",
+                scrollTrigger: {
+                    trigger: "#hero-container",
+                    start: "top top",
+                    end: "bottom top",
+                    scrub: true,
+                }
+            });
+
+            // Reveal Text Stagger
+            const textElements = gsap.utils.toArray('.reveal-text');
+            textElements.forEach(el => {
+                gsap.from(el, {
+                    y: 40,
+                    opacity: 0,
+                    duration: 1.2,
+                    ease: "power3.out",
+                    scrollTrigger: {
+                        trigger: el,
+                        start: "top 85%", // Triggers when top of element hits 85% of viewport
+                        toggleActions: "play none none reverse"
+                    }
+                });
+            });
+
+            // Reveal Image
+            gsap.from(".reveal-image-container", {
+                y: 60,
+                opacity: 0,
+                scale: 0.95,
+                duration: 1.5,
+                ease: "power2.out",
+                scrollTrigger: {
+                    trigger: ".reveal-image-container",
+                    start: "top 80%",
+                }
+            });
+
+        });
+
+        mm.add("(max-width: 767px)", () => {
+            // MOBILE ANIMATIONS (Reduced Motion & Performance Focus)
+            
+            // Simple fade up for text on mobile
+            const textElements = gsap.utils.toArray('.reveal-text');
+            textElements.forEach(el => {
+                gsap.from(el, {
+                    y: 20,
+                    opacity: 0,
+                    duration: 1,
+                    ease: "power2.out",
+                    scrollTrigger: {
+                        trigger: el,
+                        start: "top 90%",
+                    }
+                });
+            });
+            
+            // No heavy parallax on mobile to save battery/frames
+        });
+    </script>
 </body>
 </html>
