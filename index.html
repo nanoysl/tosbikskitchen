@@ -408,13 +408,29 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
     <script>
-        // 0. BROWSER SCROLL-MEMORY DEAKTIVIEREN (Startet IMMER bei y: 0)
+        // ==========================================
+        // 0. BROWSER SCROLL-MEMORY BRUTAL DEAKTIVIEREN
+        // ==========================================
         if ('scrollRestoration' in history) {
             history.scrollRestoration = 'manual';
         }
+        
+        // Lösche #Hash aus der URL beim Laden, um Auto-Scroll zu verhindern
+        if (window.location.hash) {
+            window.history.replaceState('', document.title, window.location.pathname + window.location.search);
+        }
+        
+        // Zwinge die Seite sofort auf 0
         window.scrollTo(0, 0);
 
+        // Zwinge sie zur Sicherheit noch einmal nach 10ms (besiegt Browser-Lags)
+        setTimeout(() => {
+            window.scrollTo(0, 0);
+        }, 10);
+
+        // ==========================================
         // 1. Lenis Native Smooth Scroll Init
+        // ==========================================
         const lenis = new Lenis({
             duration: 1.2,
             easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -423,7 +439,7 @@
             smooth: true,
         });
 
-        // WICHTIG: Lenis stoppen, solange der Loader aktiv ist!
+        // Lenis komplett stoppen, während der Loader läuft
         lenis.stop();
 
         function raf(time) {
@@ -438,48 +454,52 @@
         gsap.ticker.add((time)=>{ lenis.raf(time * 1000); });
         gsap.ticker.lagSmoothing(0);
 
-        // 3. INTRO ANIMATION TIMELINE (Der Vorhang-Effekt)
+        // ==========================================
+        // 3. INTRO ANIMATION TIMELINE
+        // ==========================================
         const introTl = gsap.timeline({
             onComplete: () => {
-                // Loader aus dem DOM nehmen und Scrollen erlauben
+                // Loader entfernen und Lenis (Scrollen) erlauben
                 document.getElementById('loader').style.display = 'none';
                 lenis.start();
                 ScrollTrigger.refresh();
             }
         });
 
-        // Logo taucht auf und skaliert ("öffnet sich")
+        // Logo poppt auf
         introTl.to("#loader-logo", { 
             opacity: 1, 
             scale: 1, 
             duration: 1.2, 
             ease: "expo.out",
-            delay: 0.2 // Kurzer Moment schwarz am Anfang für die Dramatik
+            delay: 0.3 // Kleine Pause für den Browser
         });
 
-        // Logo schießt nach oben weg
+        // Logo schießt hoch
         introTl.to("#loader-logo", { 
             yPercent: -150, 
             opacity: 0, 
             duration: 0.7, 
             ease: "power3.in" 
-        }, "+=0.4"); // Kurze Pause, damit man es betrachten kann
+        }, "+=0.4");
 
-        // Schwarzer Vorhang (Loader-Hintergrund) zieht hoch
+        // Vorhang zieht hoch
         introTl.to("#loader", { 
             yPercent: -100, 
             duration: 0.9, 
             ease: "power4.inOut" 
-        }, "-=0.3"); // Überschneidet sich leicht mit dem Logo
+        }, "-=0.3");
 
-        // Hero-Elemente und Navbar poppen weich auf
+        // Text & UI faden ein
         introTl.fromTo(".hero-anim", 
             { y: 50, opacity: 0 }, 
             { y: 0, opacity: 1, duration: 1, stagger: 0.15, ease: "power3.out" }, 
             "-=0.4"
         );
 
-        // 4. Hero Parallax (Scroll)
+        // ==========================================
+        // 4. Hero Parallax & Reveal Animations
+        // ==========================================
         let mm = gsap.matchMedia();
         mm.add("(min-width: 768px)", () => {
             gsap.to("#hero-img", {
@@ -494,7 +514,6 @@
             });
         });
 
-        // 5. Reveal Animations (Staggered Fade Up für den Rest der Seite)
         const revealElements = gsap.utils.toArray('.reveal-up');
         revealElements.forEach(el => {
             gsap.from(el, {
@@ -510,7 +529,9 @@
             });
         });
 
-        // 6. Modal Logic
+        // ==========================================
+        // 5. Modal Logic
+        // ==========================================
         function openModal(modalId) {
             const modal = document.getElementById(modalId);
             modal.classList.remove('translate-y-full');
