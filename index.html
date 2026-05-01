@@ -3,26 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Cinematic Prologue & Essence | Premium Section Group</title>
+    <title>The Choreographed Arc | Full Funnel Block</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
 
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        serif: ['Cormorant Garamond', 'serif'],
+                        sans: ['DM Sans', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
                     },
                     colors: {
-                        surface: '#0a0a0a', // Deep dark
-                        ink: '#f4f4f5',     // Off-white
-                        brand: '#c2a67f',   // Subdued gold/sand
+                        surface: '#0f0f0f',     // Pitch Black/Charcoal
+                        ink: '#F5F2EB',         // Warm Off-White
+                        accent: '#8C3D2B',      // Deep Rust/Terracotta
+                        'surface-light': '#1A1A1A'
                     }
                 }
             }
@@ -30,107 +31,153 @@
     </script>
 
     <style>
-        /* Base Utilities & Performance Resets */
         body {
             background-color: theme('colors.surface');
             color: theme('colors.ink');
+            overflow-x: hidden;
         }
-        /* Hide scrollbar for cleaner look */
+        
+        /* Hide scrollbar */
         ::-webkit-scrollbar { display: none; }
         * { -ms-overflow-style: none; scrollbar-width: none; }
         
-        /* Typography Scale Utilities */
         .text-balance { text-wrap: balance; }
         
-        /* Lenis Smooth Scroll Setup */
-        html.lenis, html.lenis body {
-            height: auto;
+        /* Lenis Native Smooth Scroll */
+        html.lenis, html.lenis body { height: auto; }
+        .lenis.lenis-smooth { scroll-behavior: auto !important; }
+        .lenis.lenis-smooth [data-scroll-container] { will-change: transform; }
+
+        /* Button Hover Line Effect */
+        .btn-line::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; width: 100%; height: 1px;
+            background-color: currentColor;
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        .lenis.lenis-smooth {
-            scroll-behavior: auto !important;
-        }
-        .lenis.lenis-smooth [data-scroll-container] {
-            will-change: transform;
+        .btn-line:hover::after {
+            transform: scaleX(1);
+            transform-origin: left;
         }
     </style>
 </head>
-<body class="relative w-full overflow-x-hidden selection:bg-brand selection:text-surface">
+<body class="selection:bg-accent selection:text-ink">
 
     <header class="fixed top-0 left-0 w-full z-50 p-6 md:p-10 flex justify-between items-center mix-blend-difference pointer-events-none">
-        <div class="text-ink font-sans text-sm tracking-widest uppercase pointer-events-auto cursor-pointer">
-            Maison Codex
+        <div class="text-ink font-sans text-xs tracking-[0.15em] uppercase font-medium pointer-events-auto cursor-pointer">
+            L'Atelier
         </div>
-        <button class="text-ink font-sans text-sm tracking-widest uppercase pointer-events-auto cursor-pointer hover:text-brand transition-colors">
-            Reserve
+        <button class="text-ink font-sans text-xs tracking-[0.15em] uppercase font-medium pointer-events-auto cursor-pointer hover:text-accent transition-colors">
+            Menu
         </button>
     </header>
 
     <main id="smooth-wrapper">
         <div id="smooth-content">
 
-            <div class="relative w-full">
-                
-                <div id="hero-container" class="sticky top-0 left-0 w-full min-h-[100svh] overflow-hidden z-0">
-                    <img id="hero-image" 
-                         src="https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?q=80&w=2070&auto=format&fit=crop" 
-                         alt="Atmospheric Restaurant Interior" 
-                         class="absolute inset-0 w-full h-full object-cover origin-center scale-105 will-change-transform" />
-                    
-                    <div id="hero-overlay" class="absolute inset-0 bg-surface/30"></div>
+            <div class="relative w-full flex flex-col">
 
-                    <div class="absolute inset-0 flex flex-col justify-end p-6 md:p-10 pb-20">
-                        <h1 class="font-serif text-5xl md:text-8xl tracking-tight text-ink opacity-90 drop-shadow-lg">
-                            Taste<br><span class="italic">the unseen.</span>
+                <section class="relative w-full min-h-[90svh] flex flex-col justify-end p-6 md:p-12 pb-24 z-10 bg-surface">
+                    <div class="max-w-6xl w-full mx-auto flex flex-col md:flex-row md:items-end justify-between gap-10">
+                        <h1 class="font-serif text-5xl md:text-8xl leading-[1.1] text-ink intro-reveal">
+                            The rhythm <br><span class="italic text-ink/70">of the evening.</span>
                         </h1>
+                        <p class="font-sans text-sm md:text-base leading-relaxed text-ink/60 max-w-sm intro-reveal pb-2 text-balance">
+                            A curated sequence of fire, precision, and hospitality. Experience how raw elements are transformed into lasting memories.
+                        </p>
                     </div>
-                </div>
+                </section>
 
-                <div class="relative z-10 w-full bg-surface">
+                <section id="experience-arc" class="relative w-full flex flex-col md:flex-row bg-surface border-t border-ink/10">
                     
-                    <div class="absolute top-0 left-0 w-full h-32 -translate-y-full bg-gradient-to-t from-surface to-transparent"></div>
+                    <div class="hidden md:block md:w-1/2 h-screen sticky top-0 left-0 overflow-hidden bg-surface-light border-r border-ink/10">
+                        
+                        <div class="absolute inset-0 w-full h-full arc-image" data-index="0">
+                            <img src="https://images.unsplash.com/photo-1578474846511-04ba529f0b88?q=80&w=1974&auto=format&fit=crop" 
+                                 class="w-full h-full object-cover opacity-80" alt="Chef preparing food with fire" />
+                        </div>
+                        
+                        <div class="absolute inset-0 w-full h-full arc-image opacity-0" data-index="1">
+                            <img src="https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?q=80&w=2070&auto=format&fit=crop" 
+                                 class="w-full h-full object-cover opacity-80" alt="Precision plating" />
+                        </div>
+                        
+                        <div class="absolute inset-0 w-full h-full arc-image opacity-0" data-index="2">
+                            <img src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=2070&auto=format&fit=crop" 
+                                 class="w-full h-full object-cover opacity-80" alt="Cocktails and ambiance" />
+                        </div>
+                    </div>
 
-                    <section class="w-full py-32 md:py-56 px-6 md:px-10 flex justify-center items-center">
-                        <div class="max-w-4xl mx-auto text-center">
-                            <p class="font-serif text-3xl md:text-6xl leading-tight text-balance text-ink/90 reveal-text">
-                                We believe that true luxury is not found in excess, but in the relentless pursuit of absolute purity. Every dish is a dialogue with the terroir.
+                    <div class="w-full md:w-1/2 flex flex-col z-10">
+                        
+                        <div class="story-step min-h-[70svh] md:min-h-screen flex flex-col justify-center p-8 md:p-20 lg:p-32" data-step="0">
+                            <div class="md:hidden w-full aspect-square mb-10 overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1578474846511-04ba529f0b88?q=80&w=1974&auto=format&fit=crop" class="w-full h-full object-cover" alt="Preparation" />
+                            </div>
+                            <span class="font-sans text-xs tracking-[0.2em] uppercase text-accent mb-6">01 — The Craft</span>
+                            <h2 class="font-serif text-3xl md:text-5xl mb-6 text-ink">Raw elements <br>in motion.</h2>
+                            <p class="font-sans text-base text-ink/60 leading-relaxed text-balance">
+                                It begins with the heat of the charcoal and the precise cut of the knife. We source uncompromisingly and handle every ingredient with the utmost respect. The kitchen is our stage, open and transparent.
                             </p>
-                            <span class="block mt-12 font-sans text-xs tracking-[0.2em] uppercase text-brand reveal-text">
-                                — The Chef's Manifesto
-                            </span>
                         </div>
-                    </section>
 
-                    <section class="w-full pb-32 md:pb-48 px-6 md:px-10">
-                        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-20 items-center">
-                            
-                            <div class="md:col-span-7 aspect-[4/5] md:aspect-square overflow-hidden rounded-sm reveal-image-container">
-                                <img src="https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?q=80&w=2070&auto=format&fit=crop" 
-                                     alt="Tactile Macro Detail of culinary art" 
-                                     class="w-full h-full object-cover hover:scale-105 transition-transform duration-1000 ease-out" />
+                        <div class="story-step min-h-[70svh] md:min-h-screen flex flex-col justify-center p-8 md:p-20 lg:p-32" data-step="1">
+                            <div class="md:hidden w-full aspect-[4/5] mb-10 overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?q=80&w=2070&auto=format&fit=crop" class="w-full h-full object-cover" alt="Plating" />
                             </div>
-
-                            <div class="md:col-span-5 flex flex-col items-start">
-                                <h2 class="font-serif text-3xl md:text-5xl mb-8 text-ink reveal-text">
-                                    Crafted with <br><span class="italic text-brand">intention.</span>
-                                </h2>
-                                <p class="font-sans text-sm md:text-base leading-relaxed text-ink/60 mb-12 max-w-md reveal-text">
-                                    Feel the rough texture of handmade ceramics, hear the crisp crackle of the crust, and breathe in the scent of open fire. We strip away the unnecessary until only the essence remains.
-                                </p>
-                                
-                                <a href="#menu" class="group relative font-sans text-xs tracking-[0.2em] uppercase text-ink overflow-hidden pb-2 reveal-text inline-block">
-                                    Discover the Menu
-                                    <span class="absolute bottom-0 left-0 w-full h-[1px] bg-brand origin-left scale-x-100 transition-transform duration-500 ease-out group-hover:scale-x-0"></span>
-                                    <span class="absolute bottom-0 left-0 w-full h-[1px] bg-ink origin-right scale-x-0 transition-transform duration-500 ease-out group-hover:scale-x-100 text-brand"></span>
-                                </a>
-                            </div>
-
+                            <span class="font-sans text-xs tracking-[0.2em] uppercase text-accent mb-6">02 — The Art</span>
+                            <h2 class="font-serif text-3xl md:text-5xl mb-6 text-ink">Composed <br>with intention.</h2>
+                            <p class="font-sans text-base text-ink/60 leading-relaxed text-balance">
+                                Every element on the plate serves a purpose. Textures contrast, flavors elevate one another. We plate with tweezers not for ego, but to ensure the perfect bite hits your palate exactly as imagined.
+                            </p>
                         </div>
-                    </section>
-                </div>
-                </div>
-            <div class="h-[50vh] flex items-center justify-center border-t border-ink/10">
-                <span class="font-sans text-xs tracking-[0.2em] text-ink/40 uppercase">Next Group: The Choreographed Service Arc</span>
+
+                        <div class="story-step min-h-[70svh] md:min-h-screen flex flex-col justify-center p-8 md:p-20 lg:p-32" data-step="2">
+                            <div class="md:hidden w-full aspect-video mb-10 overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=2070&auto=format&fit=crop" class="w-full h-full object-cover" alt="Ambiance" />
+                            </div>
+                            <span class="font-sans text-xs tracking-[0.2em] uppercase text-accent mb-6">03 — The Vibe</span>
+                            <h2 class="font-serif text-3xl md:text-5xl mb-6 text-ink">Time slows <br>down here.</h2>
+                            <p class="font-sans text-base text-ink/60 leading-relaxed text-balance">
+                                The clinking of glasses, the dimming of lights, the seamless service anticipating your needs. The final ingredient is the atmosphere we cultivate around your table.
+                            </p>
+                        </div>
+
+                    </div>
+                </section>
+
+                <section class="relative w-full bg-accent text-ink py-32 md:py-48 px-6 flex flex-col items-center justify-center text-center z-20">
+                    <div class="max-w-2xl mx-auto flex flex-col items-center">
+                        <span class="font-sans text-xs tracking-[0.2em] uppercase mb-8 opacity-80">Join us tonight</span>
+                        <h2 class="font-serif text-4xl md:text-7xl mb-12 leading-tight">
+                            Secure your place <br><span class="italic">at the table.</span>
+                        </h2>
+                        
+                        <a href="#book" class="group relative flex items-center justify-center px-10 py-5 bg-ink text-surface font-sans text-sm tracking-widest uppercase font-medium overflow-hidden transition-transform hover:scale-105 duration-500 ease-out">
+                            <span class="relative z-10">Make a Reservation</span>
+                            <div class="absolute inset-0 bg-white scale-y-0 origin-bottom transition-transform duration-500 ease-out group-hover:scale-y-100"></div>
+                        </a>
+
+                        <div class="mt-16 flex flex-col md:flex-row gap-8 md:gap-16 opacity-70 font-sans text-sm">
+                            <div>
+                                <p class="uppercase tracking-widest text-xs mb-2">Location</p>
+                                <p>124 Culinary Ave,<br>Berlin, 10115</p>
+                            </div>
+                            <div>
+                                <p class="uppercase tracking-widest text-xs mb-2">Hours</p>
+                                <p>Tue — Sat<br>18:00 — 23:30</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
             </div>
+            <footer class="h-64 bg-surface-light flex items-center justify-center border-t border-ink/5">
+                <span class="font-sans text-xs tracking-widest text-ink/30 uppercase">Footer Component</span>
+            </footer>
 
         </div>
     </main>
@@ -140,15 +187,13 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
     <script>
-        // 1. Initialize Lenis (Smooth Scroll)
+        // 1. Lenis Smooth Scroll Initialization
         const lenis = new Lenis({
             duration: 1.2,
-            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // High-end feeling easing
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
             direction: 'vertical',
             gestureDirection: 'vertical',
             smooth: true,
-            mouseMultiplier: 1,
-            smoothTouch: false, // native touch is usually better
         });
 
         function raf(time) {
@@ -157,95 +202,85 @@
         }
         requestAnimationFrame(raf);
 
-        // 2. Initialize GSAP ScrollTrigger
+        // 2. GSAP Setup
         gsap.registerPlugin(ScrollTrigger);
-
-        // Sync Lenis with GSAP
         lenis.on('scroll', ScrollTrigger.update);
-        gsap.ticker.add((time)=>{
-            lenis.raf(time * 1000);
-        });
+        gsap.ticker.add((time)=>{ lenis.raf(time * 1000); });
         gsap.ticker.lagSmoothing(0);
 
-        // 3. Media Queries für Animations-Logik (MatchMedia)
+        // 3. Intro Animation
+        gsap.from(".intro-reveal", {
+            y: 50,
+            opacity: 0,
+            duration: 1.5,
+            stagger: 0.2,
+            ease: "power3.out",
+            delay: 0.2
+        });
+
+        // 4. Desktop Sticky Image Crossfade Logic
         let mm = gsap.matchMedia();
 
         mm.add("(min-width: 768px)", () => {
-            // DESKTOP ANIMATIONS
+            
+            const steps = gsap.utils.toArray('.story-step');
+            const images = gsap.utils.toArray('.arc-image');
 
-            // Hero Parallax & Fade
-            gsap.to("#hero-image", {
-                yPercent: 20, // Moves down slightly while scrolling
-                ease: "none",
-                scrollTrigger: {
-                    trigger: "#hero-container",
-                    start: "top top",
-                    end: "bottom top",
-                    scrub: true,
-                }
-            });
-
-            gsap.to("#hero-overlay", {
-                backgroundColor: "rgba(10, 10, 10, 0.9)", // Darkens further before the next section hits
-                ease: "none",
-                scrollTrigger: {
-                    trigger: "#hero-container",
-                    start: "top top",
-                    end: "bottom top",
-                    scrub: true,
-                }
-            });
-
-            // Reveal Text Stagger
-            const textElements = gsap.utils.toArray('.reveal-text');
-            textElements.forEach(el => {
-                gsap.from(el, {
+            // Text Fade In
+            steps.forEach((step, i) => {
+                gsap.from(step.children, {
                     y: 40,
                     opacity: 0,
-                    duration: 1.2,
-                    ease: "power3.out",
+                    duration: 1,
+                    stagger: 0.1,
+                    ease: "power2.out",
                     scrollTrigger: {
-                        trigger: el,
-                        start: "top 85%", // Triggers when top of element hits 85% of viewport
-                        toggleActions: "play none none reverse"
+                        trigger: step,
+                        start: "top 70%",
                     }
+                });
+
+                // Image Crossfade Logic
+                ScrollTrigger.create({
+                    trigger: step,
+                    start: "top center", // When text block hits center of screen
+                    end: "bottom center",
+                    onEnter: () => fadeImage(i),
+                    onEnterBack: () => fadeImage(i),
                 });
             });
 
-            // Reveal Image
-            gsap.from(".reveal-image-container", {
-                y: 60,
-                opacity: 0,
-                scale: 0.95,
-                duration: 1.5,
-                ease: "power2.out",
-                scrollTrigger: {
-                    trigger: ".reveal-image-container",
-                    start: "top 80%",
-                }
-            });
-
+            function fadeImage(index) {
+                images.forEach((img, i) => {
+                    if (i === index) {
+                        gsap.to(img, { opacity: 1, duration: 0.8, ease: "power2.inOut", zIndex: 2 });
+                        // Slight scale effect for premium feel
+                        gsap.fromTo(img.querySelector('img'), 
+                            { scale: 1.05 }, 
+                            { scale: 1, duration: 2, ease: "power2.out", overwrite: "auto" }
+                        );
+                    } else {
+                        gsap.to(img, { opacity: 0, duration: 0.8, ease: "power2.inOut", zIndex: 1 });
+                    }
+                });
+            }
         });
 
         mm.add("(max-width: 767px)", () => {
-            // MOBILE ANIMATIONS (Reduced Motion & Performance Focus)
-            
-            // Simple fade up for text on mobile
-            const textElements = gsap.utils.toArray('.reveal-text');
-            textElements.forEach(el => {
-                gsap.from(el, {
-                    y: 20,
+            // Mobile Reveal Animations
+            const steps = gsap.utils.toArray('.story-step');
+            steps.forEach((step) => {
+                gsap.from(step, {
+                    y: 30,
                     opacity: 0,
                     duration: 1,
                     ease: "power2.out",
                     scrollTrigger: {
-                        trigger: el,
-                        start: "top 90%",
+                        trigger: step,
+                        start: "top 85%",
                     }
                 });
             });
-            
-            // No heavy parallax on mobile to save battery/frames
         });
     </script>
 </body>
