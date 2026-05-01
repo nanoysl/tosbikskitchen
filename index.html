@@ -408,6 +408,12 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
     <script>
+        // 0. BROWSER SCROLL-MEMORY DEAKTIVIEREN (Startet IMMER bei y: 0)
+        if ('scrollRestoration' in history) {
+            history.scrollRestoration = 'manual';
+        }
+        window.scrollTo(0, 0);
+
         // 1. Lenis Native Smooth Scroll Init
         const lenis = new Lenis({
             duration: 1.2,
@@ -419,7 +425,6 @@
 
         // WICHTIG: Lenis stoppen, solange der Loader aktiv ist!
         lenis.stop();
-        window.scrollTo(0, 0);
 
         function raf(time) {
             lenis.raf(time);
