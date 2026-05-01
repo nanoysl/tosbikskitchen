@@ -3,31 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mynaturalis | Praxis für Naturheilkunde & Osteopathie | André Fonferek | Rheine</title>
+    <title>Mynaturalis | Praxis für Naturheilkunde & Osteopathie | Rheine</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
 
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        serif: ['Playfair Display', 'serif'],
+                        sans: ['"DM Sans"', 'sans-serif'],
+                        serif: ['"Cormorant Garamond"', 'serif'],
                     },
                     colors: {
-                        // Neue, wärmere Palette
-                        base: '#FCFAF7',          // Alabaster/Cremeweiß (Hintergrund)
-                        surface: '#FFFFFF',       // Clean White (für Kontraste)
-                        ink: '#3A4750',           // Soft Slate (Text, weicher als pure black)
-                        teal: '#4A8C9C',          // Deep Teal Blue (Primärfarbe)
-                        tealDark: '#2C5F69',      // Darker Teal (für Hover)
-                        organic: '#56B37F',       // Organic Leaf Green (Akzente/Buttons)
-                        organicHover: '#3D9263',  // Darker Green for hover
+                        sand: '#F4F1EC',      // Premium Background
+                        forest: '#1E352F',    // Deep Dark Green (Text & Accents)
+                        sage: '#D1DFD3',      // Soft Green (Secondary)
+                        clay: '#A36B4C',      // Subtle warm accent
                     }
                 }
             }
@@ -35,347 +31,542 @@
     </script>
 
     <style>
+        /* Base Setup & Haptics */
         body {
-            background-color: theme('colors.base');
-            color: theme('colors.ink');
+            background-color: theme('colors.sand');
+            color: theme('colors.forest');
             overflow-x: hidden;
-            /* Subtile Hintergrund-Textur (Pergament) */
-            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgdmlld0JveD0iMCAwIDQwIDQwIj48ZyBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiM5QzlCOTkiIGZpbGwtb3BhY2l0eT0iMC4wNSI+PHBhdGggZD0iTTAgMGg0MHY0MEgwVjB6bTIwIDIwaDIwdjIwSDIWMjB6TTAgMjBoMjB2MjBIMFYyMHoyMCAwaDIwdjIwSDIwVjB6Ii8+PC9nPjwvZz48L3N2Zz4=');
+            cursor: default;
         }
+
+        /* Cinematic Noise Overlay (The Awwwards Secret) */
+        .noise-overlay {
+            position: fixed;
+            top: -50%; left: -50%; right: -50%; bottom: -50%;
+            width: 200%; height: 200%;
+            background: transparent url('http://assets.iceable.com/img/noise-transparent.png') repeat 0 0;
+            background-repeat: repeat;
+            animation: bg-animation .2s infinite;
+            opacity: 0.4;
+            visibility: visible;
+            pointer-events: none;
+            z-index: 9999;
+        }
+        @keyframes bg-animation {
+            0% { transform: translate(0,0) }
+            10% { transform: translate(-5%,-5%) }
+            20% { transform: translate(-10%,5%) }
+            30% { transform: translate(5%,-10%) }
+            40% { transform: translate(-5%,15%) }
+            50% { transform: translate(-10%,5%) }
+            60% { transform: translate(15%,0) }
+            70% { transform: translate(0,15%) }
+            80% { transform: translate(3%,35%) }
+            90% { transform: translate(-10%,10%) }
+        }
+
+        ::-webkit-scrollbar { display: none; }
+        * { -ms-overflow-style: none; scrollbar-width: none; }
         
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: theme('colors.base'); }
-        ::-webkit-scrollbar-thumb { background: theme('colors.teal'); border-radius: 4px; }
-        
-        /* Lenis Native Smooth Scroll */
+        /* Lenis Smooth Scroll */
         html.lenis, html.lenis body { height: auto; }
         .lenis.lenis-smooth { scroll-behavior: auto !important; }
 
-        /* GSAP Reveal State (versteckt vor Animation) */
-        .gsap-reveal {
-            opacity: 0;
-            visibility: hidden;
+        /* Typography Masks for GSAP */
+        .text-mask {
+            overflow: hidden;
+            display: inline-block;
+            vertical-align: top;
+        }
+        .text-mask-inner {
+            display: inline-block;
+            transform: translateY(110%);
         }
 
-        /* Sanfte Button Transitions */
-        .btn-organic {
-            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+        /* Organic Image Shapes */
+        .img-pill {
+            border-radius: 10rem 10rem 0 0;
         }
-        .btn-organic:hover {
-            transform: translateY(-2px) scale(1.01);
-            box-shadow: 0 8px 16px rgba(0,0,0,0.12);
+
+        /* Elegant Hover Button */
+        .btn-elegant {
+            position: relative;
+            overflow: hidden;
+            transition: color 0.4s cubic-bezier(0.36, 0, 0.66, -0.56);
         }
-        
-        /* Timeline line styling */
-        .timeline-dot {
+        .btn-elegant::after {
+            content: '';
             position: absolute;
-            left: -6px;
-            top: 7px;
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background-color: theme('colors.teal');
-            box-shadow: 0 0 0 4px rgba(74, 140, 156, 0.15);
+            bottom: 0; left: 0;
+            width: 100%; height: 100%;
+            background-color: theme('colors.forest');
+            transform: translateY(100%);
+            transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+            z-index: -1;
+            border-radius: 9999px;
         }
+        .btn-elegant:hover { color: theme('colors.sand'); }
+        .btn-elegant:hover::after { transform: translateY(0); }
+
+        .btn-dark {
+            position: relative;
+            overflow: hidden;
+            transition: color 0.4s cubic-bezier(0.36, 0, 0.66, -0.56);
+        }
+        .btn-dark::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0;
+            width: 100%; height: 100%;
+            background-color: theme('colors.sand');
+            transform: translateY(100%);
+            transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+            z-index: -1;
+            border-radius: 9999px;
+        }
+        .btn-dark:hover { color: theme('colors.forest'); }
+        .btn-dark:hover::after { transform: translateY(0); }
+
     </style>
 </head>
-<body class="selection:bg-teal/10 selection:text-ink relative">
+<body class="selection:bg-forest selection:text-sand">
 
-    <div id="loader" class="fixed inset-0 z-[999] bg-base flex items-center justify-center overflow-hidden">
-        <h1 class="font-serif text-3xl md:text-5xl text-teal font-bold gsap-reveal" id="loader-text">Mynaturalis</h1>
-        <div class="absolute inset-0 bg-teal gsap-reveal" id="loader-curtain"></div>
+    <div class="noise-overlay"></div>
+
+    <div id="loader" class="fixed inset-0 z-[1000] bg-forest flex flex-col items-center justify-center text-sand">
+        <div class="text-mask mb-4">
+            <h1 class="font-serif text-5xl md:text-7xl italic font-light text-mask-inner" id="loader-title">Mynaturalis</h1>
+        </div>
+        <div class="w-px h-12 bg-sand/30 overflow-hidden relative">
+            <div class="absolute top-0 left-0 w-full h-full bg-sand" id="loader-line" style="transform: translateY(-100%)"></div>
+        </div>
     </div>
 
-    <header class="fixed top-0 left-0 w-full z-50 bg-base/80 backdrop-blur-md border-b border-slate-100 transition-all duration-500 gsap-reveal" id="navbar">
-        <div class="max-w-7xl mx-auto px-4 md:px-8 py-4 flex justify-between items-center">
-            <div class="flex flex-col">
-                <a href="#" class="font-serif font-bold text-2xl md:text-3xl text-teal">Mynaturalis</a>
-                <span class="text-xs text-ink/60 font-sans uppercase tracking-widest">André Fonferek</span>
-            </div>
-            
-            <nav class="hidden md:flex gap-10 items-center font-sans font-medium text-sm text-ink/80">
-                <a href="#ueber-mich" class="hover:text-teal transition-colors relative group">Über mich<span class="absolute bottom-0 left-0 w-0 h-px bg-teal group-hover:w-full transition-all duration-300"></span></a>
-                <a href="#qualifikationen" class="hover:text-teal transition-colors relative group">Qualifikationen<span class="absolute bottom-0 left-0 w-0 h-px bg-teal group-hover:w-full transition-all duration-300"></span></a>
-                <a href="#kontakt" class="hover:text-teal transition-colors relative group">Praxis & Kontakt<span class="absolute bottom-0 left-0 w-0 h-px bg-teal group-hover:w-full transition-all duration-300"></span></a>
-            </nav>
+    <header class="fixed top-0 left-0 w-full z-50 mix-blend-difference text-sand px-6 md:px-12 py-8 flex justify-between items-center opacity-0" id="header">
+        <a href="#" class="font-serif text-2xl md:text-3xl tracking-wide">Mynaturalis<span class="italic font-light">.</span></a>
+        
+        <nav class="hidden md:flex gap-12 font-sans text-xs tracking-[0.2em] uppercase">
+            <a href="#philosophie" class="hover:opacity-60 transition-opacity">Philosophie</a>
+            <a href="#vita" class="hover:opacity-60 transition-opacity">Vita</a>
+            <a href="#kontakt" class="hover:opacity-60 transition-opacity">Praxis</a>
+        </nav>
 
-            <a href="tel:059719143874" class="btn-organic bg-organic hover:bg-organicHover text-white font-sans font-medium text-sm px-7 py-3 rounded-full">
-                Jetzt anrufen
-            </a>
-        </div>
+        <a href="tel:059719143874" class="font-sans text-xs tracking-[0.2em] uppercase hover:opacity-60 transition-opacity">
+            Kontakt
+        </a>
     </header>
 
     <main id="smooth-wrapper">
         <div id="smooth-content">
 
-            <section class="relative w-full h-[85svh] min-h-[600px] flex flex-col justify-center bg-base mt-16 md:mt-0">
-                <div class="absolute inset-0 overflow-hidden">
-                    <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?q=80&w=2074&auto=format&fit=crop" 
-                         alt="Sanfte grüne Hügellandschaft" 
-                         class="w-full h-full object-cover opacity-15 scale-110" id="hero-img" />
-                    <div class="absolute inset-0 bg-gradient-to-b from-base/50 to-base"></div>
+            <section class="relative w-full h-[100svh] flex flex-col justify-end pb-12 md:pb-24 px-6 md:px-12 pt-32">
+                
+                <div class="absolute top-0 right-0 w-full md:w-3/4 h-[80svh] overflow-hidden rounded-bl-[10rem] md:rounded-bl-[20rem] z-0">
+                    <img src="https://images.unsplash.com/photo-1544367567-0f2fcb046ebf?q=80&w=2120&auto=format&fit=crop" 
+                         alt="Sanfte Hände, Osteopathie, Naturheilkunde" 
+                         class="w-full h-full object-cover scale-110 opacity-90" id="hero-bg" />
+                    <div class="absolute inset-0 bg-gradient-to-t from-sand via-sand/20 to-transparent"></div>
                 </div>
 
-                <div class="relative z-10 px-4 md:px-8 max-w-5xl mx-auto w-full text-center">
-                    <span class="block font-sans font-medium text-teal tracking-widest uppercase mb-4 gsap-reveal">Praxis für Naturheilkunde & Osteopathie</span>
-                    <h1 class="font-serif text-5xl md:text-7xl lg:text-8xl text-ink leading-tight mb-8 gsap-reveal" id="hero-heading">
-                        Natürlich Gesund.
-                    </h1>
-                    <p class="font-sans text-lg md:text-xl text-ink/70 leading-relaxed mb-12 max-w-2xl mx-auto gsap-reveal">
-                        André Fonferek – Ihr Weg zu mehr Wohlbefinden in Rheine. Ganzheitliche Therapieansätze für Körper, Geist und Seele.
-                    </p>
-                    <div class="gsap-reveal">
-                        <a href="#kontakt" class="btn-organic inline-block bg-organic hover:bg-organicHover text-white font-sans font-medium text-lg px-10 py-5 rounded-full">
-                            Kontakt aufnehmen
-                        </a>
-                    </div>
-                </div>
-            </section>
-
-            <section id="ueber-mich" class="py-24 md:py-36 px-4 md:px-8 bg-surface">
-                <div class="max-w-7xl mx-auto flex flex-col lg:flex-row gap-16 items-center">
+                <div class="relative z-10 w-full max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-end gap-12">
                     
-                    <div class="w-full lg:w-5/12 gsap-reveal reveal-organic">
-                        <div class="relative aspect-[3/4] shadow-2xl" style="clip-path: url('#organic-mask');">
-                            <img src="" 
-                                 alt="André Fonferek in seiner Praxis in Rheine" 
-                                 class="w-full h-full object-cover" />
+                    <div class="w-full md:w-2/3">
+                        <div class="text-mask mb-2">
+                            <span class="block font-sans text-xs md:text-sm tracking-[0.3em] uppercase text-forest/60 text-mask-inner hero-text">Praxis für Naturheilkunde & Osteopathie</span>
+                        </div>
+                        <h1 class="font-serif text-[4rem] md:text-[8rem] lg:text-[10rem] leading-[0.9] text-forest tracking-tight">
+                            <div class="text-mask"><span class="text-mask-inner hero-text block">Natürlich</span></div>
+                            <div class="text-mask"><span class="text-mask-inner hero-text block italic font-light">Gesund.</span></div>
+                        </h1>
+                    </div>
+
+                    <div class="w-full md:w-1/3 flex flex-col items-start md:items-end text-left md:text-right">
+                        <div class="text-mask">
+                            <p class="font-sans text-base md:text-lg text-forest/80 leading-relaxed max-w-sm text-mask-inner hero-text">
+                                André Fonferek – Ihr Weg zu mehr Wohlbefinden in Rheine. Ganzheitliche Therapieansätze für Körper, Geist und Seele.
+                            </p>
+                        </div>
+                        <div class="mt-8 text-mask">
+                            <div class="text-mask-inner hero-text">
+                                <a href="#kontakt" class="btn-elegant inline-block border border-forest text-forest font-sans text-xs tracking-[0.2em] uppercase px-8 py-4 rounded-full">
+                                    Termin vereinbaren
+                                </a>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="w-full lg:w-7/12 flex flex-col gsap-reveal reveal-serif">
-                        <h2 class="font-serif text-4xl md:text-5xl lg:text-6xl text-teal mb-8 leading-tight">André Fonferek</h2>
-                        <div class="prose prose-lg prose-slate text-ink/80 leading-relaxed max-w-none space-y-6">
-                            <p class="text-xl">
-                                <span class="font-serif font-semibold text-teal">Seit über 25 Jahren</span> begleite ich Menschen dabei, Schmerzen zu lindern, Beweglichkeit zurückzugewinnen und Gesundheit ganzheitlich zu fördern.
+                </div>
+            </section>
+
+            <section id="philosophie" class="relative w-full bg-sand py-24 md:py-40 px-6 md:px-12">
+                <div class="max-w-7xl mx-auto flex flex-col lg:flex-row gap-16 lg:gap-24 relative">
+                    
+                    <div class="w-full lg:w-5/12 hidden lg:block">
+                        <div class="sticky top-40 w-full aspect-[3/4] img-pill overflow-hidden shadow-2xl reveal-fade">
+                            <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?q=80&w=2070&auto=format&fit=crop" 
+                                 alt="André Fonferek" 
+                                 class="w-full h-full object-cover" id="about-img" />
+                        </div>
+                    </div>
+
+                    <div class="w-full block lg:hidden reveal-fade">
+                        <div class="w-full aspect-square img-pill overflow-hidden shadow-xl">
+                            <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?q=80&w=2070&auto=format&fit=crop" 
+                                 alt="André Fonferek" class="w-full h-full object-cover" />
+                        </div>
+                    </div>
+
+                    <div class="w-full lg:w-7/12 flex flex-col gap-20 pt-10 lg:pt-20">
+                        
+                        <div class="reveal-text">
+                            <h2 class="font-serif text-5xl md:text-7xl text-forest mb-8 leading-none">André Fonferek</h2>
+                            <p class="font-serif text-2xl md:text-3xl text-forest/90 leading-normal italic font-light mb-8">
+                                "Seit über 25 Jahren begleite ich Menschen dabei, Schmerzen zu lindern, Beweglichkeit zurückzugewinnen und Gesundheit ganzheitlich zu fördern."
                             </p>
-                            <p>
+                            <p class="font-sans text-base md:text-lg text-forest/70 leading-relaxed max-w-xl">
                                 Dabei verbinde ich klassische Physiotherapie mit Osteopathie, Naturheilkunde und Hypnose – immer mit dem Blick auf den ganzen Menschen.
                             </p>
                         </div>
 
-                        <div class="bg-base p-10 rounded-3xl border border-slate-100 my-10 relative">
-                            <svg class="absolute -top-6 -left-6 w-16 h-16 text-organic/20" fill="currentColor" viewBox="0 0 100 100"><path d="M50 0 C60 20, 80 30, 100 30 C80 40, 70 60, 70 80 C60 70, 40 70, 30 80 C30 60, 20 40, 0 30 C20 30, 40 20, 50 0 Z"></path></svg>
-                            
-                            <h3 class="font-serif text-2xl text-ink mb-6">Wer ich bin:</h3>
-                            <ul class="font-sans text-ink/80 space-y-4 text-base">
-                                <li class="flex items-start gap-4">
-                                    <svg class="w-6 h-6 text-organic shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        <div class="border-t border-forest/10 pt-12 reveal-text">
+                            <span class="font-sans text-xs tracking-[0.2em] uppercase text-forest/50 block mb-6">Wer ich bin</span>
+                            <ul class="font-sans text-lg text-forest/80 space-y-4">
+                                <li class="flex items-center gap-6">
+                                    <div class="w-1.5 h-1.5 rounded-full bg-clay"></div>
                                     Jahrgang 1969, verheiratet, Vater von vier Kindern
                                 </li>
-                                <li class="flex items-start gap-4">
-                                    <svg class="w-6 h-6 text-organic shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                <li class="flex items-center gap-6">
+                                    <div class="w-1.5 h-1.5 rounded-full bg-clay"></div>
                                     Ich lebe und arbeite in Rheine – hier befindet sich auch meine Praxis „Mynaturalis“
                                 </li>
                             </ul>
                         </div>
 
-                        <div class="prose prose-lg prose-slate text-ink/80 leading-relaxed max-w-none space-y-4">
-                            <h3 class="font-serif text-3xl text-ink">Warum ich tue, was ich tue:</h3>
-                            <p>
-                                Schon früh habe ich gemerkt, dass Gesundheit viel mehr ist als reine Symptombehandlung. Ich wollte verstehen, <strong class="text-teal">warum</strong> Menschen Schmerzen haben – und wie Körper, Geist und Seele zusammenwirken.
+                        <div class="border-t border-forest/10 pt-12 reveal-text">
+                            <span class="font-sans text-xs tracking-[0.2em] uppercase text-forest/50 block mb-6">Philosophie</span>
+                            <h3 class="font-serif text-3xl md:text-4xl text-forest mb-6">Warum ich tue, was ich tue</h3>
+                            <p class="font-sans text-base md:text-lg text-forest/70 leading-relaxed max-w-xl mb-6">
+                                Schon früh habe ich gemerkt, dass Gesundheit viel mehr ist als reine Symptombehandlung. Ich wollte verstehen, <i class="font-serif text-xl text-forest">warum</i> Menschen Schmerzen haben – und wie Körper, Geist und Seele zusammenwirken.
                             </p>
-                            <p>
+                            <p class="font-sans text-base md:text-lg text-forest/70 leading-relaxed max-w-xl mb-12">
                                 Das ist der Grund, warum ich verschiedene Therapieformen kombiniere und jedem Menschen mit Zeit, Ruhe und Empathie begegne.
                             </p>
-                            <p class="font-sans text-xl text-ink font-medium mt-6">
+                            <p class="font-serif text-2xl md:text-3xl text-forest italic font-light">
                                 Ich freue mich darauf, Sie persönlich kennenzulernen und Sie auf Ihrem Weg zu mehr Wohlbefinden zu begleiten.
                             </p>
                         </div>
+
                     </div>
                 </div>
             </section>
 
-            <svg width="0" height="0">
-                <defs>
-                    <clipPath id="organic-mask" clipPathUnits="objectBoundingBox">
-                        <path d="M0.5,0 C0.65,0.1 0.85,0.15 1,0.15 C0.9,0.3 0.95,0.6 0.95,0.8 C0.85,0.9 0.65,0.95 0.5,1 C0.35,0.95 0.15,0.9 0.05,0.8 C0.05,0.6 0.1,0.3 0,0.15 C0.15,0.15 0.35,0.1 0.5,0 Z"></path>
-                    </clipPath>
-                </defs>
-            </svg>
-
-            <section id="qualifikationen" class="py-24 md:py-36 px-4 md:px-8 bg-base border-y border-slate-100">
-                <div class="max-w-4xl mx-auto">
+            <section id="vita" class="w-full bg-sage py-32 md:py-48 px-6 md:px-12 rounded-t-[3rem] md:rounded-t-[6rem] mt-[-2rem] relative z-20">
+                <div class="max-w-5xl mx-auto">
                     
-                    <div class="text-center mb-20 gsap-reveal">
-                        <span class="font-sans font-medium text-organic tracking-widest uppercase mb-3 block">Mein Werdegang</span>
-                        <h2 class="font-serif text-4xl md:text-5xl lg:text-6xl text-teal leading-tight mb-5">Kompetenz durch Erfahrung</h2>
-                        <div class="w-20 h-1 bg-organic mx-auto rounded-full"></div>
+                    <div class="mb-24 md:mb-32 reveal-text">
+                        <span class="font-sans text-xs tracking-[0.2em] uppercase text-forest/60 block mb-4">Mein Werdegang</span>
+                        <h2 class="font-serif text-5xl md:text-7xl lg:text-[6rem] text-forest leading-none">Kompetenz durch<br><i class="font-light">Erfahrung.</i></h2>
                     </div>
 
-                    <div class="relative border-l-2 border-teal/20 pl-10 ml-4 md:ml-0 space-y-12 font-sans text-ink/80 text-lg reveal-timeline">
+                    <div class="flex flex-col border-t border-forest/20">
                         
-                        <div class="relative gsap-reveal">
-                            <div class="timeline-dot"></div>
-                            <p><span class="font-semibold text-teal">Jan. 1995 – Dez. 1997:</span> Ausbildung zum Physiotherapeuten</p>
+                        <div class="timeline-row flex flex-col md:flex-row py-8 border-b border-forest/10 reveal-row">
+                            <div class="w-full md:w-1/3 mb-2 md:mb-0 font-sans text-sm tracking-widest text-forest/60">Jan. 1995 – Dez. 1997</div>
+                            <div class="w-full md:w-2/3 font-serif text-2xl md:text-3xl text-forest">Ausbildung zum Physiotherapeuten</div>
                         </div>
-                        <div class="relative gsap-reveal">
-                            <div class="timeline-dot bg-organic"></div>
-                            <p class="text-xl font-medium text-ink"><strong>01.01.1998:</strong> Erlaubnis zur Führung der Berufsbezeichnung Physiotherapeut</p>
+
+                        <div class="timeline-row flex flex-col md:flex-row py-8 border-b border-forest/10 reveal-row">
+                            <div class="w-full md:w-1/3 mb-2 md:mb-0 font-sans text-sm tracking-widest font-semibold text-forest">01.01.1998</div>
+                            <div class="w-full md:w-2/3 font-serif text-2xl md:text-3xl text-forest font-medium">Erlaubnis zur Führung der Berufsbezeichnung Physiotherapeut</div>
                         </div>
-                        <div class="relative gsap-reveal">
-                            <div class="timeline-dot bg-organic"></div>
-                            <p class="text-xl font-medium text-ink"><strong>14.08.2003:</strong> Erlaubnis zur Führung der Berufsbezeichnung Heilpraktiker</p>
+
+                        <div class="timeline-row flex flex-col md:flex-row py-8 border-b border-forest/10 reveal-row">
+                            <div class="w-full md:w-1/3 mb-2 md:mb-0 font-sans text-sm tracking-widest text-forest/60">1998 – 2000</div>
+                            <div class="w-full md:w-2/3 font-serif text-2xl md:text-3xl text-forest">Ausbildung zum Manualtherapeut</div>
                         </div>
-                        <div class="relative gsap-reveal">
-                            <div class="timeline-dot"></div>
-                            <p><span class="font-semibold text-teal">12.01.2009:</span> Diplomurkunde – Dipl. Physiotherapeut (FH)</p>
+
+                        <div class="timeline-row flex flex-col md:flex-row py-8 border-b border-forest/10 reveal-row">
+                            <div class="w-full md:w-1/3 mb-2 md:mb-0 font-sans text-sm tracking-widest text-forest/60">2001</div>
+                            <div class="w-full md:w-2/3 font-serif text-2xl md:text-3xl text-forest">Ausbildung in Lymphdrainage</div>
                         </div>
-                        <div class="relative gsap-reveal">
-                            <div class="timeline-dot bg-organic"></div>
-                            <p class="text-xl font-medium text-ink"><strong>2010:</strong> Ausbildung in Hypnose & Hypnosetechniken</p>
+
+                        <div class="timeline-row flex flex-col md:flex-row py-8 border-b border-forest/10 reveal-row">
+                            <div class="w-full md:w-1/3 mb-2 md:mb-0 font-sans text-sm tracking-widest text-forest/60">2001 – 2003</div>
+                            <div class="w-full md:w-2/3 font-serif text-2xl md:text-3xl text-forest">Ausbildung in klass. Homöopathie</div>
                         </div>
-                        <div class="relative gsap-reveal">
-                            <div class="timeline-dot"></div>
-                            <p><span class="font-semibold text-teal">09.11.2020:</span> Zertifikat zur Führung der Berufsbezeichnung Osteopath</p>
+
+                        <div class="timeline-row flex flex-col md:flex-row py-8 border-b border-forest/10 reveal-row">
+                            <div class="w-full md:w-1/3 mb-2 md:mb-0 font-sans text-sm tracking-widest text-forest/60">2002</div>
+                            <div class="w-full md:w-2/3 font-serif text-2xl md:text-3xl text-forest">Ausbildung in der Fußpflege</div>
+                        </div>
+
+                        <div class="timeline-row flex flex-col md:flex-row py-8 border-b border-forest/10 reveal-row">
+                            <div class="w-full md:w-1/3 mb-2 md:mb-0 font-sans text-sm tracking-widest font-semibold text-forest">14.08.2003</div>
+                            <div class="w-full md:w-2/3 font-serif text-2xl md:text-3xl text-forest font-medium">Erlaubnis zur Führung der Berufsbezeichnung Heilpraktiker</div>
+                        </div>
+
+                        <div class="timeline-row flex flex-col md:flex-row py-8 border-b border-forest/10 reveal-row">
+                            <div class="w-full md:w-1/3 mb-2 md:mb-0 font-sans text-sm tracking-widest text-forest/60">2006 – 2009</div>
+                            <div class="w-full md:w-2/3 font-serif text-2xl md:text-3xl text-forest">Studium der Physiotherapie</div>
+                        </div>
+
+                        <div class="timeline-row flex flex-col md:flex-row py-8 border-b border-forest/10 reveal-row">
+                            <div class="w-full md:w-1/3 mb-2 md:mb-0 font-sans text-sm tracking-widest text-forest/60">2008</div>
+                            <div class="w-full md:w-2/3 font-serif text-2xl md:text-3xl text-forest">Fachfortbildung „Gehen an Prothesen“</div>
+                        </div>
+
+                        <div class="timeline-row flex flex-col md:flex-row py-8 border-b border-forest/10 reveal-row">
+                            <div class="w-full md:w-1/3 mb-2 md:mb-0 font-sans text-sm tracking-widest font-semibold text-forest">12.01.2009</div>
+                            <div class="w-full md:w-2/3 font-serif text-2xl md:text-3xl text-forest font-medium">Diplomurkunde – Dipl. Physiotherapeut (FH)</div>
+                        </div>
+
+                        <div class="timeline-row flex flex-col md:flex-row py-8 border-b border-forest/10 reveal-row">
+                            <div class="w-full md:w-1/3 mb-2 md:mb-0 font-sans text-sm tracking-widest text-forest/60">2009</div>
+                            <div class="w-full md:w-2/3 font-serif text-2xl md:text-3xl text-forest">Zertifikat Neuraltherapie <br> Ausbildung Osteopathie <br> Ausbildung Reki Grad 1</div>
+                        </div>
+
+                        <div class="timeline-row flex flex-col md:flex-row py-8 border-b border-forest/10 reveal-row">
+                            <div class="w-full md:w-1/3 mb-2 md:mb-0 font-sans text-sm tracking-widest font-semibold text-forest">2010</div>
+                            <div class="w-full md:w-2/3 font-serif text-2xl md:text-3xl text-forest font-medium">Ausbildung in Hypnose & Hypnosetechniken</div>
+                        </div>
+
+                        <div class="timeline-row flex flex-col md:flex-row py-8 border-b border-forest/10 reveal-row">
+                            <div class="w-full md:w-1/3 mb-2 md:mb-0 font-sans text-sm tracking-widest text-forest/60">2013</div>
+                            <div class="w-full md:w-2/3 font-serif text-2xl md:text-3xl text-forest">Urkunde – Mykotherapeut (Heilen mit Pilzen) <br> Ausbildung Reki Grad 2</div>
+                        </div>
+
+                        <div class="timeline-row flex flex-col md:flex-row py-8 border-b border-forest/10 reveal-row">
+                            <div class="w-full md:w-1/3 mb-2 md:mb-0 font-sans text-sm tracking-widest text-forest/60">2015</div>
+                            <div class="w-full md:w-2/3 font-serif text-2xl md:text-3xl text-forest">Wirbelsäulentherapie nach Dorn und Breuß</div>
+                        </div>
+
+                        <div class="timeline-row flex flex-col md:flex-row py-8 border-b border-forest/10 reveal-row">
+                            <div class="w-full md:w-1/3 mb-2 md:mb-0 font-sans text-sm tracking-widest font-semibold text-forest">09.11.2020</div>
+                            <div class="w-full md:w-2/3 font-serif text-2xl md:text-3xl text-forest font-medium">Zertifikat zur Führung der Berufsbezeichnung Osteopath</div>
+                        </div>
+
+                        <div class="timeline-row flex flex-col md:flex-row py-8 border-b border-forest/10 reveal-row">
+                            <div class="w-full md:w-1/3 mb-2 md:mb-0 font-sans text-sm tracking-widest text-forest/60">23.04.2021 – 16.01.2022</div>
+                            <div class="w-full md:w-2/3 font-serif text-2xl md:text-3xl text-forest">Postgraduierte Fachausbildung Kinderosteopathie</div>
+                        </div>
+
+                        <div class="timeline-row flex flex-col md:flex-row py-8 border-b border-forest/10 reveal-row">
+                            <div class="w-full md:w-1/3 mb-2 md:mb-0 font-sans text-sm tracking-widest text-forest/60">Mai 2022</div>
+                            <div class="w-full md:w-2/3 font-serif text-2xl md:text-3xl text-forest">Lösungsorientierte Kurzzeittherapie nach de Shazer</div>
                         </div>
 
                     </div>
                 </div>
             </section>
 
-            <section id="kontakt" class="py-24 md:py-36 px-4 md:px-8 bg-surface">
-                <div class="max-w-7xl mx-auto">
-                    <div class="bg-base rounded-[40px] p-10 md:p-20 shadow-2xl border border-slate-100 flex flex-col lg:flex-row gap-16 justify-between items-center gsap-reveal">
+            <section id="kontakt" class="w-full bg-forest text-sand py-32 md:py-48 px-6 md:px-12">
+                <div class="max-w-7xl mx-auto flex flex-col lg:flex-row gap-20 lg:gap-32 justify-between">
+                    
+                    <div class="w-full lg:w-5/12 reveal-text-dark">
+                        <span class="font-sans text-xs tracking-[0.2em] uppercase text-sand/50 block mb-6">Für Sie da</span>
+                        <h2 class="font-serif text-5xl md:text-6xl mb-16 italic font-light">Öffnungszeiten</h2>
                         
-                        <div class="w-full lg:w-1/2 text-center lg:text-left">
-                            <span class="font-sans font-medium text-organic tracking-widest uppercase mb-3 block">Wann ich für Sie da bin</span>
-                            <h2 class="font-serif text-4xl md:text-5xl text-teal mb-10 leading-tight">Öffnungszeiten</h2>
+                        <div class="font-sans text-lg space-y-10">
+                            <div>
+                                <p class="font-sans text-xs tracking-widest uppercase text-sand/50 mb-2">Montag bis Donnerstag</p>
+                                <p class="font-serif text-3xl">09.00 – 13.00 Uhr</p>
+                                <p class="font-serif text-xl italic text-sand/50 my-2">sowie</p>
+                                <p class="font-serif text-3xl">15.00 – 19.00 Uhr</p>
+                            </div>
+                            <div class="w-full h-px bg-sand/10"></div>
+                            <div>
+                                <p class="font-sans text-xs tracking-widest uppercase text-sand/50 mb-2">Freitag</p>
+                                <p class="font-serif text-3xl">09.00 – 13.00 Uhr</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="w-full lg:w-6/12 reveal-text-dark">
+                        <span class="font-sans text-xs tracking-[0.2em] uppercase text-sand/50 block mb-6">Kontakt</span>
+                        <h2 class="font-serif text-5xl md:text-6xl mb-16">Ihre Praxis in <i class="font-light">Rheine.</i></h2>
+                        
+                        <div class="font-sans text-lg space-y-12">
+                            <div>
+                                <p class="font-sans text-xs tracking-widest uppercase text-sand/50 mb-2">Adresse</p>
+                                <p class="font-serif text-2xl md:text-3xl leading-snug">Steinburgring 8<br>48431 Rheine</p>
+                            </div>
                             
-                            <div class="font-sans text-ink/80 text-xl space-y-8 max-w-md mx-auto lg:mx-0">
-                                <div>
-                                    <p class="font-semibold text-ink text-2xl mb-1">Montag bis Donnerstag</p>
-                                    <p>09.00 Uhr bis 13.00 Uhr</p>
-                                    <p class="text-base my-2 font-serif italic text-teal/70">und</p>
-                                    <p>15.00 Uhr bis 19.00 Uhr</p>
-                                </div>
-                                <div class="h-px w-full bg-slate-200"></div>
-                                <div>
-                                    <p class="font-semibold text-ink text-2xl mb-1">Freitag</p>
-                                    <p>09.00 Uhr bis 13.00 Uhr</p>
-                                </div>
+                            <div>
+                                <p class="font-sans text-xs tracking-widest uppercase text-sand/50 mb-2">Telefon</p>
+                                <a href="tel:059719143874" class="font-serif text-4xl md:text-5xl hover:text-clay transition-colors inline-block relative after:content-[''] after:absolute after:-bottom-2 after:left-0 after:w-full after:h-px after:bg-clay after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:origin-left">
+                                    05971 9143874
+                                </a>
+                            </div>
+
+                            <div>
+                                <p class="font-sans text-xs tracking-widest uppercase text-sand/50 mb-2">E-Mail</p>
+                                <a href="mailto:praxis@mynaturalis.de" class="font-serif text-2xl md:text-3xl hover:text-clay transition-colors">
+                                    praxis@mynaturalis.de
+                                </a>
                             </div>
                         </div>
 
-                        <div class="w-full lg:w-1/2 bg-white p-12 rounded-3xl shadow-lg border border-slate-100 text-center lg:text-left">
-                            <h3 class="font-serif text-3xl md:text-4xl text-ink mb-10">Ihre Praxis in Rheine</h3>
-                            <ul class="font-sans text-ink/80 space-y-6 text-lg">
-                                <li class="flex flex-col gap-2">
-                                    <span class="block text-sm text-organic uppercase tracking-widest font-semibold">Adresse</span>
-                                    Steinburgring 8, 48431 Rheine
-                                </li>
-                                <li class="flex flex-col gap-2">
-                                    <span class="block text-sm text-organic uppercase tracking-widest font-semibold mt-6">Telefon & Termine</span>
-                                    <a href="tel:059719143874" class="text-teal font-bold text-3xl hover:text-tealDark transition-colors">05971 9143874</a>
-                                </li>
-                                <li class="flex flex-col gap-2">
-                                    <span class="block text-sm text-organic uppercase tracking-widest font-semibold mt-6">E-Mail</span>
-                                    <a href="mailto:praxis@mynaturalis.de" class="hover:text-teal transition-colors text-xl">praxis@mynaturalis.de</a>
-                                </li>
-                            </ul>
-                            <a href="tel:059719143874" class="btn-organic block w-full text-center mt-12 bg-organic hover:bg-organicHover text-white font-sans font-medium text-lg px-8 py-4 rounded-full">
-                                Jetzt Termin vereinbaren
+                        <div class="mt-16">
+                            <a href="tel:059719143874" class="btn-dark inline-block border border-sand text-sand font-sans text-xs tracking-[0.2em] uppercase px-10 py-5 rounded-full">
+                                Termin anfragen
                             </a>
                         </div>
-
                     </div>
+
                 </div>
             </section>
 
-            <footer class="bg-base py-16 border-t border-slate-100 relative overflow-hidden">
-                <svg class="absolute -bottom-20 -right-20 w-80 h-80 text-organic/5" fill="currentColor" viewBox="0 0 100 100"><path d="M50 0 C60 20, 80 30, 100 30 C80 40, 70 60, 70 80 C60 70, 40 70, 30 80 C30 60, 20 40, 0 30 C20 30, 40 20, 50 0 Z"></path></svg>
-                
-                <div class="max-w-7xl mx-auto px-4 flex flex-col items-center relative z-10">
+            <footer class="bg-forest text-sand pt-12 pb-8 px-6 md:px-12 border-t border-sand/10 overflow-hidden">
+                <div class="w-full flex flex-col items-center">
                     
-                    <h2 class="font-serif text-3xl text-teal font-bold mb-8">Mynaturalis.de</h2>
+                    <h2 class="font-serif text-[15vw] leading-[0.8] tracking-tighter opacity-10 mb-12 select-none whitespace-nowrap">
+                        Mynaturalis
+                    </h2>
                     
-                    <div class="flex gap-8 justify-center items-center mb-10">
-                        <button onclick="openModal('modal-impressum')" class="font-sans font-medium text-sm text-ink/60 hover:text-teal transition-colors relative group">
-                            Impressum<span class="absolute bottom-0 left-0 w-0 h-px bg-teal group-hover:w-full transition-all duration-300"></span>
-                        </button>
-                        <span class="text-slate-300">|</span>
-                        <button onclick="openModal('modal-datenschutz')" class="font-sans font-medium text-sm text-ink/60 hover:text-teal transition-colors relative group">
-                            Datenschutz<span class="absolute bottom-0 left-0 w-0 h-px bg-teal group-hover:w-full transition-all duration-300"></span>
-                        </button>
+                    <div class="w-full max-w-7xl flex flex-col md:flex-row justify-between items-center gap-8 font-sans text-xs tracking-widest uppercase text-sand/50">
+                        <p>© 2026 André Fonferek</p>
+                        
+                        <div class="flex gap-8">
+                            <button onclick="openModal('modal-impressum')" class="hover:text-sand transition-colors">Impressum</button>
+                            <button onclick="openModal('modal-datenschutz')" class="hover:text-sand transition-colors">Datenschutz</button>
+                        </div>
                     </div>
-                    
-                    <p class="font-sans text-sm text-ink/40">
-                        © 2026 Mynaturalis | André Fonferek | Rheine
-                    </p>
                 </div>
             </footer>
 
         </div>
     </main>
 
-    <div id="modal-impressum" class="fixed inset-0 z-[100] h-[100dvh] w-full bg-surface text-ink translate-y-full transition-transform duration-500 ease-in-out overflow-y-auto" data-lenis-prevent>
-        <div class="p-6 md:p-16 max-w-4xl mx-auto pb-32 block">
-            <div class="flex justify-end mb-12">
-                <button onclick="closeModal('modal-impressum')" class="flex items-center gap-2 text-ink hover:text-teal transition-colors group">
-                    <span class="font-sans text-sm uppercase tracking-widest font-semibold">Schließen</span>
-                    <svg class="w-6 h-6 group-hover:rotate-90 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+    <div id="modal-impressum" class="fixed inset-0 z-[2000] h-[100dvh] w-full bg-sand text-forest translate-y-full transition-transform duration-700 ease-in-out overflow-y-auto" data-lenis-prevent>
+        <div class="p-6 md:p-16 max-w-3xl mx-auto pb-32 block">
+            <div class="flex justify-end mb-16">
+                <button onclick="closeModal('modal-impressum')" class="font-sans text-xs tracking-[0.2em] uppercase flex items-center gap-4 hover:opacity-60 transition-opacity">
+                    Schließen 
+                    <div class="w-8 h-px bg-forest"></div>
                 </button>
             </div>
             
-            <h2 class="font-serif text-4xl md:text-5xl text-teal mb-8">Impressum</h2>
+            <h2 class="font-serif text-5xl md:text-7xl mb-12 italic font-light">Impressum</h2>
             
-            <div class="font-sans text-ink/80 space-y-6 text-base leading-relaxed break-words">
-                <p><strong>Angaben gemäß § 5 TMG:</strong></p>
-                <p>Praxis für Naturheilkunde & Osteopathie<br>
-                André Fonferek<br>
-                Steinburgring 8<br>
-                48431 Rheine<br>
-                Deutschland</p>
+            <div class="font-sans text-forest/80 space-y-8 text-sm md:text-base leading-relaxed">
+                <div>
+                    <p class="text-xs tracking-widest uppercase text-forest/50 mb-2">Angaben gemäß § 5 TMG</p>
+                    <p>Praxis für Naturheilkunde & Osteopathie<br>
+                    André Fonferek<br>
+                    Steinburgring 8<br>
+                    48431 Rheine<br>
+                    Deutschland</p>
+                </div>
 
-                <p><strong>Kontakt:</strong><br>
-                Telefon: 05971 9143874<br>
-                E-Mail: <a href="mailto:praxis@mynaturalis.de" class="text-teal hover:underline">praxis@mynaturalis.de</a><br>
-                Internet: <a href="https://www.mynaturalis.de" target="_blank" class="text-teal hover:underline">www.mynaturalis.de</a></p>
+                <div>
+                    <p class="text-xs tracking-widest uppercase text-forest/50 mb-2">Kontakt</p>
+                    <p>Telefon: 05971 9143874<br>
+                    E-Mail: <a href="mailto:praxis@mynaturalis.de" class="underline">praxis@mynaturalis.de</a><br>
+                    Internet: <a href="https://www.mynaturalis.de" target="_blank" class="underline">www.mynaturalis.de</a></p>
+                </div>
 
-                <p><strong>Berufsbezeichnungen:</strong><br>
-                Heilpraktiker (verliehen in Deutschland)<br>
-                Diplomierter Physiotherapeut<br>
-                Osteopath</p>
+                <div>
+                    <p class="text-xs tracking-widest uppercase text-forest/50 mb-2">Berufsbezeichnungen</p>
+                    <p>Heilpraktiker (verliehen in Deutschland)<br>
+                    Diplomierter Physiotherapeut<br>
+                    Osteopath</p>
+                </div>
 
-                <p><strong>Zuständige Aufsichtsbehörde:</strong><br>
-                Gesundheitsamt Steinfurt<br>
-                Tecklenburger Str. 10<br>
-                48565 Steinfurt</p>
+                <div>
+                    <p class="text-xs tracking-widest uppercase text-forest/50 mb-2">Zuständige Aufsichtsbehörde</p>
+                    <p>Gesundheitsamt Steinfurt<br>
+                    Tecklenburger Str. 10<br>
+                    48565 Steinfurt</p>
+                </div>
 
-                <p><strong>Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV:</strong><br>
-                André Fonferek, Anschrift wie oben</p>
+                <div>
+                    <p class="text-xs tracking-widest uppercase text-forest/50 mb-2">Verantwortlich für den Inhalt</p>
+                    <p>André Fonferek, Anschrift wie oben</p>
+                </div>
 
-                <p><strong>Haftungsausschluss:</strong><br>
-                Die Inhalte dieser Website wurden mit größter Sorgfalt erstellt. Für die Richtigkeit, Vollständigkeit und Aktualität der Inhalte übernehme ich keine Gewähr.</p>
+                <div class="pt-8 border-t border-forest/10 space-y-6">
+                    <p><strong>Haftungsausschluss:</strong><br>
+                    Die Inhalte dieser Website wurden mit größter Sorgfalt erstellt. Für die Richtigkeit, Vollständigkeit und Aktualität der Inhalte übernehme ich keine Gewähr.</p>
 
-                <p><strong>Urheberrecht:</strong><br>
-                Die auf dieser Website veröffentlichten Inhalte und Werke sind urheberrechtlich geschützt. Eine Vervielfältigung, Bearbeitung oder Verbreitung bedarf der schriftlichen Zustimmung des Autors.</p>
+                    <p><strong>Urheberrecht:</strong><br>
+                    Die auf dieser Website veröffentlichten Inhalte und Werke sind urheberrechtlich geschützt. Eine Vervielfältigung, Bearbeitung oder Verbreitung bedarf der schriftlichen Zustimmung des Autors.</p>
+                </div>
             </div>
         </div>
     </div>
-    
+
+    <div id="modal-datenschutz" class="fixed inset-0 z-[2000] h-[100dvh] w-full bg-sand text-forest translate-y-full transition-transform duration-700 ease-in-out overflow-y-auto" data-lenis-prevent>
+        <div class="p-6 md:p-16 max-w-3xl mx-auto pb-32 block">
+            <div class="flex justify-end mb-16">
+                <button onclick="closeModal('modal-datenschutz')" class="font-sans text-xs tracking-[0.2em] uppercase flex items-center gap-4 hover:opacity-60 transition-opacity">
+                    Schließen 
+                    <div class="w-8 h-px bg-forest"></div>
+                </button>
+            </div>
+            
+            <h2 class="font-serif text-5xl md:text-7xl mb-12 italic font-light">Datenschutz</h2>
+            
+            <div class="font-sans text-forest/80 space-y-8 text-sm md:text-base leading-relaxed">
+                <div>
+                    <p class="text-xs tracking-widest uppercase text-forest/50 mb-2">1. Verantwortlicher</p>
+                    <p>André Fonferek<br>
+                    Praxis für Naturheilkunde & Osteopathie<br>
+                    Steinburgring 8, 48431 Rheine<br>
+                    Telefon: 05971 9143874<br>
+                    E-Mail: <a href="mailto:praxis@mynaturalis.de" class="underline">praxis@mynaturalis.de</a></p>
+                </div>
+
+                <div>
+                    <p class="text-xs tracking-widest uppercase text-forest/50 mb-2">2. Allgemeines</p>
+                    <p>Der Schutz Ihrer personenbezogenen Daten ist mir wichtig. Ihre Daten werden vertraulich und gemäß der gesetzlichen Datenschutzvorschriften (DSGVO) behandelt.</p>
+                </div>
+
+                <div>
+                    <p class="text-xs tracking-widest uppercase text-forest/50 mb-2">3. Hosting & Log-Files</p>
+                    <p>Wir hosten unsere Website bei GitHub Pages (GitHub Inc., USA). Wenn Sie unsere Website besuchen, erfasst der Hoster technisch bedingt automatisch Daten in sogenannten Server-Logfiles (Browsertyp, Betriebssystem, IP-Adresse). Die Erfassung erfolgt auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO zur Sicherstellung eines fehlerfreien Betriebs.</p>
+                </div>
+
+                <div>
+                    <p class="text-xs tracking-widest uppercase text-forest/50 mb-2">4. Cookies & Tracking</p>
+                    <p>Diese Website ist rein informativ und verzichtet vollständig auf den Einsatz von Analyse-Tools (wie Google Analytics), Werbe-Trackern oder nicht-technisch notwendigen Cookies. Ihr Surfverhalten wird von uns nicht aufgezeichnet oder ausgewertet.</p>
+                </div>
+
+                <div>
+                    <p class="text-xs tracking-widest uppercase text-forest/50 mb-2">5. Kontaktaufnahme per Telefon</p>
+                    <p>Wenn Sie mich anrufen, verarbeite ich Ihre mitgeteilten Daten ausschließlich zur Terminvereinbarung und Bearbeitung Ihrer Anfrage. Eine Weitergabe erfolgt nicht ohne Ihre Einwilligung.</p>
+                </div>
+
+                <div>
+                    <p class="text-xs tracking-widest uppercase text-forest/50 mb-2">6. Ihre Rechte</p>
+                    <p>Sie haben das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung, Widerspruch und Datenübertragbarkeit gemäß Art. 15–21 DSGVO.</p>
+                </div>
+
+                <div class="pt-8 border-t border-forest/10">
+                    <p class="text-sm opacity-60">Diese Datenschutzerklärung entspricht dem Stand 2026 und kann bei Bedarf angepasst werden.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="https://unpkg.com/@studio-freight/lenis@1.0.33/dist/lenis.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
     <script>
-        // 0. BROWSER SCROLL-MEMORY BRUTAL DEAKTIVIEREN
+        // 0. SCROLL RESTORATION BLOCK
         if ('scrollRestoration' in history) {
             history.scrollRestoration = 'manual';
         }
         window.scrollTo(0, 0);
-        setTimeout(() => { window.scrollTo(0, 0); }, 10);
 
-        // 1. Lenis Native Smooth Scroll Init
+        // 1. LENIS SETUP
         const lenis = new Lenis({
-            duration: 1.5, // Länger und sanfter
+            duration: 1.5,
             easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
             smooth: true,
         });
 
-        lenis.stop(); // Während Loader blockieren
+        lenis.stop();
 
         function raf(time) {
             lenis.raf(time);
@@ -383,14 +574,14 @@
         }
         requestAnimationFrame(raf);
 
-        // 2. GSAP Registrierung
+        // 2. GSAP SETUP
         gsap.registerPlugin(ScrollTrigger);
         lenis.on('scroll', ScrollTrigger.update);
         gsap.ticker.add((time)=>{ lenis.raf(time * 1000); });
         gsap.ticker.lagSmoothing(0);
 
         // ==========================================
-        // 3. HIGH-END INTRO ANIMATION (Pergament-Effekt)
+        // 3. CINEMATIC INTRO ANIMATION
         // ==========================================
         const introTl = gsap.timeline({
             onComplete: () => {
@@ -400,20 +591,28 @@
             }
         });
 
-        // Vorhang-Effekt (Teal-Hintergrund zieht hoch)
-        introTl.to("#loader-curtain", { yPercent: -100, duration: 1.2, ease: "power4.inOut" })
-               // Alabaster-Hintergrund und Text erscheinen sanft
-               .to("#loader", { opacity: 0, duration: 1, ease: "power2.inOut" }, "-=0.5")
-               // Navbar und Hero-Elemente faden ein und wachsen
-               .fromTo(".gsap-reveal", { y: 30, opacity: 0, visibility: 'hidden' }, {
-                   y: 0, opacity: 1, visibility: 'visible', duration: 1.2, stagger: 0.15, ease: "power3.out"
-               }, "-=0.5");
+        // Text Line Slide Up
+        introTl.to("#loader-title", { y: "0%", duration: 1.2, ease: "power4.out", delay: 0.5 })
+               // Line drops down
+               .to("#loader-line", { y: "0%", duration: 0.8, ease: "power3.inOut" })
+               // Text slides up and fades
+               .to("#loader-title", { y: "-100%", opacity: 0, duration: 0.8, ease: "power3.in" }, "+=0.4")
+               // Loader background slides up
+               .to("#loader", { yPercent: -100, duration: 1.2, ease: "expo.inOut" }, "-=0.2")
+               
+               // Hero Reveal
+               .to("#header", { opacity: 1, duration: 1 }, "-=0.5")
+               .to(".hero-text", { y: "0%", duration: 1.2, stagger: 0.1, ease: "power4.out" }, "-=0.8");
 
-        // Spezielle Hero-Parallax
+        // ==========================================
+        // 4. HIGH-END SCROLL ANIMATIONS
+        // ==========================================
+        
+        // Hero Image Parallax
         let mm = gsap.matchMedia();
         mm.add("(min-width: 768px)", () => {
-            gsap.to("#hero-img", {
-                yPercent: 30, // Stärkerer Parallax-Effekt
+            gsap.to("#hero-bg", {
+                yPercent: 30,
                 ease: "none",
                 scrollTrigger: {
                     trigger: "section",
@@ -422,47 +621,79 @@
                     scrub: true
                 }
             });
-        });
 
-        // ==========================================
-        // 4. ORGANIC FADE-IN & TEXT REVEAL (GSAP)
-        // ==========================================
-        
-        // Allgemeine Fade-Up Reveals für "gsap-reveal" Klassen (außer Hero)
-        gsap.utils.toArray('.gsap-reveal').forEach((el, index) => {
-            // Hero-Elemente ausschließen (wurden bereits im Intro animiert)
-            if (el.closest('section').id === 'loader' || el.closest('header')) return;
-
-            gsap.from(el, {
-                y: 40,
-                opacity: 0,
-                duration: 1,
-                ease: "power2.out",
+            // Sticky Image Parallax in About Section
+            gsap.to("#about-img", {
+                yPercent: 15,
+                scale: 1.05,
+                ease: "none",
                 scrollTrigger: {
-                    trigger: el,
-                    start: "top 85%", // Startet etwas früher für flüssigeren Fluss
-                    toggleActions: "play none none reverse"
+                    trigger: "#philosophie",
+                    start: "top bottom",
+                    end: "bottom top",
+                    scrub: true
                 }
             });
         });
 
-        // Timeline Timeline-Reveal (GSAP)
-        const timelineEntries = gsap.utils.toArray('.reveal-timeline .gsap-reveal');
-        gsap.from(timelineEntries, {
-            y: 40,
-            opacity: 0,
-            duration: 1.2,
-            ease: "power3.out",
-            stagger: 0.2, // Nacheinander einblenden
-            scrollTrigger: {
-                trigger: '.reveal-timeline',
-                start: "top 70%", // Zeigt die erste Gruppe
-                toggleActions: "play none none reverse"
-            }
+        // Text Fade/Slide up elements
+        gsap.utils.toArray('.reveal-text').forEach(el => {
+            gsap.fromTo(el, 
+                { y: 50, opacity: 0 },
+                { 
+                    y: 0, opacity: 1, duration: 1.2, ease: "power3.out",
+                    scrollTrigger: {
+                        trigger: el,
+                        start: "top 85%",
+                    }
+                }
+            );
+        });
+
+        // Dark Section Text Reveal
+        gsap.utils.toArray('.reveal-text-dark').forEach(el => {
+            gsap.fromTo(el, 
+                { y: 50, opacity: 0 },
+                { 
+                    y: 0, opacity: 1, duration: 1.2, ease: "power3.out",
+                    scrollTrigger: {
+                        trigger: el,
+                        start: "top 80%",
+                    }
+                }
+            );
+        });
+
+        // Timeline Rows (Staggered fade in)
+        gsap.utils.toArray('.reveal-row').forEach(row => {
+            gsap.fromTo(row,
+                { opacity: 0, x: -20 },
+                {
+                    opacity: 1, x: 0, duration: 1, ease: "power2.out",
+                    scrollTrigger: {
+                        trigger: row,
+                        start: "top 90%",
+                    }
+                }
+            );
+        });
+
+        // Image Fades
+        gsap.utils.toArray('.reveal-fade').forEach(el => {
+            gsap.fromTo(el, 
+                { opacity: 0, scale: 0.95 },
+                { 
+                    opacity: 1, scale: 1, duration: 1.5, ease: "power2.out",
+                    scrollTrigger: {
+                        trigger: el,
+                        start: "top 80%",
+                    }
+                }
+            );
         });
 
         // ==========================================
-        // 5. Modal Logic (Wie gehabt)
+        // 5. MODAL LOGIC
         // ==========================================
         function openModal(modalId) {
             const modal = document.getElementById(modalId);
