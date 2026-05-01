@@ -91,38 +91,43 @@
     </header>
 
     <main>
-        <section class="relative min-h-[100svh] pt-32 pb-16 flex items-center overflow-hidden">
-            <div class="absolute top-0 right-0 w-full lg:w-[65%] h-[50vh] lg:h-full z-0 reveal">
-                <div class="w-full h-full lg:rounded-l-[4rem] overflow-hidden relative">
-                    <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=1200&auto=format&fit=crop" alt="Praxisraum" class="w-full h-full object-cover object-center scale-105 hover:scale-100 transition-transform duration-[2s] ease-out">
-                    <div class="absolute inset-0 bg-gradient-to-t from-surface via-black/20 to-transparent lg:hidden"></div>
-                </div>
-            </div>
+        <section class="min-h-[100svh] pt-32 pb-16 px-4 md:px-8 flex flex-col justify-center overflow-hidden">
+            <div class="max-w-7xl mx-auto w-full">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-end">
+                    
+                    <div class="lg:col-span-6 z-10 pb-8 lg:pb-16 reveal">
+                        <div class="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-accent/50 text-primary text-xs font-bold tracking-widest uppercase mb-8 border border-primary/10">
+                            Osteopathie & Naturheilkunde
+                        </div>
+                        <h1 class="text-[clamp(3.5rem,6vw,6rem)] font-display font-bold text-primary mb-0 leading-[1.05]">
+                            Natürlich <br>gesund.
+                        </h1>
+                        <h2 class="text-[clamp(2.5rem,4.5vw,4rem)] font-display font-light text-muted leading-[1.1] mt-2">
+                            Mit Zeit für Sie.
+                        </h2>
+                    </div>
 
-            <div class="max-w-7xl mx-auto w-full px-4 md:px-8 relative z-10 flex flex-col justify-end lg:justify-center h-full mt-[40vh] lg:mt-0">
-                <div class="lg:w-[55%] bg-surface/95 lg:bg-white/80 backdrop-blur-xl border border-white/50 p-8 lg:p-14 rounded-[2rem] lg:rounded-[3rem] shadow-glass reveal">
-                    <div class="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-accent/50 text-primary text-xs font-bold tracking-widest uppercase mb-6 border border-primary/10">
-                        <span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
-                        Osteopathie & Naturheilkunde Rheine
+                    <div class="lg:col-span-4 h-[60vh] lg:h-[75vh] w-full reveal">
+                        <div class="w-full h-full rounded-t-[10rem] rounded-b-[2rem] overflow-hidden shadow-2xl relative">
+                            <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=800&auto=format&fit=crop" alt="Praxisraum" class="w-full h-full object-cover hover:scale-105 transition-transform duration-[2s] ease-out">
+                        </div>
                     </div>
-                    
-                    <h1 class="text-huge font-display font-bold text-primary mb-6 leading-[1.05]">
-                        Natürlich gesund.<br>
-                        <span class="text-muted font-light">Mit Zeit für Sie.</span>
-                    </h1>
-                    
-                    <p class="text-lg text-muted max-w-md mb-10 font-light leading-relaxed">
-                        Seit über 25 Jahren begleite ich Menschen dabei, Schmerzen zu lindern, Beweglichkeit zurückzugewinnen und Gesundheit ganzheitlich zu fördern.
-                    </p>
-                    
-                    <div class="flex flex-wrap gap-4">
-                        <a href="#kontakt" class="inline-flex items-center px-8 py-4 bg-primary text-white rounded-full font-semibold shadow-lg shadow-primary/30 hover:-translate-y-1 transition-all">
-                            Jetzt anrufen
-                        </a>
-                        <a href="#ansatz" class="inline-flex items-center px-8 py-4 bg-transparent text-primary border border-primary/20 hover:bg-accent/50 rounded-full font-semibold transition-all">
-                            Vom Symptom zur Ursache
-                        </a>
+
+                    <div class="lg:col-span-2 flex flex-col gap-8 lg:pb-16 reveal">
+                        <p class="text-sm text-muted font-medium leading-relaxed border-l-2 border-primary/20 pl-4">
+                            Seit über 25 Jahren begleite ich Menschen in Rheine auf dem Weg zu ganzheitlicher Gesundheit und Beweglichkeit.
+                        </p>
+                        
+                        <div class="flex flex-col gap-3 mt-4">
+                            <a href="#kontakt" class="text-center px-6 py-4 bg-primary text-white rounded-full font-semibold hover:-translate-y-1 transition-all shadow-lg shadow-primary/20">
+                                Jetzt anrufen
+                            </a>
+                            <a href="#ansatz" class="text-center px-6 py-4 bg-surfaceAlt border border-primary/20 text-primary rounded-full font-semibold hover:bg-accent/50 transition-all">
+                                Ansatz
+                            </a>
+                        </div>
                     </div>
+
                 </div>
             </div>
         </section>
@@ -332,16 +337,23 @@
         if (!prefersReducedMotion) {
             const revealElements = document.querySelectorAll('.reveal');
             
-            revealElements.forEach((el) => {
+            revealElements.forEach((el, index) => {
+                // Add a small delay for staggered elements inside the new Hero section
+                let delay = 0;
+                if (index < 3) { // Only affect the top hero elements
+                   delay = index * 0.15;
+                }
+
                 gsap.to(el, {
                     scrollTrigger: {
                         trigger: el,
-                        start: "top 85%", 
+                        start: "top 90%", 
                         toggleActions: "play none none none"
                     },
                     opacity: 1,
                     y: 0,
                     duration: 0.8,
+                    delay: delay,
                     ease: "power3.out"
                 });
             });
