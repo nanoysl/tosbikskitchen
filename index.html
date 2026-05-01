@@ -72,7 +72,11 @@
 </head>
 <body class="selection:bg-gold selection:text-surface relative">
 
-    <header class="fixed top-0 left-0 w-full z-50 p-4 md:p-6 flex justify-between items-center pointer-events-none drop-shadow-xl">
+    <div id="loader" class="fixed inset-0 z-[999] bg-surface flex items-center justify-center overflow-hidden">
+        <img src="Unbenannt-6.webp" alt="Dutumer Grill Logo" id="loader-logo" class="w-64 md:w-[28rem] h-auto object-contain opacity-0 scale-75">
+    </div>
+
+    <header class="fixed top-0 left-0 w-full z-50 p-4 md:p-6 flex justify-between items-center pointer-events-none drop-shadow-xl hero-anim opacity-0">
         <div class="pointer-events-auto">
             <img src="Unbenannt-6.webp" alt="Dutumer Grill Logo" class="h-16 md:h-20 w-auto object-contain hover:scale-105 transition-transform duration-300">
         </div>
@@ -93,18 +97,18 @@
                 </div>
 
                 <div class="relative z-10 px-4 md:px-8 pb-40 md:pb-32 max-w-7xl mx-auto w-full">
-                    <h1 class="font-display text-7xl md:text-[12rem] leading-[0.85] text-ink uppercase tracking-tight mb-4 text-glow reveal-up">
+                    <h1 class="font-display text-7xl md:text-[12rem] leading-[0.85] text-ink uppercase tracking-tight mb-4 text-glow hero-anim opacity-0">
                         Kult.<br>
                         <span class="text-gold">Schnitzel.</span><br>
                         Rheine.
                     </h1>
-                    <p class="font-sans font-medium text-lg md:text-2xl text-ink/90 max-w-xl reveal-up">
+                    <p class="font-sans font-medium text-lg md:text-2xl text-ink/90 max-w-xl hero-anim opacity-0">
                         Dein Dutumer Grill. Riesige Schnitzelauswahl, echte Currywurst und legendäre Burger. Ehrlich und lecker.
                     </p>
                 </div>
 
                 <div class="absolute bottom-0 left-0 w-full translate-y-1/2 px-4 md:px-8 z-20">
-                    <div class="max-w-7xl mx-auto bg-ink text-surface p-4 md:p-6 rounded-xl shadow-2xl flex flex-col md:flex-row gap-4 md:gap-8 items-start md:items-center justify-between">
+                    <div class="max-w-7xl mx-auto bg-ink text-surface p-4 md:p-6 rounded-xl shadow-2xl flex flex-col md:flex-row gap-4 md:gap-8 items-start md:items-center justify-between hero-anim opacity-0">
                         <div class="flex items-center gap-3">
                             <div class="w-3 h-3 status-dot"></div>
                             <div>
@@ -343,16 +347,13 @@
 
     <div id="modal-impressum" class="fixed inset-0 z-[100] h-[100dvh] w-full bg-surface text-ink translate-y-full transition-transform duration-500 ease-in-out overflow-y-auto" data-lenis-prevent>
         <div class="p-6 md:p-16 max-w-4xl mx-auto pb-32 block">
-            
             <div class="flex justify-end mb-12">
                 <button onclick="closeModal('modal-impressum')" class="flex items-center gap-2 text-ink hover:text-heat transition-colors group">
                     <span class="font-display text-2xl uppercase tracking-widest">Schließen</span>
                     <svg class="w-8 h-8 group-hover:rotate-90 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
                 </button>
             </div>
-
             <h2 class="font-display text-6xl md:text-8xl text-gold mb-8 uppercase">Impressum</h2>
-            
             <div class="font-sans text-ink/80 space-y-6 text-sm md:text-base leading-relaxed break-words">
                 <p><strong>Angaben gemäß § 5 TMG</strong><br>
                 Dutumer Grill<br>
@@ -360,15 +361,12 @@
                 Eckener Str. 25<br>
                 48431 Rheine<br>
                 Deutschland</p>
-
                 <p><strong>Kontakt</strong><br>
                 Telefon: +49 5971 14347<br>
                 E-Mail: [E-Mail Adresse eintragen, z.B. info@...]</p>
-
                 <p><strong>Umsatzsteuer-ID</strong><br>
                 Umsatzsteuer-Identifikationsnummer gemäß § 27 a Umsatzsteuergesetz:<br>
                 [Umsatzsteuer-ID eintragen]</p>
-
                 <p><strong>Verbraucherstreitbeilegung/Universalschlichtungsstelle</strong><br>
                 Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.</p>
             </div>
@@ -377,27 +375,21 @@
 
     <div id="modal-datenschutz" class="fixed inset-0 z-[100] h-[100dvh] w-full bg-surface text-ink translate-y-full transition-transform duration-500 ease-in-out overflow-y-auto" data-lenis-prevent>
         <div class="p-6 md:p-16 max-w-4xl mx-auto pb-32 block">
-            
             <div class="flex justify-end mb-12">
                 <button onclick="closeModal('modal-datenschutz')" class="flex items-center gap-2 text-ink hover:text-heat transition-colors group">
                     <span class="font-display text-2xl uppercase tracking-widest">Schließen</span>
                     <svg class="w-8 h-8 group-hover:rotate-90 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
                 </button>
             </div>
-
             <h2 class="font-display text-6xl md:text-8xl text-gold mb-8 uppercase">Datenschutz</h2>
-            
             <div class="font-sans text-ink/80 space-y-6 text-sm md:text-base leading-relaxed break-words">
                 <p>Wir nehmen den Schutz Ihrer persönlichen Daten sehr ernst. Diese Website ist eine reine Informationsseite. Wir erheben über diese Website <strong>keine</strong> personenbezogenen Daten wie Namen oder E-Mail-Adressen, da wir kein Kontaktformular oder ähnliche Funktionen nutzen.</p>
-
                 <h3 class="text-xl text-ink font-bold mt-8">Keine Cookies und kein Tracking</h3>
                 <p>Diese Website verwendet <strong>keine</strong> Cookies, Analyse-Tools (wie Google Analytics) oder andere Tracking-Technologien. Ihr Surfverhalten wird von uns nicht aufgezeichnet oder ausgewertet.</p>
-
                 <h3 class="text-xl text-ink font-bold mt-8">Hosting und Server-Logfiles</h3>
                 <p>Wir hosten unsere Website bei GitHub Pages (GitHub Inc., 88 Colin P Kelly Jr St, San Francisco, CA 94107, USA). <br>
                 Wenn Sie unsere Website besuchen, erfasst der Hoster (GitHub) technisch bedingt automatisch Daten, die Ihr Browser übermittelt, und speichert diese in sogenannten Server-Logfiles. Dies sind: Browsertyp/-version, verwendetes Betriebssystem, Referrer-URL, Uhrzeit der Serveranfrage sowie Ihre IP-Adresse.</p>
                 <p>Die Erfassung dieser Daten erfolgt auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO. Wir haben ein berechtigtes Interesse an der technisch fehlerfreien Darstellung und der Optimierung unserer Website – hierzu müssen die Server-Log-Files erfasst werden. Eine Zusammenführung dieser Daten mit anderen Datenquellen wird nicht vorgenommen.</p>
-
                 <h3 class="text-xl text-ink font-bold mt-8">Verantwortliche Stelle</h3>
                 <p>Die verantwortliche Stelle für die Datenverarbeitung im Sinne der Datenschutzgesetze ist:<br>
                 Dutumer Grill<br>
@@ -405,7 +397,6 @@
                 Eckener Str. 25<br>
                 48431 Rheine<br>
                 Telefon: +49 5971 14347</p>
-                
                 <h3 class="text-xl text-ink font-bold mt-8">Kontaktaufnahme per Telefon</h3>
                 <p>Wenn Sie uns anrufen, um eine Bestellung aufzugeben, verarbeiten wir Ihre mitgeteilten Daten (wie z.B. Ihre Telefonnummer oder Ihren Namen) ausschließlich zur Bearbeitung und Abwicklung Ihrer Bestellung. Nach Abschluss des Vorgangs werden diese Daten gelöscht, sofern keine gesetzlichen Aufbewahrungsfristen bestehen.</p>
             </div>
@@ -417,7 +408,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
     <script>
-        // 1. Lenis Native Smooth Scroll
+        // 1. Lenis Native Smooth Scroll Init
         const lenis = new Lenis({
             duration: 1.2,
             easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -425,6 +416,10 @@
             gestureDirection: 'vertical',
             smooth: true,
         });
+
+        // WICHTIG: Lenis stoppen, solange der Loader aktiv ist!
+        lenis.stop();
+        window.scrollTo(0, 0);
 
         function raf(time) {
             lenis.raf(time);
@@ -438,7 +433,48 @@
         gsap.ticker.add((time)=>{ lenis.raf(time * 1000); });
         gsap.ticker.lagSmoothing(0);
 
-        // 3. Hero Parallax
+        // 3. INTRO ANIMATION TIMELINE (Der Vorhang-Effekt)
+        const introTl = gsap.timeline({
+            onComplete: () => {
+                // Loader aus dem DOM nehmen und Scrollen erlauben
+                document.getElementById('loader').style.display = 'none';
+                lenis.start();
+                ScrollTrigger.refresh();
+            }
+        });
+
+        // Logo taucht auf und skaliert ("öffnet sich")
+        introTl.to("#loader-logo", { 
+            opacity: 1, 
+            scale: 1, 
+            duration: 1.2, 
+            ease: "expo.out",
+            delay: 0.2 // Kurzer Moment schwarz am Anfang für die Dramatik
+        });
+
+        // Logo schießt nach oben weg
+        introTl.to("#loader-logo", { 
+            yPercent: -150, 
+            opacity: 0, 
+            duration: 0.7, 
+            ease: "power3.in" 
+        }, "+=0.4"); // Kurze Pause, damit man es betrachten kann
+
+        // Schwarzer Vorhang (Loader-Hintergrund) zieht hoch
+        introTl.to("#loader", { 
+            yPercent: -100, 
+            duration: 0.9, 
+            ease: "power4.inOut" 
+        }, "-=0.3"); // Überschneidet sich leicht mit dem Logo
+
+        // Hero-Elemente und Navbar poppen weich auf
+        introTl.fromTo(".hero-anim", 
+            { y: 50, opacity: 0 }, 
+            { y: 0, opacity: 1, duration: 1, stagger: 0.15, ease: "power3.out" }, 
+            "-=0.4"
+        );
+
+        // 4. Hero Parallax (Scroll)
         let mm = gsap.matchMedia();
         mm.add("(min-width: 768px)", () => {
             gsap.to("#hero-img", {
@@ -453,7 +489,7 @@
             });
         });
 
-        // 4. Reveal Animations
+        // 5. Reveal Animations (Staggered Fade Up für den Rest der Seite)
         const revealElements = gsap.utils.toArray('.reveal-up');
         revealElements.forEach(el => {
             gsap.from(el, {
@@ -469,7 +505,7 @@
             });
         });
 
-        // 5. Modal Logic
+        // 6. Modal Logic
         function openModal(modalId) {
             const modal = document.getElementById(modalId);
             modal.classList.remove('translate-y-full');
