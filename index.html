@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dutumer Grill | Rheine | Schnitzel, Burger & Fritten</title>
+    <title>Mynaturalis | Praxis für Naturheilkunde & Osteopathie | Rheine</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
 
     <script>
         tailwind.config = {
@@ -17,13 +17,16 @@
                 extend: {
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
-                        display: ['Bebas Neue', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
                     },
                     colors: {
-                        surface: '#111111',     // Asphalt/Grill Black
-                        ink: '#FAFAFA',         // White text
-                        gold: '#FFB800',        // Fries Yellow
-                        heat: '#E63946',        // Ketchup/Fire Red
+                        surface: '#FFFFFF',       // Clean White
+                        background: '#F8FAFC',    // Very light blue/gray for sections
+                        ink: '#334155',           // Dark slate text (softer than pure black)
+                        primary: '#60A5FA',       // Soft Medical Blue (Headings)
+                        primaryDark: '#2563EB',   // Darker Blue for hover
+                        accent: '#4ADE80',        // Calming Green (Buttons)
+                        accentHover: '#22C55E',   // Darker Green for hover
                     }
                 }
             }
@@ -36,308 +39,282 @@
             color: theme('colors.ink');
             overflow-x: hidden;
         }
-        ::-webkit-scrollbar { display: none; }
-        * { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: theme('colors.background'); }
+        ::-webkit-scrollbar-thumb { background: theme('colors.primary'); border-radius: 4px; }
         
         /* Lenis Native Smooth Scroll */
         html.lenis, html.lenis body { height: auto; }
         .lenis.lenis-smooth { scroll-behavior: auto !important; }
 
-        /* Pulsing Status Dot */
-        @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.7); }
-            70% { box-shadow: 0 0 0 10px rgba(76, 175, 80, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(76, 175, 80, 0); }
+        /* Soft Button Transitions */
+        .btn-soft {
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
         }
-        .status-dot {
-            background-color: #4CAF50;
+        .btn-soft:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        
+        /* Timeline styling */
+        .timeline-dot {
+            position: absolute;
+            left: -5px;
+            top: 6px;
+            width: 12px;
+            height: 12px;
             border-radius: 50%;
-            animation: pulse 2s infinite;
-        }
-
-        /* Brutalist Hover Effect */
-        .btn-brutal {
-            transition: all 0.2s ease;
-            box-shadow: 4px 4px 0px theme('colors.heat');
-        }
-        .btn-brutal:hover {
-            transform: translate(2px, 2px);
-            box-shadow: 2px 2px 0px theme('colors.heat');
-        }
-        .btn-brutal:active {
-            transform: translate(4px, 4px);
-            box-shadow: 0px 0px 0px theme('colors.heat');
+            background-color: theme('colors.primary');
         }
     </style>
 </head>
-<body class="selection:bg-gold selection:text-surface relative">
+<body class="selection:bg-primary/20 selection:text-ink relative">
 
-    <div id="loader" class="fixed inset-0 z-[999] bg-surface flex items-center justify-center overflow-hidden">
-        <img src="Unbenannt-6.webp" alt="Dutumer Grill Logo" id="loader-logo" class="w-64 md:w-[28rem] h-auto object-contain opacity-0 scale-75">
+    <div id="loader" class="fixed inset-0 z-[999] bg-surface flex items-center justify-center transition-opacity duration-1000">
+        <h1 class="font-serif text-3xl md:text-5xl text-primary font-bold opacity-0" id="loader-text">Mynaturalis</h1>
     </div>
 
-    <header class="fixed top-0 left-0 w-full z-50 p-4 md:p-6 flex justify-between items-center pointer-events-none drop-shadow-xl hero-anim opacity-0">
-        <div class="pointer-events-auto">
-            <img src="Unbenannt-6.webp" alt="Dutumer Grill Logo" class="h-16 md:h-20 w-auto object-contain hover:scale-105 transition-transform duration-300">
+    <header class="fixed top-0 left-0 w-full z-50 bg-surface/90 backdrop-blur-md border-b border-slate-200 transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 md:px-8 py-4 flex justify-between items-center">
+            <div class="flex flex-col">
+                <a href="#" class="font-serif font-bold text-2xl md:text-3xl text-primary">Mynaturalis.de</a>
+                <span class="text-xs text-slate-500 font-sans uppercase tracking-widest">André Fonferek</span>
+            </div>
+            
+            <nav class="hidden md:flex gap-8 items-center font-sans font-medium text-sm text-ink/80">
+                <a href="#ueber-mich" class="hover:text-primary transition-colors">Über mich</a>
+                <a href="#qualifikationen" class="hover:text-primary transition-colors">Qualifikationen</a>
+                <a href="#kontakt" class="hover:text-primary transition-colors">Praxis & Kontakt</a>
+            </nav>
+
+            <a href="tel:059719143874" class="btn-soft bg-accent hover:bg-accentHover text-white font-sans font-medium text-sm px-6 py-2.5 rounded-full">
+                Jetzt anrufen
+            </a>
         </div>
-        <a href="#location" class="pointer-events-auto bg-ink text-surface font-sans font-bold text-xs uppercase px-4 py-2 rounded-full hover:bg-gold transition-colors shadow-lg">
-            Anfahrt & Kontakt
-        </a>
     </header>
 
     <main id="smooth-wrapper">
         <div id="smooth-content">
 
-            <section class="relative w-full min-h-[90svh] flex flex-col justify-end bg-surface">
+            <section class="relative w-full h-[80svh] min-h-[600px] flex flex-col justify-center bg-background mt-16 md:mt-0">
                 <div class="absolute inset-0 overflow-hidden">
-                    <img src="https://fleischerei-senz.de/wp-content/uploads/2022/08/Mantaplatte-mit-Mayo.jpg" 
-                         alt="Authentische Manta Platte Nahaufnahme (Currywurst mit Pommes)" 
-                         class="w-full h-full object-cover opacity-80 scale-105" id="hero-img" />
-                    <div class="absolute inset-0 bg-gradient-to-t from-surface via-surface/60 to-transparent"></div>
+                    <img src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?q=80&w=2053&auto=format&fit=crop" 
+                         alt="Helle, entspannende Praxisräume" 
+                         class="w-full h-full object-cover opacity-20 scale-105" id="hero-img" />
+                    <div class="absolute inset-0 bg-gradient-to-b from-transparent to-background"></div>
                 </div>
 
-                <div class="relative z-10 px-4 md:px-8 pb-40 md:pb-32 max-w-7xl mx-auto w-full">
-                    <h1 class="font-display text-7xl md:text-[12rem] leading-[0.85] text-ink uppercase tracking-tight mb-4 text-glow hero-anim opacity-0">
-                        Kult.<br>
-                        <span class="text-gold">Schnitzel.</span><br>
-                        Rheine.
+                <div class="relative z-10 px-4 md:px-8 max-w-4xl mx-auto w-full text-center">
+                    <span class="block font-sans font-medium text-primary tracking-widest uppercase mb-4 reveal-up">Praxis für Naturheilkunde & Osteopathie</span>
+                    <h1 class="font-serif text-5xl md:text-7xl lg:text-8xl text-ink leading-tight mb-6 reveal-up">
+                        Natürlich Gesund.
                     </h1>
-                    <p class="font-sans font-medium text-lg md:text-2xl text-ink/90 max-w-xl hero-anim opacity-0">
-                        Dein Dutumer Grill. Riesige Schnitzelauswahl, echte Currywurst und legendäre Burger. Ehrlich und lecker.
+                    <p class="font-sans text-lg md:text-xl text-ink/70 leading-relaxed mb-10 max-w-2xl mx-auto reveal-up">
+                        In Rheine begleite ich Sie auf Ihrem Weg zu mehr Wohlbefinden – mit ganzheitlichen Therapieansätzen für Körper, Geist und Seele.
                     </p>
-                </div>
-
-                <div class="absolute bottom-0 left-0 w-full translate-y-1/2 px-4 md:px-8 z-20">
-                    <div class="max-w-7xl mx-auto bg-ink text-surface p-4 md:p-6 rounded-xl shadow-2xl flex flex-col md:flex-row gap-4 md:gap-8 items-start md:items-center justify-between hero-anim opacity-0">
-                        <div class="flex items-center gap-3">
-                            <div class="w-3 h-3 status-dot"></div>
-                            <div>
-                                <p class="font-sans font-bold text-sm uppercase text-surface/50">Heute Geöffnet</p>
-                                <p class="font-sans font-bold text-lg md:text-xl">Mittag & Abendessen</p>
-                            </div>
-                        </div>
-                        <div class="hidden md:block w-px h-12 bg-surface/10"></div>
-                        <div>
-                            <p class="font-sans font-bold text-sm uppercase text-surface/50">Standort</p>
-                            <p class="font-sans font-bold text-lg md:text-xl">Eckener Str. 25, Rheine</p>
-                        </div>
-                        <div class="w-full md:w-auto mt-2 md:mt-0">
-                            <a href="#menu" class="btn-brutal block w-full text-center bg-gold text-surface font-display text-2xl px-8 py-3 rounded-md">
-                                Speisekarte
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section id="menu" class="relative w-full bg-surface pt-40 pb-20 md:pt-48 md:pb-32 px-4 md:px-8">
-                <div class="max-w-7xl mx-auto">
-                    <div class="mb-16 md:mb-24 text-center reveal-up">
-                        <h2 class="font-display text-5xl md:text-8xl text-ink">Das Menü</h2>
-                        <div class="w-24 h-2 bg-heat mx-auto mt-4"></div>
-                        <p class="mt-4 text-ink/60 font-sans">Auszug aus unserer Karte (Alle Gerichte auch außer Haus)</p>
-                    </div>
-
-                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-24">
-                        <div class="flex flex-col gap-16">
-                            <div class="reveal-up">
-                                <h3 class="font-display text-4xl text-heat mb-8 border-b-2 border-surface/20 pb-2">Vom Grill & Wurst</h3>
-                                <div class="flex flex-col gap-6">
-                                    <div class="group cursor-pointer">
-                                        <div class="flex justify-between items-baseline border-b border-ink/10 pb-2 mb-1">
-                                            <h4 class="font-sans font-bold text-xl md:text-2xl text-ink group-hover:text-heat transition-colors">Curry-Bratwurst</h4>
-                                            <span class="font-sans font-bold text-xl text-ink/80">3,40 €</span>
-                                        </div>
-                                    </div>
-                                    <div class="group cursor-pointer">
-                                        <div class="flex justify-between items-baseline border-b border-ink/10 pb-2 mb-1">
-                                            <h4 class="font-sans font-bold text-xl md:text-2xl text-ink group-hover:text-heat transition-colors">Jäger- oder Zwiebel-Bratwurst</h4>
-                                            <span class="font-sans font-bold text-xl text-ink/80">3,60 €</span>
-                                        </div>
-                                    </div>
-                                    <div class="group cursor-pointer">
-                                        <div class="flex justify-between items-baseline border-b border-ink/10 pb-2 mb-1">
-                                            <h4 class="font-sans font-bold text-xl md:text-2xl text-ink group-hover:text-heat transition-colors">1/2 Hähnchen v. Grill</h4>
-                                            <span class="font-sans font-bold text-xl text-ink/80">4,90 €</span>
-                                        </div>
-                                    </div>
-                                    <div class="group cursor-pointer">
-                                        <div class="flex justify-between items-baseline border-b border-ink/10 pb-2 mb-1">
-                                            <h4 class="font-sans font-bold text-xl md:text-2xl text-ink group-hover:text-heat transition-colors">Frikadelle</h4>
-                                            <span class="font-sans font-bold text-xl text-ink/80">2,60 €</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="reveal-up">
-                                <h3 class="font-display text-4xl text-gold mb-8 border-b-2 border-surface/20 pb-2">Fritten & Beilagen</h3>
-                                <div class="flex flex-col gap-6">
-                                    <div class="group cursor-pointer">
-                                        <div class="flex justify-between items-baseline border-b border-ink/10 pb-2 mb-1">
-                                            <h4 class="font-sans font-bold text-xl md:text-2xl text-ink group-hover:text-gold transition-colors">Pommes frites</h4>
-                                            <span class="font-sans font-bold text-xl text-ink/80">2,70 €</span>
-                                        </div>
-                                    </div>
-                                    <div class="group cursor-pointer">
-                                        <div class="flex justify-between items-baseline border-b border-ink/10 pb-2 mb-1">
-                                            <h4 class="font-sans font-bold text-xl md:text-2xl text-ink group-hover:text-gold transition-colors">Pommes doppelte Portion</h4>
-                                            <span class="font-sans font-bold text-xl text-ink/80">4,90 €</span>
-                                        </div>
-                                    </div>
-                                    <div class="group cursor-pointer">
-                                        <div class="flex justify-between items-baseline border-b border-ink/10 pb-2 mb-1">
-                                            <h4 class="font-sans font-bold text-xl md:text-2xl text-ink group-hover:text-gold transition-colors">Pommes spezial</h4>
-                                            <span class="font-sans font-bold text-xl text-ink/80">3,70 €</span>
-                                        </div>
-                                    </div>
-                                    <div class="group cursor-pointer">
-                                        <div class="flex justify-between items-baseline border-b border-ink/10 pb-2 mb-1">
-                                            <h4 class="font-sans font-bold text-xl md:text-2xl text-ink group-hover:text-gold transition-colors">Röstikos</h4>
-                                            <span class="font-sans font-bold text-xl text-ink/80">St. 0,80 €</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="flex flex-col gap-16">
-                            <div class="reveal-up">
-                                <h3 class="font-display text-4xl text-ink mb-8 border-b-2 border-surface/20 pb-2">Unsere Schnitzel-Klassiker</h3>
-                                <div class="flex flex-col gap-6">
-                                    <div class="group cursor-pointer">
-                                        <div class="flex justify-between items-baseline border-b border-ink/10 pb-2 mb-1">
-                                            <h4 class="font-sans font-bold text-xl md:text-2xl text-ink group-hover:text-white transition-colors">Jäger-Schnitzel</h4>
-                                            <span class="font-sans font-bold text-xl text-ink/80">8,20 €</span>
-                                        </div>
-                                    </div>
-                                    <div class="group cursor-pointer">
-                                        <div class="flex justify-between items-baseline border-b border-ink/10 pb-2 mb-1">
-                                            <h4 class="font-sans font-bold text-xl md:text-2xl text-ink group-hover:text-white transition-colors">Westfälisches Schnitzel</h4>
-                                            <span class="font-sans font-bold text-xl text-ink/80">8,20 €</span>
-                                        </div>
-                                        <p class="font-sans text-sm text-ink/60">mit Champignons, Spargel und Hollandaise</p>
-                                    </div>
-                                    <div class="group cursor-pointer">
-                                        <div class="flex justify-between items-baseline border-b border-ink/10 pb-2 mb-1">
-                                            <h4 class="font-sans font-bold text-xl md:text-2xl text-ink group-hover:text-white transition-colors">Schnitzelspezial</h4>
-                                            <span class="font-sans font-bold text-xl text-ink/80">8,20 €</span>
-                                        </div>
-                                        <p class="font-sans text-sm text-ink/60">mit geschmorten Zwiebeln, Tomaten und Käse überbacken</p>
-                                    </div>
-                                    <div class="group cursor-pointer">
-                                        <div class="flex justify-between items-baseline border-b border-ink/10 pb-2 mb-1">
-                                            <h4 class="font-sans font-bold text-xl md:text-2xl text-ink group-hover:text-white transition-colors">Hawaiischnitzel</h4>
-                                            <span class="font-sans font-bold text-xl text-ink/80">8,20 €</span>
-                                        </div>
-                                        <p class="font-sans text-sm text-ink/60">mit Ananas, Käse, Preiselbeeren überbacken</p>
-                                    </div>
-                                    <div class="group cursor-pointer">
-                                        <div class="flex justify-between items-baseline border-b border-ink/10 pb-2 mb-1">
-                                            <h4 class="font-sans font-bold text-xl md:text-2xl text-ink group-hover:text-white transition-colors">Räuberschnitzel</h4>
-                                            <span class="font-sans font-bold text-xl text-ink/80">8,20 €</span>
-                                        </div>
-                                        <p class="font-sans text-sm text-ink/60">Halb Jäger- und Zigeunersauce</p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="reveal-up">
-                                <h3 class="font-display text-4xl text-ink mb-8 border-b-2 border-surface/20 pb-2">Burger</h3>
-                                <div class="flex flex-col gap-6">
-                                    <div class="group cursor-pointer">
-                                        <div class="flex justify-between items-baseline border-b border-ink/10 pb-2 mb-1">
-                                            <h4 class="font-sans font-bold text-xl md:text-2xl text-ink group-hover:text-gold transition-colors">Juppie Burger</h4>
-                                            <span class="font-sans font-bold text-xl text-ink/80">5,20 €</span>
-                                        </div>
-                                    </div>
-                                    <div class="group cursor-pointer">
-                                        <div class="flex justify-between items-baseline border-b border-ink/10 pb-2 mb-1">
-                                            <h4 class="font-sans font-bold text-xl md:text-2xl text-ink group-hover:text-gold transition-colors">Rheinenser</h4>
-                                            <span class="font-sans font-bold text-xl text-ink/80">4,60 €</span>
-                                        </div>
-                                    </div>
-                                    <div class="group cursor-pointer">
-                                        <div class="flex justify-between items-baseline border-b border-ink/10 pb-2 mb-1">
-                                            <h4 class="font-sans font-bold text-xl md:text-2xl text-ink group-hover:text-gold transition-colors">Cheeseburger</h4>
-                                            <span class="font-sans font-bold text-xl text-ink/80">3,90 €</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section id="location" class="relative w-full bg-gold text-surface py-20 md:py-32 px-4 md:px-8 overflow-hidden">
-                <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-12 md:gap-20 relative z-10">
-                    <div class="w-full md:w-1/2">
-                        <h2 class="font-display text-7xl md:text-[8rem] leading-none text-surface mb-6 uppercase tracking-tight">
-                            Hier <br>Findest du uns.
-                        </h2>
-                        <p class="font-sans font-bold text-xl md:text-2xl mb-8 max-w-md">
-                            Komm rum oder ruf an für Bestellungen außer Haus.
-                        </p>
-                        <div class="flex flex-col gap-6 mb-10">
-                            <div>
-                                <p class="font-sans font-bold uppercase text-surface/60 text-sm">Adresse</p>
-                                <p class="font-sans font-bold text-2xl">Eckener Str. 25<br>48431 Rheine, Deutschland</p>
-                            </div>
-                            <div>
-                                <p class="font-sans font-bold uppercase text-surface/60 text-sm">Telefon & Reservierung</p>
-                                <a href="tel:+49597114347" class="font-sans font-bold text-3xl hover:text-heat transition-colors">
-                                    +49 5971 14347
-                                </a>
-                            </div>
-                            <div class="mt-2">
-                                <p class="font-sans font-bold uppercase text-surface/60 text-sm mb-2">Öffnungszeiten</p>
-                                <ul class="font-sans font-bold text-lg flex flex-col gap-1">
-                                    <li class="flex justify-between max-w-sm border-b border-surface/20 pb-1"><span>Montag - Samstag</span> <span>11:00–14:00, 16:00–21:00</span></li>
-                                    <li class="flex justify-between max-w-sm border-b border-surface/20 pb-1 pt-1"><span>Sonntag</span> <span>16:00–21:00</span></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <a href="https://www.google.com/maps/search/?api=1&query=Dutumer+Grill+Eckener+Str.+25+48431+Rheine" target="_blank" class="inline-block bg-surface text-ink font-display text-3xl px-10 py-4 rounded-md hover:bg-heat hover:text-ink transition-colors btn-brutal">
-                            Route auf Google Maps
+                    <div class="reveal-up">
+                        <a href="#kontakt" class="btn-soft inline-block bg-accent hover:bg-accentHover text-white font-sans font-medium text-lg px-8 py-4 rounded-full">
+                            Kontakt aufnehmen
                         </a>
                     </div>
-                    <div class="w-full md:w-1/2 aspect-square md:aspect-[4/3] rounded-xl overflow-hidden border-8 border-surface shadow-2xl">
-                        <img src="https://images.unsplash.com/photo-1586816001966-79b736744398?q=80&w=2070&auto=format&fit=crop" 
-                             alt="Saftiger Burger mit Pommes in vollen Farben" 
-                             class="w-full h-full object-cover transition-all duration-500" />
+                </div>
+            </section>
+
+            <section id="ueber-mich" class="py-20 md:py-32 px-4 md:px-8 bg-surface">
+                <div class="max-w-7xl mx-auto flex flex-col lg:flex-row gap-16 items-center">
+                    
+                    <div class="w-full lg:w-5/12 reveal-up">
+                        <div class="relative rounded-2xl overflow-hidden shadow-2xl aspect-[3/4]">
+                            <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?q=80&w=2070&auto=format&fit=crop" 
+                                 alt="André Fonferek" 
+                                 class="w-full h-full object-cover" />
+                        </div>
+                    </div>
+
+                    <div class="w-full lg:w-7/12 flex flex-col gap-8 reveal-up">
+                        <div>
+                            <h2 class="font-serif text-4xl md:text-5xl text-primary mb-6">André Fonferek</h2>
+                            <p class="font-sans text-ink/80 leading-relaxed text-lg mb-6">
+                                Seit über 25 Jahren begleite ich Menschen dabei, Schmerzen zu lindern, Beweglichkeit zurückzugewinnen und Gesundheit ganzheitlich zu fördern. Dabei verbinde ich klassische Physiotherapie mit Osteopathie, Naturheilkunde und Hypnose – immer mit dem Blick auf den ganzen Menschen.
+                            </p>
+                        </div>
+
+                        <div class="bg-background p-8 rounded-2xl border border-slate-100">
+                            <h3 class="font-serif text-2xl text-ink mb-4">Wer ich bin:</h3>
+                            <ul class="font-sans text-ink/80 space-y-3">
+                                <li class="flex items-start gap-3">
+                                    <svg class="w-6 h-6 text-primary shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                    Jahrgang 1969, verheiratet, Vater von vier Kindern
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <svg class="w-6 h-6 text-primary shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                    Ich lebe und arbeite in Rheine – hier befindet sich auch meine Praxis „Mynaturalis“
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div>
+                            <h3 class="font-serif text-3xl text-ink mb-4">Warum ich tue, was ich tue:</h3>
+                            <p class="font-sans text-ink/80 leading-relaxed text-lg">
+                                Schon früh habe ich gemerkt, dass Gesundheit viel mehr ist als reine Symptombehandlung. Ich wollte verstehen, <strong>warum</strong> Menschen Schmerzen haben – und wie Körper, Geist und Seele zusammenwirken. Das ist der Grund, warum ich verschiedene Therapieformen kombiniere und jedem Menschen mit Zeit, Ruhe und Empathie begegne.
+                            </p>
+                            <p class="font-sans text-ink/80 leading-relaxed text-lg mt-4 font-medium">
+                                Ich freue mich darauf, Sie persönlich kennenzulernen und Sie auf Ihrem Weg zu mehr Wohlbefinden zu begleiten.
+                            </p>
+                        </div>
                     </div>
                 </div>
             </section>
 
-            <footer class="relative w-full bg-surface py-24 border-t border-ink/10 overflow-hidden text-center">
-                <div class="absolute inset-0">
-                    <img src="https://c8.alamy.com/compde/2r5htd3/nahaufnahme-von-pommes-frites-kartoffeln-in-kochendem-heissem-ol-in-einer-fritteuse-zu-hause-braten-pommes-frites-junk-food-konzept-hausgemachte-frittierte-pommes-frites-sele-2r5htd3.jpg" 
-                         alt="Pommes Frites Nahaufnahme in bubbling Öl" 
-                         class="w-full h-full object-cover opacity-30" />
-                    <div class="absolute inset-0 bg-gradient-to-t from-surface via-surface/80 to-surface"></div>
-                </div>
-
-                <div class="relative z-10 max-w-4xl mx-auto px-4 flex flex-col items-center">
-                    <img src="Unbenannt-6.webp" alt="Dutumer Grill Logo" class="h-24 md:h-32 w-auto object-contain mb-8 drop-shadow-2xl hover:scale-105 transition-transform duration-300">
-                    <div class="flex gap-4 items-center mb-8">
-                        <div class="h-px w-12 bg-ink/30"></div>
-                        <p class="font-sans font-bold text-sm text-ink/80 uppercase tracking-widest">
-                            Eckener Str. 25, 48431 Rheine
-                        </p>
-                        <div class="h-px w-12 bg-ink/30"></div>
+            <section id="qualifikationen" class="py-20 md:py-32 px-4 md:px-8 bg-background border-y border-slate-200">
+                <div class="max-w-4xl mx-auto">
+                    
+                    <div class="text-center mb-16 reveal-up">
+                        <h2 class="font-serif text-4xl md:text-5xl text-primary mb-4">Ausbildungen & Qualifikationen</h2>
+                        <div class="w-16 h-1 bg-accent mx-auto rounded-full"></div>
                     </div>
-                    <div class="flex gap-4 md:gap-8 justify-center items-center">
-                        <button onclick="openModal('modal-impressum')" class="font-sans font-bold text-xs text-ink/60 uppercase tracking-widest hover:text-gold transition-colors">
+
+                    <div class="relative border-l-2 border-primary/30 pl-8 ml-4 md:ml-0 space-y-8 font-sans text-ink/80 reveal-up">
+                        
+                        <div class="relative">
+                            <div class="timeline-dot"></div>
+                            <p><strong>Jan. 1995 – Dez. 1997:</strong> Ausbildung zum Physiotherapeuten</p>
+                        </div>
+                        <div class="relative">
+                            <div class="timeline-dot bg-accent"></div>
+                            <p class="text-lg font-medium text-ink"><strong>01.01.1998:</strong> Erlaubnis zur Führung der Berufsbezeichnung Physiotherapeut</p>
+                        </div>
+                        <div class="relative">
+                            <div class="timeline-dot"></div>
+                            <p><strong>1998 – 2000:</strong> Ausbildung zum Manualtherapeut</p>
+                        </div>
+                        <div class="relative">
+                            <div class="timeline-dot"></div>
+                            <p><strong>2001:</strong> Ausbildung in Lymphdrainage</p>
+                        </div>
+                        <div class="relative">
+                            <div class="timeline-dot"></div>
+                            <p><strong>2001 – 2003:</strong> Ausbildung in klass. Homöopathie</p>
+                        </div>
+                        <div class="relative">
+                            <div class="timeline-dot"></div>
+                            <p><strong>2002:</strong> Ausbildung in der Fußpflege</p>
+                        </div>
+                        <div class="relative">
+                            <div class="timeline-dot bg-accent"></div>
+                            <p class="text-lg font-medium text-ink"><strong>14.08.2003:</strong> Erlaubnis zur Führung der Berufsbezeichnung Heilpraktiker</p>
+                        </div>
+                        <div class="relative">
+                            <div class="timeline-dot"></div>
+                            <p><strong>2006 – 2009:</strong> Studium der Physiotherapie</p>
+                        </div>
+                        <div class="relative">
+                            <div class="timeline-dot"></div>
+                            <p><strong>2008:</strong> Fachfortbildung „Gehen an Prothesen“</p>
+                        </div>
+                        <div class="relative">
+                            <div class="timeline-dot bg-primary"></div>
+                            <p class="text-lg font-medium text-ink"><strong>12.01.2009:</strong> Diplomurkunde – Dipl. Physiotherapeut (FH)</p>
+                        </div>
+                        <div class="relative">
+                            <div class="timeline-dot"></div>
+                            <p><strong>2009:</strong> Zertifikat Neuraltherapie <br> Ausbildung Osteopathie <br> Ausbildung Reki Grad 1</p>
+                        </div>
+                        <div class="relative">
+                            <div class="timeline-dot bg-accent"></div>
+                            <p class="text-lg font-medium text-ink"><strong>2010:</strong> Ausbildung in Hypnose & Hypnosetechniken</p>
+                        </div>
+                        <div class="relative">
+                            <div class="timeline-dot"></div>
+                            <p><strong>2013:</strong> Urkunde – Mykotherapeut (Heilen mit Pilzen) <br> Ausbildung Reki Grad 2</p>
+                        </div>
+                        <div class="relative">
+                            <div class="timeline-dot"></div>
+                            <p><strong>2015:</strong> Wirbelsäulentherapie nach Dorn und Breuß</p>
+                        </div>
+                        <div class="relative">
+                            <div class="timeline-dot bg-primary"></div>
+                            <p class="text-lg font-medium text-ink"><strong>09.11.2020:</strong> Zertifikat zur Führung der Berufsbezeichnung Osteopath</p>
+                        </div>
+                        <div class="relative">
+                            <div class="timeline-dot"></div>
+                            <p><strong>23.04.2021 – 16.01.2022:</strong> Postgraduierte Fachausbildung Kinderosteopathie</p>
+                        </div>
+                        <div class="relative">
+                            <div class="timeline-dot"></div>
+                            <p><strong>Mai 2022:</strong> Lösungsorientierte Kurzzeittherapie nach de Shazer</p>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <section id="kontakt" class="py-20 md:py-32 px-4 md:px-8 bg-surface">
+                <div class="max-w-7xl mx-auto">
+                    <div class="bg-background rounded-3xl p-8 md:p-16 shadow-xl border border-slate-100 flex flex-col md:flex-row gap-16 justify-between items-center reveal-up">
+                        
+                        <div class="w-full md:w-1/2 text-center md:text-left">
+                            <h2 class="font-serif text-4xl md:text-5xl text-primary mb-8">Unsere Öffnungszeiten</h2>
+                            
+                            <div class="font-sans text-ink/80 text-lg space-y-6">
+                                <div>
+                                    <p class="font-semibold text-ink">Montag bis Donnerstag</p>
+                                    <p>von 9.00 Uhr bis 13.00 Uhr</p>
+                                    <p class="text-sm my-1">und</p>
+                                    <p>15.00 Uhr bis 19.00 Uhr</p>
+                                </div>
+                                <div class="h-px w-full bg-slate-200 my-4 max-w-xs mx-auto md:mx-0"></div>
+                                <div>
+                                    <p class="font-semibold text-ink">Freitag</p>
+                                    <p>von 9.00 Uhr bis 13.00 Uhr</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="w-full md:w-1/2 bg-white p-8 rounded-2xl shadow-sm border border-slate-100 text-center md:text-left">
+                            <h3 class="font-serif text-3xl text-ink mb-6">Praxis Kontakt</h3>
+                            <ul class="font-sans text-ink/80 space-y-4 text-lg">
+                                <li>
+                                    <span class="block text-sm text-slate-500 uppercase tracking-wider mb-1">Adresse</span>
+                                    Steinburgring 8<br>48431 Rheine
+                                </li>
+                                <li>
+                                    <span class="block text-sm text-slate-500 uppercase tracking-wider mb-1 mt-4">Telefon</span>
+                                    <a href="tel:059719143874" class="text-primary font-semibold hover:text-primaryDark transition-colors">05971 9143874</a>
+                                </li>
+                                <li>
+                                    <span class="block text-sm text-slate-500 uppercase tracking-wider mb-1 mt-4">E-Mail</span>
+                                    <a href="mailto:praxis@mynaturalis.de" class="hover:text-primary transition-colors">praxis@mynaturalis.de</a>
+                                </li>
+                            </ul>
+                            <a href="tel:059719143874" class="btn-soft block w-full text-center mt-8 bg-accent hover:bg-accentHover text-white font-sans font-medium text-lg px-8 py-3 rounded-full">
+                                Termin vereinbaren
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <footer class="bg-background py-12 border-t border-slate-200">
+                <div class="max-w-7xl mx-auto px-4 flex flex-col items-center">
+                    
+                    <h2 class="font-serif text-2xl text-primary mb-6">Mynaturalis.de</h2>
+                    
+                    <div class="flex gap-6 justify-center items-center mb-8">
+                        <button onclick="openModal('modal-impressum')" class="font-sans font-medium text-sm text-ink/60 hover:text-primary transition-colors">
                             Impressum
                         </button>
-                        <span class="text-ink/20">•</span>
-                        <button onclick="openModal('modal-datenschutz')" class="font-sans font-bold text-xs text-ink/60 uppercase tracking-widest hover:text-gold transition-colors">
+                        <span class="text-slate-300">|</span>
+                        <button onclick="openModal('modal-datenschutz')" class="font-sans font-medium text-sm text-ink/60 hover:text-primary transition-colors">
                             Datenschutz
                         </button>
                     </div>
-                    <p class="font-sans font-medium text-[10px] text-ink/30 uppercase tracking-widest mt-8">
-                        © 2026 Dutumer Grill | Rheine
+                    
+                    <p class="font-sans text-sm text-ink/40">
+                        Copyright © 2026 | André Fonferek
                     </p>
                 </div>
             </footer>
@@ -348,27 +325,53 @@
     <div id="modal-impressum" class="fixed inset-0 z-[100] h-[100dvh] w-full bg-surface text-ink translate-y-full transition-transform duration-500 ease-in-out overflow-y-auto" data-lenis-prevent>
         <div class="p-6 md:p-16 max-w-4xl mx-auto pb-32 block">
             <div class="flex justify-end mb-12">
-                <button onclick="closeModal('modal-impressum')" class="flex items-center gap-2 text-ink hover:text-heat transition-colors group">
-                    <span class="font-display text-2xl uppercase tracking-widest">Schließen</span>
-                    <svg class="w-8 h-8 group-hover:rotate-90 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                <button onclick="closeModal('modal-impressum')" class="flex items-center gap-2 text-ink hover:text-primary transition-colors group">
+                    <span class="font-sans text-sm uppercase tracking-widest font-semibold">Schließen</span>
+                    <svg class="w-6 h-6 group-hover:rotate-90 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
                 </button>
             </div>
-            <h2 class="font-display text-6xl md:text-8xl text-gold mb-8 uppercase">Impressum</h2>
-            <div class="font-sans text-ink/80 space-y-6 text-sm md:text-base leading-relaxed break-words">
-                <p><strong>Angaben gemäß § 5 TMG</strong><br>
-                Dutumer Grill<br>
-                [Inhaber Name]<br>
-                Eckener Str. 25<br>
+            
+            <h2 class="font-serif text-4xl md:text-5xl text-primary mb-8">Impressum</h2>
+            
+            <div class="font-sans text-ink/80 space-y-6 text-base leading-relaxed break-words">
+                <p><strong>Angaben gemäß § 5 TMG:</strong></p>
+                <p>Praxis für Naturheilkunde & Osteopathie<br>
+                André Fonferek<br>
+                Steinburgring 8<br>
                 48431 Rheine<br>
                 Deutschland</p>
-                <p><strong>Kontakt</strong><br>
-                Telefon: +49 5971 14347<br>
-                E-Mail: [E-Mail Adresse eintragen, z.B. info@...]</p>
-                <p><strong>Umsatzsteuer-ID</strong><br>
-                Umsatzsteuer-Identifikationsnummer gemäß § 27 a Umsatzsteuergesetz:<br>
-                [Umsatzsteuer-ID eintragen]</p>
-                <p><strong>Verbraucherstreitbeilegung/Universalschlichtungsstelle</strong><br>
-                Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.</p>
+
+                <p><strong>Kontakt:</strong><br>
+                Telefon: 05971 9143874<br>
+                E-Mail: <a href="mailto:praxis@mynaturalis.de" class="text-primary hover:underline">praxis@mynaturalis.de</a><br>
+                Internet: <a href="https://www.mynaturalis.de" target="_blank" class="text-primary hover:underline">www.mynaturalis.de</a></p>
+
+                <p><strong>Berufsbezeichnungen:</strong><br>
+                Heilpraktiker (verliehen in Deutschland)<br>
+                Diplomierter Physiotherapeut<br>
+                Osteopath</p>
+
+                <p><strong>Zuständige Aufsichtsbehörde:</strong><br>
+                Gesundheitsamt Steinfurt<br>
+                Tecklenburger Str. 10<br>
+                48565 Steinfurt</p>
+
+                <p><strong>Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV:</strong><br>
+                André Fonferek, Anschrift wie oben</p>
+
+                <p><strong>Berufshaftpflichtversicherung:</strong><br>
+                (kann später ergänzt werden, wenn gewünscht)</p>
+
+                <p><strong>Haftungsausschluss:</strong><br>
+                Die Inhalte dieser Website wurden mit größter Sorgfalt erstellt. Für die Richtigkeit, Vollständigkeit und Aktualität der Inhalte übernehme ich keine Gewähr. Bei Bekanntwerden von Rechtsverletzungen werden entsprechende Inhalte umgehend entfernt.</p>
+
+                <p><strong>Externe Links:</strong><br>
+                Diese Website enthält Links zu externen Webseiten Dritter. Auf deren Inhalte habe ich keinen Einfluss. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter verantwortlich.</p>
+
+                <p><strong>Urheberrecht:</strong><br>
+                Die auf dieser Website veröffentlichten Inhalte und Werke sind urheberrechtlich geschützt. Eine Vervielfältigung, Bearbeitung oder Verbreitung bedarf der schriftlichen Zustimmung des Autors.</p>
+                
+                <p><strong>Untergruppen:</strong> Mentalfokus, Mynaturalis akademie und mynaturUalis shop sind Untergruppen von mynaturalis.de. Für die Untergruppen gilt auch der Datenschutz und das Impressum.</p>
             </div>
         </div>
     </div>
@@ -376,29 +379,51 @@
     <div id="modal-datenschutz" class="fixed inset-0 z-[100] h-[100dvh] w-full bg-surface text-ink translate-y-full transition-transform duration-500 ease-in-out overflow-y-auto" data-lenis-prevent>
         <div class="p-6 md:p-16 max-w-4xl mx-auto pb-32 block">
             <div class="flex justify-end mb-12">
-                <button onclick="closeModal('modal-datenschutz')" class="flex items-center gap-2 text-ink hover:text-heat transition-colors group">
-                    <span class="font-display text-2xl uppercase tracking-widest">Schließen</span>
-                    <svg class="w-8 h-8 group-hover:rotate-90 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                <button onclick="closeModal('modal-datenschutz')" class="flex items-center gap-2 text-ink hover:text-primary transition-colors group">
+                    <span class="font-sans text-sm uppercase tracking-widest font-semibold">Schließen</span>
+                    <svg class="w-6 h-6 group-hover:rotate-90 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
                 </button>
             </div>
-            <h2 class="font-display text-6xl md:text-8xl text-gold mb-8 uppercase">Datenschutz</h2>
-            <div class="font-sans text-ink/80 space-y-6 text-sm md:text-base leading-relaxed break-words">
-                <p>Wir nehmen den Schutz Ihrer persönlichen Daten sehr ernst. Diese Website ist eine reine Informationsseite. Wir erheben über diese Website <strong>keine</strong> personenbezogenen Daten wie Namen oder E-Mail-Adressen, da wir kein Kontaktformular oder ähnliche Funktionen nutzen.</p>
-                <h3 class="text-xl text-ink font-bold mt-8">Keine Cookies und kein Tracking</h3>
-                <p>Diese Website verwendet <strong>keine</strong> Cookies, Analyse-Tools (wie Google Analytics) oder andere Tracking-Technologien. Ihr Surfverhalten wird von uns nicht aufgezeichnet oder ausgewertet.</p>
-                <h3 class="text-xl text-ink font-bold mt-8">Hosting und Server-Logfiles</h3>
-                <p>Wir hosten unsere Website bei GitHub Pages (GitHub Inc., 88 Colin P Kelly Jr St, San Francisco, CA 94107, USA). <br>
-                Wenn Sie unsere Website besuchen, erfasst der Hoster (GitHub) technisch bedingt automatisch Daten, die Ihr Browser übermittelt, und speichert diese in sogenannten Server-Logfiles. Dies sind: Browsertyp/-version, verwendetes Betriebssystem, Referrer-URL, Uhrzeit der Serveranfrage sowie Ihre IP-Adresse.</p>
-                <p>Die Erfassung dieser Daten erfolgt auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO. Wir haben ein berechtigtes Interesse an der technisch fehlerfreien Darstellung und der Optimierung unserer Website – hierzu müssen die Server-Log-Files erfasst werden. Eine Zusammenführung dieser Daten mit anderen Datenquellen wird nicht vorgenommen.</p>
-                <h3 class="text-xl text-ink font-bold mt-8">Verantwortliche Stelle</h3>
-                <p>Die verantwortliche Stelle für die Datenverarbeitung im Sinne der Datenschutzgesetze ist:<br>
-                Dutumer Grill<br>
-                [Inhaber Name]<br>
-                Eckener Str. 25<br>
+            
+            <h2 class="font-serif text-4xl md:text-5xl text-primary mb-8">Datenschutzerklärung</h2>
+            
+            <div class="font-sans text-ink/80 space-y-6 text-base leading-relaxed break-words">
+                <p><strong>1. Verantwortlicher</strong><br>
+                André Fonferek<br>
+                Praxis für Naturheilkunde & Osteopathie<br>
+                Steinburgring 8<br>
                 48431 Rheine<br>
-                Telefon: +49 5971 14347</p>
-                <h3 class="text-xl text-ink font-bold mt-8">Kontaktaufnahme per Telefon</h3>
-                <p>Wenn Sie uns anrufen, um eine Bestellung aufzugeben, verarbeiten wir Ihre mitgeteilten Daten (wie z.B. Ihre Telefonnummer oder Ihren Namen) ausschließlich zur Bearbeitung und Abwicklung Ihrer Bestellung. Nach Abschluss des Vorgangs werden diese Daten gelöscht, sofern keine gesetzlichen Aufbewahrungsfristen bestehen.</p>
+                Telefon: 05971 9143874<br>
+                E-Mail: <a href="mailto:praxis@mynaturalis.de" class="text-primary hover:underline">praxis@mynaturalis.de</a></p>
+
+                <p><strong>2. Allgemeines</strong><br>
+                Der Schutz Ihrer personenbezogenen Daten ist mir wichtig. Ihre Daten werden vertraulich und gemäß der gesetzlichen Datenschutzvorschriften (DSGVO) behandelt.</p>
+
+                <p><strong>3. Erhebung von Daten beim Website-Besuch</strong><br>
+                Beim Besuch dieser Website werden automatisch technische Daten erfasst (z. B. IP-Adresse, Browsertyp, Datum und Uhrzeit). Diese Daten dienen ausschließlich der Sicherstellung eines fehlerfreien Betriebs.</p>
+
+                <p><strong>4. Kontaktaufnahme</strong><br>
+                Wenn Sie mich per Kontaktformular, Telefon oder E-Mail kontaktieren, werden Ihre Angaben zur Bearbeitung der Anfrage gespeichert. Eine Weitergabe erfolgt nicht ohne Ihre Einwilligung.</p>
+
+                <p><strong>5. Cookies</strong><br>
+                Diese Website verwendet technisch notwendige Cookies. Andere Cookies (z. B. für Analyse oder Marketing) werden nur mit Ihrer Zustimmung gespeichert.</p>
+
+                <p><strong>6. Ihre Rechte</strong><br>
+                Sie haben das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung, Widerspruch und Datenübertragbarkeit gemäß Art. 15–21 DSGVO.</p>
+
+                <p><strong>7. Hosting</strong><br>
+                Das Hosting dieser Website erfolgt bei IONOS SE, Montabaur. Mit dem Anbieter besteht ein Vertrag zur Auftragsverarbeitung gemäß Art. 28 DSGVO.</p>
+
+                <p><strong>8. SSL-/TLS-Verschlüsselung</strong><br>
+                Zum Schutz der Datenübertragung nutzt diese Website eine SSL-/TLS-Verschlüsselung. Daten, die Sie übermitteln, können dadurch nicht von Dritten mitgelesen werden.</p>
+
+                <p><strong>9. Google Fonts / externe Dienste</strong><br>
+                Zur einheitlichen Darstellung von Schriftarten kann Google Fonts verwendet werden. Hierbei kann Ihre IP-Adresse an Google übertragen werden.</p>
+
+                <p><strong>10. Aktualität und Änderung dieser Erklärung</strong><br>
+                Diese Datenschutzerklärung entspricht dem Stand November 2025 und kann bei Bedarf angepasst werden.</p>
+                
+                <p><strong>11. Untergruppen:</strong> Mentalfokus, Mynaturalis akademie und mynaturUalis shop sind Untergruppen von mynaturalis.de. Für die Untergruppen gilt auch der Datenschutz und das Impressum.</p>
             </div>
         </div>
     </div>
@@ -408,39 +433,25 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
     <script>
-        // ==========================================
-        // 0. BROWSER SCROLL-MEMORY BRUTAL DEAKTIVIEREN
-        // ==========================================
+        // 0. BROWSER SCROLL-MEMORY DEAKTIVIEREN
         if ('scrollRestoration' in history) {
             history.scrollRestoration = 'manual';
         }
-        
-        // Lösche #Hash aus der URL beim Laden, um Auto-Scroll zu verhindern
         if (window.location.hash) {
             window.history.replaceState('', document.title, window.location.pathname + window.location.search);
         }
-        
-        // Zwinge die Seite sofort auf 0
         window.scrollTo(0, 0);
+        setTimeout(() => { window.scrollTo(0, 0); }, 10);
 
-        // Zwinge sie zur Sicherheit noch einmal nach 10ms (besiegt Browser-Lags)
-        setTimeout(() => {
-            window.scrollTo(0, 0);
-        }, 10);
-
-        // ==========================================
-        // 1. Lenis Native Smooth Scroll Init
-        // ==========================================
+        // 1. Lenis Smooth Scroll
         const lenis = new Lenis({
             duration: 1.2,
             easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
             direction: 'vertical',
-            gestureDirection: 'vertical',
             smooth: true,
         });
 
-        // Lenis komplett stoppen, während der Loader läuft
-        lenis.stop();
+        lenis.stop(); // Block scroll during intro
 
         function raf(time) {
             lenis.raf(time);
@@ -454,84 +465,46 @@
         gsap.ticker.add((time)=>{ lenis.raf(time * 1000); });
         gsap.ticker.lagSmoothing(0);
 
-        // ==========================================
-        // 3. INTRO ANIMATION TIMELINE
-        // ==========================================
+        // 3. INTRO ANIMATION (Sanft und Medizinisch)
         const introTl = gsap.timeline({
             onComplete: () => {
-                // Loader entfernen und Lenis (Scrollen) erlauben
                 document.getElementById('loader').style.display = 'none';
                 lenis.start();
                 ScrollTrigger.refresh();
             }
         });
 
-        // Logo poppt auf
-        introTl.to("#loader-logo", { 
-            opacity: 1, 
-            scale: 1, 
-            duration: 1.2, 
-            ease: "expo.out",
-            delay: 0.3 // Kleine Pause für den Browser
+        introTl.to("#loader-text", { opacity: 1, duration: 1.5, ease: "power2.inOut" })
+               .to("#loader-text", { opacity: 0, duration: 1, ease: "power2.inOut", delay: 0.5 })
+               .to("#loader", { opacity: 0, duration: 1, ease: "power2.inOut" }, "-=0.5");
+
+        // 4. Navbar Background on Scroll
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                nav.classList.add('shadow-sm');
+            } else {
+                nav.classList.remove('shadow-sm');
+            }
         });
 
-        // Logo schießt hoch
-        introTl.to("#loader-logo", { 
-            yPercent: -150, 
-            opacity: 0, 
-            duration: 0.7, 
-            ease: "power3.in" 
-        }, "+=0.4");
-
-        // Vorhang zieht hoch
-        introTl.to("#loader", { 
-            yPercent: -100, 
-            duration: 0.9, 
-            ease: "power4.inOut" 
-        }, "-=0.3");
-
-        // Text & UI faden ein
-        introTl.fromTo(".hero-anim", 
-            { y: 50, opacity: 0 }, 
-            { y: 0, opacity: 1, duration: 1, stagger: 0.15, ease: "power3.out" }, 
-            "-=0.4"
-        );
-
-        // ==========================================
-        // 4. Hero Parallax & Reveal Animations
-        // ==========================================
-        let mm = gsap.matchMedia();
-        mm.add("(min-width: 768px)", () => {
-            gsap.to("#hero-img", {
-                yPercent: 20,
-                ease: "none",
-                scrollTrigger: {
-                    trigger: "section",
-                    start: "top top",
-                    end: "bottom top",
-                    scrub: true
-                }
-            });
-        });
-
+        // 5. Reveal Animations (Soft Fade Up)
         const revealElements = gsap.utils.toArray('.reveal-up');
         revealElements.forEach(el => {
             gsap.from(el, {
-                y: 40,
+                y: 30,
                 opacity: 0,
-                duration: 0.8,
-                ease: "power3.out",
+                duration: 1,
+                ease: "power2.out",
                 scrollTrigger: {
                     trigger: el,
-                    start: "top 90%",
+                    start: "top 85%",
                     toggleActions: "play none none reverse"
                 }
             });
         });
 
-        // ==========================================
-        // 5. Modal Logic
-        // ==========================================
+        // 6. Modal Logic
         function openModal(modalId) {
             const modal = document.getElementById(modalId);
             modal.classList.remove('translate-y-full');
